@@ -1,0 +1,29 @@
+<div class="card shadow p-3 mb-5 bg-white rounded">
+    <div class="card-body">
+        <div class="row">
+            <div class="container">
+                <div class="col-xs-1 pull-left">
+                    <span><i class="fa fa-lg fa-money"></i></span>
+                </div>
+                <div class="col-xs-5 pull-left">
+                    <span class="account-type">{{ accountType }}</span> <br />
+                    {{ partialAccountNumber }}
+                </div>
+                <div class="col-xs-6 pull-right">
+                    <div class="account-balance">{{ accountBalance | currency }}</div>
+                    <small>Available balance</small>
+                </div>
+                <!-- <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Dropdown button
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item">Action</a>
+                        <a class="dropdown-item">Another action</a>
+                        <a class="dropdown-item">Something else here</a>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
