@@ -5,6 +5,8 @@
 /dist-server
 /tmp
 /out-tsc
+eBank.DataAccess/obj
+eBank.DataAccess/bin
 
 # dependencies
 /node_modules

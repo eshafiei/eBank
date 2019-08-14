@@ -12,7 +12,7 @@ import { AccountSummaryComponent } from './components/account-summary/account-su
         AccountSummaryComponent],
     imports: [
         CommonModule,
-        RouterModule.forRoot([
+        RouterModule.forChild([
             { path: 'account', component: AccountsDashboardComponent }
         ])
     ],
