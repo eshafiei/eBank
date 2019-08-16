@@ -14,5 +14,7 @@ namespace eBank.DataAccess.Models.AccountManagement
         public decimal Balance { get; set; }
 
         public bool AccountStatus { get; set; }
+
+        public long UserId { get; set; }
     }
 }

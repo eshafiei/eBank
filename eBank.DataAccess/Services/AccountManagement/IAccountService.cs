@@ -7,7 +7,7 @@ namespace eBank.DataAccess.Services.AccountManagement
 {
     public interface IAccountService
     {
-        Task<IEnumerable<Account>> GetAccounts(long accountNumber);
+        Task<IEnumerable<Account>> GetAccounts(long userId);
 
         Task<int> CreateAccount(Account accountModel);
     }

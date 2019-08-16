@@ -17,10 +17,10 @@ namespace eBank.Web.Controllers
             _accountService = accountService;
         }
 
-        [HttpGet("[action]/{accountNumber}")]
-        public async Task<IEnumerable<Account>> GetAccounts(long accountNumber)
+        [HttpGet("[action]/{userId}")]
+        public async Task<IEnumerable<Account>> GetAccounts(long userId)
         {
-            return await _accountService.GetAccounts(accountNumber);
+            return await _accountService.GetAccounts(userId);
         }
 
         [HttpPost("[action]")]

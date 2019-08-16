@@ -18,7 +18,7 @@ export class AccountsDashboardComponent implements OnInit {
 
     ngOnInit() {
       //this.accountService.createAccount();
-      this.accountService.getAccounts(12067333987)
+      this.accountService.getAccounts(1)
         .subscribe((data: IAccount[]) => {
           this.accountsInfo = data;
         });

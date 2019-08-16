@@ -2,7 +2,6 @@ import { OnInit, Injectable, Inject } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-//import 'rxjs/add/operator/map';
 
 // local imports
 import { IAccount } from '../models/Account.interface';
@@ -17,9 +16,9 @@ export class AccountService implements OnInit {
 
     ngOnInit() {}
 
-  getAccounts(accountId: number): Observable<IAccount[]> {
+  getAccounts(userId: number): Observable<IAccount[]> {
         return this.http
-         .get(this.baseUrl + 'api/account/getaccounts/' + accountId)
+         .get(this.baseUrl + 'api/account/getaccounts/' + userId)
          .pipe(
            map((response : Response) => response.json())
         );
@@ -30,7 +29,8 @@ export class AccountService implements OnInit {
             accountNumber: 1504398633,
             accountType: AccountType.Mortgage,
             balance: 120000,
-            accountStatus: true
+            accountStatus: true,
+            userId: 1
         };
       
          this.http.post(this.baseUrl + 'api/account/createaccount', data).subscribe(result => {

@@ -4,4 +4,5 @@ export interface IAccount {
     accountType: number;
     balance: number;
     accountStatus: boolean;
+    userId: number;
   }
