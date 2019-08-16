@@ -1,4 +1,5 @@
 using eBank.DataAccess.Models;
+using eBank.DataAccess.Services.AccountManagement;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -30,7 +31,10 @@ namespace eBank.Web
             });
 
             services.AddDbContext<EBankContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:eBankDB"]));
-            //services.AddScoped<IDataRepository<Employee>, EmployeeManager>();
+            
+            // Inject Services
+            services.AddScoped<IAccountService, AccountService>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // In production, the Angular files will be served from this directory

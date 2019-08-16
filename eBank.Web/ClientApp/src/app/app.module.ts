@@ -8,16 +8,12 @@ import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { AccountsModule } from './accounts-dashboard/accounts.module';
 import { NotFoundComponent } from './not-found.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'counter', component: CounterComponent },
-  { path: 'fetch-data', component: FetchDataComponent },
   { path: '**', component: NotFoundComponent }
 ];
 
@@ -26,8 +22,6 @@ const routes: Routes = [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
     NotFoundComponent
   ],
   imports: [
