@@ -11,7 +11,7 @@ import { IAccount } from '../../models/Account.interface';
 export class AccountSummaryComponent implements OnInit {
 
   @Input()
-  accountsInfo: IAccount[];
+  accountsInfo: IAccount[] = [];
 
   accountType = AccountType;
 

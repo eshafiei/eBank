@@ -10,18 +10,16 @@ import { IAccount } from '../models/Account.interface';
 })
 export class AccountsDashboardComponent implements OnInit {
     
-    accountsInfo: IAccount[];
+    accountsInfo: IAccount[] = [];
 
     constructor(private accountService: AccountService) {
-
     }
 
     ngOnInit() {
-      //this.accountService.createAccount();
-      this.accountService.getAccounts(1)
+      const userId = 1;
+      this.accountService.getAccounts(userId)
         .subscribe((data: IAccount[]) => {
           this.accountsInfo = data;
         });
-        
     }
 }

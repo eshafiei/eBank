@@ -15,6 +15,12 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "strict": true,
+    "alwaysStrict": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "noImplicitReturns": true
   }
 }
