@@ -1,0 +1,44 @@
+<h3>Create new account</h3>
+<hr/>
+<form [formGroup]="form" novalidate (ngSubmit)="createAccount()">
+    <div formGroupName="account">
+        <div class="form-group">
+            <small>Account type</small>
+            <select class="form-control" formControlName="accountType" required>
+                <option>Select account type</option>
+                <option *ngFor="let item of accountTypeItems;" 
+                        [value]="accountType[item]">
+                    {{ item }}
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <small>Account number</small>
+            <input
+                type="number"
+                class="form-control text-primary"
+                formControlName="accountNumber"
+                required>
+        </div>
+        <div class="form-group">
+            <small>Balance</small>
+            <input 
+                type="number"
+                class="form-control text-primary" 
+                formControlName="balance"
+                required>
+        </div>  
+    </div>
+    <div class="btn-group btn-group-justified btn-block">
+        <button type="submit"
+                class="btn btn-success btn-margin"
+                [disabled]="form.invalid">
+            Create
+        </button>
+        <button type="button"
+                class="btn btn-danger btn-margin"
+                [routerLink]="['']">
+            Cancel
+        </button> 
+    </div>    
+</form>

@@ -5,8 +5,6 @@ import { map } from 'rxjs/operators';
 
 // local imports
 import { IAccount } from '../models/Account.interface';
-import { AccountType } from '../models/account-type.enum';
-
 
 @Injectable()
 export class AccountService implements OnInit {
@@ -24,20 +22,13 @@ export class AccountService implements OnInit {
         );
     }
 
-    createAccount() : any {
-        const data: IAccount = {
-            accountNumber: 1504398633,
-            accountType: AccountType.Mortgage,
-            balance: 120000,
-            accountStatus: true,
-            userId: 1
-        };
-      
-         this.http.post(this.baseUrl + 'api/account/createaccount', data).subscribe(result => {
-            return result;
-         }, (error => {
-             console.error(error);
-         }));
+    createAccount(account: IAccount) : any {
+        if(account){
+            this.http.post(this.baseUrl + 'api/account/createaccount', account).subscribe(result => {
+                return result;
+             }, (error => {
+                 console.error(error);
+             }));
+        }
     }
-
 }

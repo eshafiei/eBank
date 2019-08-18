@@ -17,7 +17,9 @@ namespace eBank.DataAccess.Services.AccountManagement
 
         public async Task<IEnumerable<Account>> GetAccounts(long userId)
         {
-            return await _eBankContext.Accounts.Where(a => a.UserId == userId).ToListAsync();
+            return await _eBankContext.Accounts.Where(a => a.UserId == userId)
+                .OrderBy(i => i.AccountType)
+                .ToListAsync();
         }
 
         public async Task<int> CreateAccount(Account accountModel)
