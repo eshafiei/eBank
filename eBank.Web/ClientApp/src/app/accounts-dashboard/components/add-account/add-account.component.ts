@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountType } from '../../models/account-type.enum';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { AccountType } from '../../models/account-type.enum';
 import { AccountService } from './../../services/account.service';
 
 @Component({
@@ -24,7 +26,7 @@ export class AddAccountComponent implements OnInit {
         })
     });
 
-    constructor(private accountService: AccountService) {}
+    constructor(private accountService: AccountService, private router: Router) {}
 
     ngOnInit() {
         this.setOptions();
@@ -36,6 +38,10 @@ export class AddAccountComponent implements OnInit {
     }
 
     createAccount() {
-        this.accountService.createAccount(this.form.value.account);
+        this.accountService.createAccount(this.form.value.account).subscribe(response => {
+            console.log(response);
+        });
+        
+        this.router.navigateByUrl('/account');
     }
 }
