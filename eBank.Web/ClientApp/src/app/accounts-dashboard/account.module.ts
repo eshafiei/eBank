@@ -33,6 +33,6 @@ import { AccountService } from './services/account.service';
   ],
   exports: []
 })
-export class AccountsModule {
+export class AccountModule {
 
 }

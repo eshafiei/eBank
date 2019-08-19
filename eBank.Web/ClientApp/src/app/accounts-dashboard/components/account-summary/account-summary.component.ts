@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { AccountType } from '../../models/account-type.enum';
-import { IAccount } from '../../models/Account.interface';
+import { Account } from '../../models/Account.interface';
 
 @Component({
   selector: 'account-summary',
@@ -11,7 +11,7 @@ import { IAccount } from '../../models/Account.interface';
 export class AccountSummaryComponent implements OnInit {
 
   @Input()
-  accountsInfo: IAccount[] = [];
+  accountsInfo: Account[] = [];
 
   accountType = AccountType;
 

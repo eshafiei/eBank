@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AccountService } from './../services/account.service';
-import { IAccount } from '../models/Account.interface';
+import { Account } from '../models/Account.interface';
 
 @Component({
     selector: 'accounts-dashboard',
@@ -10,7 +10,7 @@ import { IAccount } from '../models/Account.interface';
 })
 export class AccountsDashboardComponent implements OnInit {
     
-    accountsInfo: IAccount[] = [];
+    accountsInfo: Account[] = [];
 
     constructor(private accountService: AccountService) {
     }
@@ -18,7 +18,7 @@ export class AccountsDashboardComponent implements OnInit {
     ngOnInit() {
       const userId = 1;
       this.accountService.getAccounts(userId)
-        .subscribe((data: IAccount[]) => {
+        .subscribe((data: Account[]) => {
           this.accountsInfo = data;
         });
     }

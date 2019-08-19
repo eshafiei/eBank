@@ -1,4 +1,4 @@
-export interface IAccount {
+export interface Account {
     id?: number;
     accountNumber: number;
     accountType: number;

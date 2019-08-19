@@ -8,7 +8,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 // local modules & interceptors
 import { AuthenticationModule } from './authentication/authentication.module';
-import { AccountsModule } from './accounts-dashboard/accounts.module';
+import { AccountModule } from './accounts-dashboard/account.module';
 import { httpInterceptorProviders } from './shared/http-interceptors';
 
 // local components
@@ -40,7 +40,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     CommonModule,
     AuthenticationModule,
-    AccountsModule
+    AccountModule
   ],
   providers: [
     httpInterceptorProviders
