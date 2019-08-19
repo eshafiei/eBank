@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { finalize, tap } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { Observable } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable()
 export class SpinnerInterceptor implements HttpInterceptor {
@@ -18,10 +18,7 @@ export class SpinnerInterceptor implements HttpInterceptor {
         this.count++;
 
         return next.handle(request)
-                   .pipe ( tap (
-                        //event => console.log(event),
-                        //error => console.log(error)
-                   ), finalize(() => {
+                   .pipe (finalize(() => {
                         this.count--;
                         if ( this.count == 0 ) {
                             this.spinner.hide();

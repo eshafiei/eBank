@@ -18,8 +18,6 @@ export class AccountsDashboardComponent implements OnInit {
     ngOnInit() {
       const userId = 1;
       this.accountService.getAccounts(userId)
-        .subscribe((data: Account[]) => {
-          this.accountsInfo = data;
-        });
+                         .subscribe((accountsInfo: Account[]) => this.accountsInfo = accountsInfo);
     }
 }
