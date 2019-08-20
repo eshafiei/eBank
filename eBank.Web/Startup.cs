@@ -1,5 +1,6 @@
 using eBank.DataAccess.Models;
 using eBank.DataAccess.Services.AccountManagement;
+using eBank.DataAccess.Services.Log;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -34,6 +35,7 @@ namespace eBank.Web
             
             // Inject Services
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<ILogService, LogService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 

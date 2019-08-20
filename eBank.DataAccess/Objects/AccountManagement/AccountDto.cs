@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace eBank.DataAccess.Models.AccountManagement
+namespace eBank.DataAccess.Objects.AccountManagement
 {
-    public class Account
+    public class AccountDto
     {
         [Key]
         public int? Id { get; set; }

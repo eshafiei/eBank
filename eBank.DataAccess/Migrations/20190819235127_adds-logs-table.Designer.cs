@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eBank.DataAccess.Models;
 
 namespace eBank.DataAccess.Migrations
 {
     [DbContext(typeof(EBankContext))]
-    partial class EBankContextModelSnapshot : ModelSnapshot
+    [Migration("20190819235127_adds-logs-table")]
+    partial class addslogstable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,7 +21,7 @@ namespace eBank.DataAccess.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("eBank.DataAccess.Objects.AccountManagement.AccountDto", b =>
+            modelBuilder.Entity("eBank.DataAccess.Models.AccountManagement.Account", b =>
                 {
                     b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
@@ -40,21 +42,15 @@ namespace eBank.DataAccess.Migrations
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("eBank.DataAccess.Objects.Logging.LogDto", b =>
+            modelBuilder.Entity("eBank.DataAccess.Models.Logging.Log", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Error");
-
-                    b.Property<string>("FileName");
-
-                    b.Property<long>("LineNumber");
+                    b.Property<string>("ErrorMessage");
 
                     b.Property<DateTime>("LogDate");
-
-                    b.Property<string>("Message");
 
                     b.Property<int>("Status");
 

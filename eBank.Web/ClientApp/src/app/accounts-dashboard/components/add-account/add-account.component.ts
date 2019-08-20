@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { NGXLogger } from 'ngx-logger';
 
 import { AccountType } from '../../models/account-type.enum';
 import { AccountService } from './../../services/account.service';
@@ -30,7 +31,8 @@ export class AddAccountComponent implements OnInit {
 
     constructor(private accountService: AccountService, 
                 private router: Router,
-                private toastr: ToastrService) {}
+                private toastr: ToastrService,
+                private logger: NGXLogger) {}
 
     ngOnInit() {
         this.setOptions();
@@ -46,6 +48,9 @@ export class AddAccountComponent implements OnInit {
                            .subscribe(response => {
                                         this.toastr.success('account created successfuly!', 'Account');
                                         this.router.navigateByUrl('/account');
-                                      }, (error: HttpErrorResponse) => this.toastr.error(error.message, 'Account'));
+                                      }, (error: HttpErrorResponse) => {
+                                        this.toastr.error(error.message, 'Account');
+                                        this.logger.error(error);
+                                      });
     }
 }

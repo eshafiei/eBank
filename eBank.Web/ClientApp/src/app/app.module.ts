@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
+import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 
 // local modules & interceptors
 import { AuthenticationModule } from './authentication/authentication.module';
@@ -41,6 +42,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     NgxSpinnerModule,
     ToastrModule.forRoot(),
+    LoggerModule.forRoot({serverLoggingUrl: '/api/log/addlog', level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.ERROR}),
     RouterModule.forRoot(routes),
     CommonModule,
     AuthenticationModule,
