@@ -1,44 +1,79 @@
-<h3>Create new account</h3>
-<hr/>
-<form [formGroup]="form" novalidate (ngSubmit)="createAccount()">
-    <div formGroupName="account">
-        <div class="form-group">
-            <small>Account type</small>
-            <select class="form-control" formControlName="accountType" required>
-                <option>Select account type</option>
-                <option *ngFor="let item of accountTypeItems;" 
-                        [value]="accountType[item]">
-                    {{ item }}
-                </option>
-            </select>
+<div class="card w-100">
+  <h5 class="card-header">Create new account</h5>
+  <div class="card-body">
+    <form [formGroup]="form" novalidate (ngSubmit)="createAccount()">
+      <div formGroupName="account">
+        <div class="form-group col-6">
+          <label for="accountType">Account type</label>
+          <select
+            class="form-control"
+            [ngClass]="{'is-invalid': f.accountType.touched && f.accountType.errors}"
+            formControlName="accountType"
+            id="accountType">
+            <option value="">Select account type </option>
+            <option
+              *ngFor="let item of accountTypeItems"
+              [value]="accountType[item]">
+              {{ item }}
+            </option>
+          </select>
+          <div
+            *ngIf="f.accountType.touched && f.accountType.hasError('required')"
+            class="invalid-feedback">
+            Account type is required!
+          </div>
         </div>
-        <div class="form-group">
-            <small>Account number</small>
+        <div class="form-group col-6">
+          <label for="accountNumber">Account number</label>
+          <input
+            type="number"
+            id="accountNumber"
+            class="form-control"
+            [ngClass]="{'is-invalid': f.accountNumber.touched && f.accountNumber.errors}"
+            formControlName="accountNumber"
+            placeholder="Account number"/>
+          <div
+            *ngIf="f.accountNumber.touched && f.accountNumber.errors"
+            class="invalid-feedback">
+            <div *ngIf="f.accountNumber.hasError('required')">
+              Account number is required!
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-6">
+          <label for="balance">Balance</label>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">$</span>
+            </div>
             <input
-                type="number"
-                class="form-control text-primary"
-                formControlName="accountNumber"
-                required>
+              type="number"
+              id="balance"
+              class="form-control"
+              placeholder="Initial balance"
+              formControlName="balance"/>
+            <div class="input-group-append">
+              <span class="input-group-text">.00</span>
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-            <small>Balance</small>
-            <input 
-                type="number"
-                class="form-control text-primary" 
-                formControlName="balance"
-                required>
-        </div>  
-    </div>
-    <div class="btn-group btn-group-justified btn-block">
-        <button type="submit"
-                class="btn btn-success btn-margin"
-                [disabled]="form.invalid">
-            Create
+      </div>
+      <div class="btn-group btn-group-justified btn-block">
+        <button
+          type="submit"
+          class="btn btn-success btn-margin"
+          [disabled]="form.invalid">
+          Create
         </button>
-        <button type="button"
-                class="btn btn-danger btn-margin"
-                [routerLink]="['/account']">
-            Cancel
-        </button> 
-    </div>    
-</form>
+        <button
+          type="button"
+          class="btn btn-danger btn-margin"
+          [routerLink]="['/account']">
+          Cancel
+        </button>
+      </div>
+      <!-- {{this.form.value.account | json}} -->
+    </form>
+  </div>
+</div>

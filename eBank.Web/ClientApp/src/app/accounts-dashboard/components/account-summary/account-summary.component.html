@@ -1,4 +1,5 @@
-<div class="card shadow p-3 mb-5 bg-white rounded" *ngFor="let account of accountsInfo">
+<ng-content select="h3"></ng-content>
+<div class="card shadow p-3 mb-5 bg-white rounded" *ngFor="let account of accountsInfo | async">
     <div class="card-body">
         <div class="row">
             <div class="container">

@@ -14,5 +14,12 @@ namespace eBank.DataAccess.Models
         public DbSet<AccountDto> Accounts { get; set; }
 
         public DbSet<LogDto> Logs { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AccountDto>()
+                .Property(b => b.Balance)
+                .HasDefaultValue(decimal.Zero);
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using eBank.DataAccess.Models;
+using eBank.DataAccess.Models.AccountManagement;
 using eBank.DataAccess.Objects.AccountManagement;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,9 +23,10 @@ namespace eBank.DataAccess.Services.AccountManagement
                 .ToListAsync();
         }
 
-        public async Task<int> CreateAccount(AccountDto accountModel)
+        public async Task<int> CreateAccount(AccountModel accountModel)
         {
-            _eBankContext.Accounts.Add(accountModel);
+            var accountDto = new AccountDto(accountModel);
+            _eBankContext.Accounts.Add(accountDto);
             return await _eBankContext.SaveChangesAsync();
         }
     }

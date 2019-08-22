@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { AccountService } from './../services/account.service';
 import { Account } from '../models/Account.interface';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'accounts-dashboard',
@@ -10,14 +11,13 @@ import { Account } from '../models/Account.interface';
 })
 export class AccountsDashboardComponent implements OnInit {
     
-    accountsInfo: Account[] = [];
+    accountsInfo: Observable<Account[]>;
 
     constructor(private accountService: AccountService) {
     }
 
     ngOnInit() {
       const userId = 1;
-      this.accountService.getAccounts(userId)
-                         .subscribe((accountsInfo: Account[]) => this.accountsInfo = accountsInfo);
+      this.accountsInfo = this.accountService.getAccounts(userId);
     }
 }

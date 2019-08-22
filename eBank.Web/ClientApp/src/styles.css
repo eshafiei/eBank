@@ -2,3 +2,7 @@
 .btn-margin {
     margin: 10px;
 }
+
+.invalid-feedback {
+    display: block;
+  }

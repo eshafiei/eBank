@@ -1,56 +1,63 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { NGXLogger } from 'ngx-logger';
 
-import { AccountType } from '../../models/account-type.enum';
 import { AccountService } from './../../services/account.service';
+import { AccountType } from '../../models/account-type.enum';
+import { AccountStatus } from '../../models/account-status.enum';
 
 @Component({
-    selector: 'add-account',
-    styleUrls: ['./add-account.component.scss'],
-    templateUrl: './add-account.component.html'
+  selector: 'add-account',
+  styleUrls: ['./add-account.component.scss'],
+  templateUrl: './add-account.component.html'
 })
 export class AddAccountComponent implements OnInit {
 
-    accountType: typeof AccountType = AccountType;
-    accountTypeItems: string[]= [];
-    userId: number = 1;
+  accountType: typeof AccountType = AccountType;
+  accountTypeItems: string[] = [];
+  userId: number = 1;
 
-    form = new FormGroup({
-        account: new FormGroup({
-            accountType: new FormControl(),
-            accountNumber: new FormControl(),
-            balance: new FormControl(),
-            accountStatus: new FormControl(1),
-            userId: new FormControl(this.userId)
-        })
-    });
+  form = this.fb.group({
+    account: this.fb.group({
+      accountType: ['', [Validators.required]],
+      accountNumber: ['', [Validators.required]],
+      balance: [],
+      accountStatus: AccountStatus.Active,
+      userId: this.userId
+    })
+  });
 
-    constructor(private accountService: AccountService, 
-                private router: Router,
-                private toastr: ToastrService,
-                private logger: NGXLogger) {}
+  constructor(private accountService: AccountService, 
+              private router: Router,
+              private toastr: ToastrService, 
+              private logger: NGXLogger, 
+              private fb: FormBuilder) {}
 
-    ngOnInit() {
-        this.setOptions();
-    }
+  ngOnInit() {
+    this.setOptions();
+  }
 
-    setOptions() {
-        const accountTypeOptions = Object.keys(AccountType);
-        this.accountTypeItems = accountTypeOptions.slice(accountTypeOptions.length / 2);
-    }
+  setOptions() {
+    const accountTypeOptions = Object.keys(AccountType);
+    this.accountTypeItems = accountTypeOptions.slice(accountTypeOptions.length / 2);
+    console.log(this.form.controls);
+  }
 
-    createAccount() {
-        this.accountService.createAccount(this.form.value.account)
-                           .subscribe(response => {
-                                        this.toastr.success('account created successfuly!', 'Account');
-                                        this.router.navigateByUrl('/account');
-                                      }, (error: HttpErrorResponse) => {
-                                        this.toastr.error(error.message, 'Account');
-                                        this.logger.error(error);
-                                      });
-    }
+  get f() {
+    return (this.form.controls.account as FormGroup).controls;    
+  }
+
+  createAccount() {
+    this.accountService.createAccount(this.form.value.account)
+      .subscribe(response => {
+        this.toastr.success('account created successfuly!', 'Account');
+        this.router.navigateByUrl('/account');
+      }, (error: HttpErrorResponse) => {
+        this.toastr.error(error.message, 'Account');
+        this.logger.error(error);
+      });
+  }
 }

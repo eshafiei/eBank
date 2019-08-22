@@ -1,4 +1,5 @@
-﻿using eBank.DataAccess.Objects.AccountManagement;
+﻿using eBank.DataAccess.Models.AccountManagement;
+using eBank.DataAccess.Objects.AccountManagement;
 using eBank.DataAccess.Services.AccountManagement;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace eBank.Web.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<int> CreateAccount([FromBody] AccountDto account)
+        public async Task<int> CreateAccount([FromBody] AccountModel account)
         {
             return await _accountService.CreateAccount(account);
         }
