@@ -5,4 +5,4 @@ export interface Account {
     balance: number;
     accountStatus: boolean;
     userId: number;
-  }
+}

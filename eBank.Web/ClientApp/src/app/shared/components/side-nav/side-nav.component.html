@@ -1,0 +1,19 @@
+<mat-sidenav-container autosize>  
+  <mat-sidenav #navigationSidenav mode="over" role="navigation">  
+    <mat-nav-list>  
+      <h5 matSubheader>Account</h5>
+      <a *ngFor="let item of accountRoutes" 
+        mat-list-item 
+        (click)="navigationSidenav.close()"
+        [routerLink]='[item.route]'
+        routerLinkActive="list-item-active">
+        <mat-icon matListIcon class="app-nav-list-icon"> {{ item.icon }} </mat-icon>
+        <small>{{ item.title }}</small>
+      </a> 
+    </mat-nav-list>  
+  </mat-sidenav>
+  <mat-sidenav-content role="main">
+      <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+  

@@ -10,7 +10,7 @@ import { AccountType } from '../../models/account-type.enum';
 import { AccountStatus } from '../../models/account-status.enum';
 
 @Component({
-  selector: 'add-account',
+  selector: 'app-add-account',
   styleUrls: ['./add-account.component.scss'],
   templateUrl: './add-account.component.html'
 })
@@ -18,7 +18,7 @@ export class AddAccountComponent implements OnInit {
 
   accountType: typeof AccountType = AccountType;
   accountTypeItems: string[] = [];
-  userId: number = 1;
+  userId = 1;
 
   form = this.fb.group({
     account: this.fb.group({
@@ -30,10 +30,10 @@ export class AddAccountComponent implements OnInit {
     })
   });
 
-  constructor(private accountService: AccountService, 
+  constructor(private accountService: AccountService,
               private router: Router,
-              private toastr: ToastrService, 
-              private logger: NGXLogger, 
+              private toastr: ToastrService,
+              private logger: NGXLogger,
               private fb: FormBuilder) {}
 
   ngOnInit() {
@@ -43,11 +43,10 @@ export class AddAccountComponent implements OnInit {
   setOptions() {
     const accountTypeOptions = Object.keys(AccountType);
     this.accountTypeItems = accountTypeOptions.slice(accountTypeOptions.length / 2);
-    console.log(this.form.controls);
   }
 
   get f() {
-    return (this.form.controls.account as FormGroup).controls;    
+    return (this.form.controls.account as FormGroup).controls;
   }
 
   createAccount() {

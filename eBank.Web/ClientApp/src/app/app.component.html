@@ -1,9 +1,7 @@
 <body>
-  <app-nav-menu></app-nav-menu>
-  <div class="container">
-    <router-outlet></router-outlet>
-    <ngx-spinner [fullScreen]="false" type="ball-clip-rotate-multiple" size="medium">
-      <p class="loading">Please wait...</p>
-    </ngx-spinner>
-  </div>
+  <app-navigation-bar (toggleSidenav)="toggleSideNav()"></app-navigation-bar>  
+  <app-side-nav [toggleNav]="toggle"></app-side-nav>
+  <ngx-spinner [fullScreen]="false" type="ball-clip-rotate-multiple" size="medium">
+    <p class="loading">Please wait...</p>
+  </ngx-spinner>
 </body>

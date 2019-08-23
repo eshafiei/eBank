@@ -1,0 +1,29 @@
+// https://material.angular.io/guide/theming-your-components
+
+$crm-toolbar-title-padding: 16px !default;
+
+.toolbar-title {
+  margin: 0 $crm-toolbar-title-padding 0 $crm-toolbar-title-padding;
+}
+
+.navigation-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 998;
+  background-color: #3795f3;
+  max-height: 45px;
+  min-height: 45px;
+}
+
+.navigation-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+navigation-bar.mat-toolbar-multiple-rows {
+  height: 40px;
+}

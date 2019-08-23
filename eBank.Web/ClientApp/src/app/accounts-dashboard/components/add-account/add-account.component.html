@@ -1,75 +1,81 @@
+<app-command-bar>
+  <button mat-button class="command-bar-button" [disabled]="true">
+    <mat-icon>save</mat-icon>
+    SAVE AS
+  </button>
+  <button mat-button class="command-bar-button" [disabled]="true">
+    <mat-icon>dashboard</mat-icon>
+    NEW
+  </button>
+  <button mat-button class="command-bar-button" [disabled]="true">
+    <mat-icon>lock</mat-icon>
+    SET AS DEFAULT
+  </button>
+  <button mat-button class="command-bar-button" [disabled]="true">
+    <mat-icon>refresh</mat-icon>
+    REFRESH
+  </button>
+  <div fxFlex fxLayout fxLayoutAlign="flex-end">
+    <button mat-button class="command-bar-button">
+      <mat-icon>widgets</mat-icon>
+      WIDGETS
+    </button>
+    <button mat-button class="command-bar-button">
+      <mat-icon>fullscreen</mat-icon>
+      FULL SCREEN
+    </button>
+  </div>
+</app-command-bar>
 <div class="card w-100">
   <h5 class="card-header">Create new account</h5>
   <div class="card-body">
     <form [formGroup]="form" novalidate (ngSubmit)="createAccount()">
       <div formGroupName="account">
-        <div class="form-group col-6">
-          <label for="accountType">Account type</label>
-          <select
-            class="form-control"
-            [ngClass]="{'is-invalid': f.accountType.touched && f.accountType.errors}"
-            formControlName="accountType"
-            id="accountType">
-            <option value="">Select account type </option>
-            <option
-              *ngFor="let item of accountTypeItems"
-              [value]="accountType[item]">
-              {{ item }}
-            </option>
-          </select>
-          <div
-            *ngIf="f.accountType.touched && f.accountType.hasError('required')"
-            class="invalid-feedback">
-            Account type is required!
-          </div>
+        <div class="row">
+            <mat-form-field class="col-6">
+              <mat-label for="accountType">Account type</mat-label>
+              <mat-select formControlName="accountType">
+                <mat-option
+                  *ngFor="let item of accountTypeItems"
+                  [value]="accountType[item]">
+                  {{ item }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="f.accountType?.hasError('required')">Account type is required</mat-error>
+            </mat-form-field>
         </div>
-        <div class="form-group col-6">
-          <label for="accountNumber">Account number</label>
-          <input
-            type="number"
-            id="accountNumber"
-            class="form-control"
-            [ngClass]="{'is-invalid': f.accountNumber.touched && f.accountNumber.errors}"
-            formControlName="accountNumber"
-            placeholder="Account number"/>
-          <div
-            *ngIf="f.accountNumber.touched && f.accountNumber.errors"
-            class="invalid-feedback">
-            <div *ngIf="f.accountNumber.hasError('required')">
-              Account number is required!
-            </div>
-          </div>
+        <div class="row">        
+          <mat-form-field class="col-6">
+              <mat-label>Account number</mat-label>
+              <input matInput
+                type="number"
+                formControlName="accountNumber"
+                placeholder="Account number"
+                [ngClass]="{'is-invalid': f.accountNumber.touched && f.accountNumber.errors}">
+              <mat-error *ngIf="f.accountNumber?.hasError('required')">Account number is required</mat-error>
+          </mat-form-field>
         </div>
-        <div class="form-group col-6">
-          <label for="balance">Balance</label>
-
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">$</span>
-            </div>
-            <input
-              type="number"
-              id="balance"
-              class="form-control"
-              placeholder="Initial balance"
-              formControlName="balance"/>
-            <div class="input-group-append">
-              <span class="input-group-text">.00</span>
-            </div>
-          </div>
+        <div class="row">
+          <mat-form-field class="col-6">
+              <mat-label for="balance">Balance</mat-label>
+              <input matInput
+                type="number"
+                placeholder="Initial balance"
+                formControlName="balance">
+          </mat-form-field>
         </div>
-      </div>
-      <div class="btn-group btn-group-justified btn-block">
-        <button
+        <button mat-raised-button
           type="submit"
-          class="btn btn-success btn-margin"
-          [disabled]="form.invalid">
+          [disabled]="form.invalid"
+          color="primary"
+          class="mr-2 col-3">
           Create
         </button>
-        <button
+        <button mat-button
           type="button"
-          class="btn btn-danger btn-margin"
-          [routerLink]="['/account']">
+          [routerLink]="['/account']"
+          color="warn"
+          class="col-2">
           Cancel
         </button>
       </div>

@@ -4,7 +4,7 @@ import { AccountType } from '../../models/account-type.enum';
 import { Account } from '../../models/Account.interface';
 
 @Component({
-  selector: 'account-summary',
+  selector: 'app-account-summary',
   styleUrls: ['./account-summary.component.scss'],
   templateUrl: './account-summary.component.html'
 })

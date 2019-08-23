@@ -5,9 +5,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+// 3rd party modules
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
+
+// angular material modules
+import { MaterialModule } from './material.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 // local modules & interceptors
 import { AuthenticationModule } from './authentication/authentication.module';
@@ -16,12 +22,18 @@ import { httpInterceptorProviders } from './shared/http-interceptors';
 
 // local components
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { SideNavComponent } from './shared/components/side-nav/side-nav.component';
+import { NavigationBarComponent } from './shared/components/navigation-bar/navigation-bar.component';
 
 // local services
-
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -31,26 +43,40 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent,
     HomeComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    SideNavComponent,
+    NavigationBarComponent
   ],
   imports: [
+    // core modules
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
+    RouterModule.forRoot(routes),
+    CommonModule,
+    // 3rd party modules
     NgxSpinnerModule,
     ToastrModule.forRoot(),
     LoggerModule.forRoot({serverLoggingUrl: '/api/log/addlog', level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.ERROR}),
-    RouterModule.forRoot(routes),
-    CommonModule,
+    // angular material module
+    MaterialModule,
+    FlexLayoutModule,
+    // local modules
     AuthenticationModule,
-    AccountModule
+    AccountModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule
   ],
   providers: [
     httpInterceptorProviders
   ],
+  exports: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
