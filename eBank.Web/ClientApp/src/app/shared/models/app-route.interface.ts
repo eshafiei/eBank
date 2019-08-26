@@ -1,5 +1,8 @@
+import { AppRouteItem } from './app-route-item.interface';
+
 export interface AppRoute {
-    title: string;
-    icon: string;
-    route: string;
+    routeHeader: string;
+    routeItems: AppRouteItem[];
 }
+
+export type AppRouteList = [AppRoute];

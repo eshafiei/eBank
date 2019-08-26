@@ -32,6 +32,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { SideNavComponent } from './shared/components/side-nav/side-nav.component';
 import { NavigationBarComponent } from './shared/components/navigation-bar/navigation-bar.component';
+import { NavComponent } from './shared/containers/nav/nav.component';
 
 // local services
 
@@ -46,7 +47,8 @@ const routes: Routes = [
     HomeComponent,
     NotFoundComponent,
     SideNavComponent,
-    NavigationBarComponent
+    NavigationBarComponent,
+    NavComponent
   ],
   imports: [
     // core modules

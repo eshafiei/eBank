@@ -7,9 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
-  toggle: boolean;
-
-  toggleSideNav() {
-    this.toggle = !this.toggle;
-  }
 }

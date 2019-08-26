@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges, ElementRef, ViewChild, SimpleChange, SimpleChanges } from '@angular/core';
 
-import { AppRoute } from '../../models/app-route.interface';
+import { AppRouteList } from '../../models/app-route.interface';
 import { MatSidenav } from '@angular/material';
 
 @Component({
@@ -9,28 +9,16 @@ import { MatSidenav } from '@angular/material';
   styleUrls: ['./side-nav.component.scss']
 })
 export class SideNavComponent implements OnInit, OnChanges {
-  accountRoutes: AppRoute[];
-  @Input() toggleNav: boolean;
+  @Input() toggleSideNav: boolean;
+  @Input() appRoutes: AppRouteList;
   @ViewChild('navigationSidenav', null) navigationSideNav: MatSidenav;
   constructor() {}
 
   ngOnInit() {
-    this.accountRoutes = [
-      {
-        title: 'Account summary',
-        icon: 'money',
-        route: '/account'
-      },
-      {
-        title: 'Account settings',
-        icon: 'settings_applications',
-        route: '/setting'
-      }
-    ];
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['toggleNav'].currentValue !== changes['toggleNav'].previousValue) {
+    if (changes['toggleSideNav'].currentValue !== changes['toggleSideNav'].previousValue) {
       this.navigationSideNav.toggle();
     }
   }
