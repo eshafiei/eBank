@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, SimpleChanges, OnChanges } from '@angular/core';
 
 import { AppRouteList } from '../../models/app-route.interface';
 import { MatSidenav } from '@angular/material';
@@ -8,15 +8,18 @@ import { MatSidenav } from '@angular/material';
   templateUrl: './side-nav.component.html',
   styleUrls: ['./side-nav.component.scss']
 })
-export class SideNavComponent implements OnInit {
+export class SideNavComponent implements OnInit, OnChanges {
   @Input() appRoutes: AppRouteList;
-  toggle: boolean;
+  @Input() toggleSideNav: boolean;
+  @ViewChild('navigationSideNav', null) navigationSideNav: MatSidenav;
   constructor() {}
 
   ngOnInit() {
   }
 
-  toggleNav(navigationSidenav: MatSidenav) {
-    navigationSidenav.toggle();
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['toggleSideNav'].currentValue !== changes['toggleSideNav'].previousValue) {
+      this.navigationSideNav.toggle();
+    }
   }
 }

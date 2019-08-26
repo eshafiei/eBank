@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AppRouteList, AppRoute } from './../../models/app-route.interface';
+import { AppRoute } from './../../models/app-route.interface';
 
 @Component({
   selector: 'app-nav',
@@ -8,6 +8,7 @@ import { AppRouteList, AppRoute } from './../../models/app-route.interface';
 })
 export class NavComponent implements OnInit {
   appRoutes: AppRoute[];
+  toggle: boolean;
   constructor() { }
 
   ngOnInit() {
@@ -53,6 +54,10 @@ export class NavComponent implements OnInit {
         ]
       }
     ];
+  }
+
+  toggleNav() {
+    this.toggle = !this.toggle;
   }
 }
 

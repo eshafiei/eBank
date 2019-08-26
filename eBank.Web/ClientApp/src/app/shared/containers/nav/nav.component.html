@@ -1,3 +1,6 @@
-<app-side-nav [appRoutes]="appRoutes">
+<app-navigation-bar (toggleSidenav)="toggleNav()">
+</app-navigation-bar>
+<app-side-nav [toggleSideNav]="toggle" [appRoutes]="appRoutes">
   <router-outlet></router-outlet>
 </app-side-nav>
+  

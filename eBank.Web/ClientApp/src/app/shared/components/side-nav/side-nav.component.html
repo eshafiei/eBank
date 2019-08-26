@@ -1,7 +1,5 @@
-<app-navigation-bar (toggleSidenav)="toggleNav(navigationSidenav)">
-</app-navigation-bar>
 <mat-sidenav-container autosize>  
-  <mat-sidenav #navigationSidenav mode="over" role="navigation">  
+  <mat-sidenav #navigationSideNav mode="over" role="navigation">  
     <mat-nav-list *ngFor="let appRoute of appRoutes;">  
       <h5 matSubheader>{{ appRoute.routeHeader }}</h5>
       <a *ngFor="let item of appRoute.routeItems" 
