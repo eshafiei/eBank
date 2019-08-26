@@ -7,7 +7,6 @@ $mat-small: 'max-width: 959px';
 .command-bar-row {
   height: $crm-command-bar-height-desktop !important;
   min-height: $crm-command-bar-height-desktop !important;
-
   padding-left: 8px;
   padding-right: 8px;
 
@@ -23,6 +22,11 @@ $mat-small: 'max-width: 959px';
 }
 
 .command-bar {
+  position: fixed;
+  top: 50px;
+  left: 0;
+  right: 0;
+  z-index: 998;
   max-height: 50px;
   min-height: 50px;
 }
