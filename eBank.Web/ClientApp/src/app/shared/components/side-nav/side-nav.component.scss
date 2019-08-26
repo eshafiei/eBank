@@ -1,9 +1,12 @@
 .mat-sidenav-container {
   height: 100%;
-  margin-top: 45px;
 }
 
-$sidenav-width: 250px;
+.mat-sidenav-content {
+  margin: 70px 20px 0 20px;
+}
+
+$sidenav-width: 270px;
 
 .mat-sidenav {
   width: $sidenav-width;

@@ -13,8 +13,8 @@ $crm-toolbar-title-padding: 16px !default;
   right: 0;
   z-index: 998;
   background-color: #3795f3;
-  max-height: 45px;
-  min-height: 45px;
+  max-height: 50px;
+  min-height: 50px;
 }
 
 .navigation-items {
@@ -25,5 +25,5 @@ $crm-toolbar-title-padding: 16px !default;
 }
 
 navigation-bar.mat-toolbar-multiple-rows {
-  height: 40px;
+  max-height: 40px;
 }

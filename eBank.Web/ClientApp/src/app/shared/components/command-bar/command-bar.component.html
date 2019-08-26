@@ -1,5 +1,8 @@
 <mat-toolbar class="command-bar" fxHide.xs>
   <mat-toolbar-row class="command-bar-row">
-    <ng-content> </ng-content>
+    <button mat-button class="command-bar-button" [disabled]="true">
+      <mat-icon>save</mat-icon>
+      SAVE AS
+    </button>
   </mat-toolbar-row>
 </mat-toolbar>

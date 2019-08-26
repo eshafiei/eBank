@@ -7,7 +7,6 @@ import { AppRouteList, AppRoute } from './../../models/app-route.interface';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
-  toggle: boolean;
   appRoutes: AppRoute[];
   constructor() { }
 
@@ -55,8 +54,5 @@ export class NavComponent implements OnInit {
       }
     ];
   }
-
-  toggleSideNav() {
-    this.toggle = !this.toggle;
-  }
 }
+
