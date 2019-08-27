@@ -7,7 +7,6 @@ import { Account } from '../models/Account.interface';
 
 @Injectable()
 export class AccountService implements OnInit {
-    
     constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {}
 
     ngOnInit() {}
@@ -17,7 +16,7 @@ export class AccountService implements OnInit {
                     .get(this.baseUrl + 'api/account/getaccounts/' + userId);
     }
 
-    createAccount(account: Account) : Observable<any> {
+    createAccount(account: Account): Observable<any> {
         return  this.http
                     .post(this.baseUrl + 'api/account/createaccount', account);
     }

@@ -8,6 +8,8 @@ import { NGXLogger } from 'ngx-logger';
 import { AccountService } from './../../services/account.service';
 import { AccountType } from '../../models/account-type.enum';
 import { AccountStatus } from '../../models/account-status.enum';
+import { CommandBarItem } from '../../../shared/models/command-bar-item.interface';
+import { AppBarService } from './../../../shared/services/app-bar.service';
 
 @Component({
   selector: 'app-add-account',
@@ -15,7 +17,6 @@ import { AccountStatus } from '../../models/account-status.enum';
   templateUrl: './add-account.component.html'
 })
 export class AddAccountComponent implements OnInit {
-
   accountType: typeof AccountType = AccountType;
   accountTypeItems: string[] = [];
   userId = 1;
@@ -34,7 +35,8 @@ export class AddAccountComponent implements OnInit {
               private router: Router,
               private toastr: ToastrService,
               private logger: NGXLogger,
-              private fb: FormBuilder) {}
+              private fb: FormBuilder,
+              private appBar: AppBarService) {}
 
   ngOnInit() {
     this.setOptions();
@@ -43,6 +45,17 @@ export class AddAccountComponent implements OnInit {
   setOptions() {
     const accountTypeOptions = Object.keys(AccountType);
     this.accountTypeItems = accountTypeOptions.slice(accountTypeOptions.length / 2);
+    const commandBarButtons: CommandBarItem[] = [
+      {
+        title: 'Save',
+        icon: 'save'
+      },
+      {
+        title: 'Cancel',
+        icon: 'cancel'
+      }
+    ];
+    this.appBar.updateAppBar(commandBarButtons);
   }
 
   get f() {

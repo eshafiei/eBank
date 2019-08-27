@@ -7,6 +7,8 @@ import { MaterialModule } from 'src/app/material.module';
 // local components
 import { CommandBarComponent } from '../components/command-bar/command-bar.component';
 
+// local services
+import { AppBarService } from './../services/app-bar.service';
 
 @NgModule({
   imports: [
@@ -14,6 +16,7 @@ import { CommandBarComponent } from '../components/command-bar/command-bar.compo
     MaterialModule
   ],
   declarations: [CommandBarComponent],
+  providers: [AppBarService],
   exports: [CommandBarComponent]
 })
 export class SharedModule { }
