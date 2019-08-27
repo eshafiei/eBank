@@ -22,12 +22,16 @@ export class AccountSummaryComponent implements OnInit {
   ngOnInit() {
     const commandBarButtons: CommandBarItem[] = [
       {
-        title: 'Transfer money',
+        title: 'Transfer Money',
+        icon: 'swap_horiz'
+      },
+      {
+        title: 'Pay Bills',
         icon: 'money'
       },
       {
-        title: 'Pay bills',
-        icon: 'money'
+        title: 'Account Services',
+        icon: 'work'
       }
     ];
     this.appBar.updateAppBar(commandBarButtons);

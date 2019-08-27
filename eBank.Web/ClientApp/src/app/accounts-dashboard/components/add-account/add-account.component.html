@@ -4,7 +4,7 @@
     <form [formGroup]="form" novalidate (ngSubmit)="createAccount()">
       <div formGroupName="account">
         <div class="row">
-            <mat-form-field class="col-6">
+            <mat-form-field class="col-4" appearance="outline">
               <mat-label for="accountType">Account type</mat-label>
               <mat-select formControlName="accountType">
                 <mat-option
@@ -17,7 +17,7 @@
             </mat-form-field>
         </div>
         <div class="row">        
-          <mat-form-field class="col-6">
+          <mat-form-field class="col-4" appearance="outline">
               <mat-label>Account number</mat-label>
               <input matInput
                 type="number"
@@ -28,13 +28,18 @@
           </mat-form-field>
         </div>
         <div class="row">
-          <mat-form-field class="col-6">
-              <mat-label for="balance">Balance</mat-label>
+          <mat-form-field class="col-4" appearance="outline">
+              <mat-label for="balance">Initial balance</mat-label>
               <input matInput
                 type="number"
                 placeholder="Initial balance"
                 formControlName="balance">
           </mat-form-field>
+        </div>
+        <div class="row mb-2">
+          <section class="col-3">
+            <mat-checkbox formControlName="accountStatus">Enable account</mat-checkbox>
+          </section>
         </div>
         <button mat-raised-button
           type="submit"
@@ -51,7 +56,7 @@
           Cancel
         </button>
       </div>
-      <!-- {{this.form.value.account | json}} -->
+      <pre>{{this.form.value.account | json}}</pre>
     </form>
   </div>
 </div>
