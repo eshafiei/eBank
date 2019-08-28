@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+
 import { CommandBarItem } from '../../models/command-bar-item.interface';
-import { AppBarService } from './../../services/app-bar.service';
 
 @Component({
   selector: 'app-command-bar',
@@ -8,11 +8,10 @@ import { AppBarService } from './../../services/app-bar.service';
   styleUrls: ['./command-bar.component.scss']
 })
 export class CommandBarComponent implements OnInit {
-  commandBarButtons: CommandBarItem[];
-  constructor(private appBar: AppBarService) { }
+  @Input() commandBarButtons: CommandBarItem[] = [];
+  constructor() { }
 
   ngOnInit() {
-    this.appBar.commanBarItems.subscribe(items => this.commandBarButtons = items);
   }
 
 }

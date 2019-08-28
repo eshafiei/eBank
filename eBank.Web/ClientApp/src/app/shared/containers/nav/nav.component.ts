@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AppRoute } from './../../models/app-route.interface';
 
+import { CommandBarItem } from '../../models/command-bar-item.interface';
+
+// local services
+import { AppBarService } from '../../services/app-bar.service';
+
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -9,7 +14,8 @@ import { AppRoute } from './../../models/app-route.interface';
 export class NavComponent implements OnInit {
   appRoutes: AppRoute[];
   toggle: boolean;
-  constructor() { }
+  commandBarButtons: CommandBarItem[];
+  constructor(private appBar: AppBarService) { }
 
   ngOnInit() {
     this.appRoutes = [
@@ -54,6 +60,7 @@ export class NavComponent implements OnInit {
         ]
       }
     ];
+    this.appBar.commanBarItems.subscribe(items => this.commandBarButtons = items);
   }
 
   toggleNav() {

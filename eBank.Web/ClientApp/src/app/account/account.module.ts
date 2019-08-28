@@ -10,7 +10,7 @@ import { MaterialModule } from '../material.module';
 // local components
 
 import { AccountSummaryComponent } from './components/account-summary/account-summary.component';
-import { AddAccountComponent } from './components/add-account/add-account.component';
+import { NewAccountComponent } from './containers/new-account/new-account.component';
 import { AccountDashboardComponent } from './containers/account-dashboard/account-dashboard.component';
 
 // local services & modules
@@ -22,7 +22,7 @@ import { SharedModule } from '../shared/modules/shared.module';
   declarations: [
     AccountDashboardComponent,
     AccountSummaryComponent,
-    AddAccountComponent
+    NewAccountComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +30,7 @@ import { SharedModule } from '../shared/modules/shared.module';
     ReactiveFormsModule,
     RouterModule.forChild([
       { path: 'account', component: AccountDashboardComponent },
-      { path: 'createaccount', component: AddAccountComponent }
+      { path: 'createaccount', component: NewAccountComponent }
     ]),
     BrowserAnimationsModule,
     MaterialModule,

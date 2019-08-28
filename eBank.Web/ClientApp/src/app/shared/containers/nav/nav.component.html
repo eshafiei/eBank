@@ -1,6 +1,6 @@
 <app-navigation-bar (toggleSidenav)="toggleNav()">
 </app-navigation-bar>
-<app-command-bar>
+<app-command-bar [commandBarButtons]="commandBarButtons">
 </app-command-bar>
 <app-side-nav [toggleSideNav]="toggle" [appRoutes]="appRoutes">
     <div class="container">

@@ -5,26 +5,31 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { NGXLogger } from 'ngx-logger';
 
-import { AccountService } from './../../services/account.service';
+import { AccountService } from '../../services/account.service';
 import { AccountType } from '../../models/account-type.enum';
-import { AccountStatus } from '../../models/account-status.enum';
 
 @Component({
-  selector: 'app-add-account',
-  styleUrls: ['./add-account.component.scss'],
-  templateUrl: './add-account.component.html'
+  selector: 'app-new-account',
+  styleUrls: ['./new-account.component.scss'],
+  templateUrl: './new-account.component.html'
 })
-export class AddAccountComponent implements OnInit {
+export class NewAccountComponent implements OnInit {
   accountType: typeof AccountType = AccountType;
   accountTypeItems: string[] = [];
+  isLinear: true;
   userId = 1;
 
   form = this.fb.group({
+    personal: this.fb.group({
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]]
+    }),
     account: this.fb.group({
       accountType: ['', [Validators.required]],
       accountNumber: ['', [Validators.required]],
       balance: [],
       accountStatus: [null, Validators.required],
+      accountAgreement: [null, Validators.required],
       userId: this.userId
     })
   });
@@ -46,6 +51,10 @@ export class AddAccountComponent implements OnInit {
 
   get f() {
     return (this.form.controls.account as FormGroup).controls;
+  }
+
+  get a() {
+    return (this.form.controls.personal as FormGroup).controls;
   }
 
   createAccount() {

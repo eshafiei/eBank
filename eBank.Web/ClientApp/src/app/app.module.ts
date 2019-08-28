@@ -11,13 +11,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 
-// angular material modules
-import { MaterialModule } from './material.module';
-import { FlexLayoutModule } from '@angular/flex-layout';
-
 // local modules & interceptors
 import { AuthenticationModule } from './authentication/authentication.module';
-import { AccountModule } from './accounts-dashboard/account.module';
+import { AccountModule } from './account/account.module';
 import { httpInterceptorProviders } from './shared/http-interceptors';
 
 // local components
@@ -25,16 +21,10 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
 import { SideNavComponent } from './shared/components/side-nav/side-nav.component';
 import { NavigationBarComponent } from './shared/components/navigation-bar/navigation-bar.component';
 import { NavComponent } from './shared/containers/nav/nav.component';
 import { SharedModule } from './shared/modules/shared.module';
-import { AccountDashboardComponent } from './accounts-dashboard/containers/account-dashboard/account-dashboard.component';
 
 // local services
 
@@ -64,18 +54,10 @@ const routes: Routes = [
     NgxSpinnerModule,
     ToastrModule.forRoot(),
     LoggerModule.forRoot({serverLoggingUrl: '/api/log/addlog', level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.ERROR}),
-    // angular material module
-    MaterialModule,
-    FlexLayoutModule,
     // local modules
     AuthenticationModule,
     AccountModule,
     LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
     SharedModule
   ],
   providers: [
