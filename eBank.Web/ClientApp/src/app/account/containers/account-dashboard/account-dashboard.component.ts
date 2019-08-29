@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-// local components
-import { Account } from '../../models/Account.interface';
-import { CommandBarItem } from 'src/app/shared/models/command-bar-item.interface';
-
-// local services
+// local services & interfaces
 import { AccountService } from '../../services/account.service';
 import { AppBarService } from 'src/app/shared/services/app-bar.service';
+import { Account } from '../../models/Account.interface';
+import { CommandBarItem } from 'src/app/shared/models/command-bar-item.interface';
 
 @Component({
     selector: 'app-account-dashboard',

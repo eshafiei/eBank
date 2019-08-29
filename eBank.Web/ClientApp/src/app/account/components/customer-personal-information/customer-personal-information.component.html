@@ -1,0 +1,26 @@
+<form [formGroup]="parent" novalidate>  
+  <div formGroupName="personal">
+    <h4>Personal information</h4>
+    <hr />
+    <div class="row">        
+        <mat-form-field class="col-5" appearance="outline">
+            <mat-label for="firstName">First name</mat-label>
+            <input matInput
+              type="text"
+              formControlName="firstName"
+              placeholder="First name">
+            <mat-error *ngIf="a.firstName?.hasError('required')">First name is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-5" appearance="outline">
+            <mat-label for="lastName">Last name</mat-label>
+            <input matInput
+              type="text"
+              placeholder="Last name"
+              formControlName="lastName">
+            <mat-error *ngIf="a.lastName?.hasError('required')">Last name is required</mat-error>
+        </mat-form-field>
+      </div>
+  </div>        
+</form>

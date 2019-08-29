@@ -1,0 +1,18 @@
+<form [formGroup]="parent" novalidate>
+  <div formGroupName="account">
+    <h4>Account Terms & Conditions</h4>
+    <hr />
+    <div class="row mb-2 p-3">
+      <p>AGREEMENT - This document, along with any other documents we give you pertaining to your account(s), is a contract that establishes rules, 
+        which control your account(s) with us. Please read this carefully. If you sign the signature card or open or continue to have your account with us, 
+        you agree to these rules. You will receive a separate schedule of rates, qualifying balances, and fees if they are not included in this document. 
+        If you have any questions, please call us.
+      </p>
+    </div>
+    <div class="row mb-3">
+      <section class="col-3">
+        <mat-checkbox formControlName="accountAgreement">I agree with all terms and conditions of this agreement.</mat-checkbox>
+      </section>
+    </div>
+  </div>
+</form>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { AppRoute } from './../../models/app-route.interface';
 
 import { CommandBarItem } from '../../models/command-bar-item.interface';
@@ -11,11 +11,12 @@ import { AppBarService } from '../../services/app-bar.service';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
-export class NavComponent implements OnInit {
+export class NavComponent implements OnInit, AfterViewInit {
   appRoutes: AppRoute[];
   toggle: boolean;
   commandBarButtons: CommandBarItem[];
-  constructor(private appBar: AppBarService) { }
+  constructor(private appBar: AppBarService,
+    private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.appRoutes = [
@@ -60,7 +61,13 @@ export class NavComponent implements OnInit {
         ]
       }
     ];
-    this.appBar.commanBarItems.subscribe(items => this.commandBarButtons = items);
+  }
+
+  ngAfterViewInit() {
+    this.appBar.commanBarItems.subscribe(items => {
+      this.commandBarButtons = items;
+      this.cd.detectChanges();
+    });
   }
 
   toggleNav() {
