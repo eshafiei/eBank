@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace eBank.DataAccess.Models.Logging
+namespace eBank.DataAccess.Models
 {
-    public class LogHistoryModel
+    public class LogModel
     {
         public string FileName { get; set; }
 

@@ -15,17 +15,21 @@ import { MatStepper } from '@angular/material';
 })
 export class NewAccountComponent implements OnInit {
   userId = 1;
+  customerId = 3;
   newAccountForm = this.fb.group({
-    personal: this.fb.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]]
-    }),
     account: this.fb.group({
       accountType: ['', [Validators.required]],
       accountNumber: ['', [Validators.required]],
       balance: [],
       accountStatus: [null, Validators.required],
       accountAgreement: [null, Validators.required],
+      customerId: this.customerId
+    }),
+    customer: this.fb.group({
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      dateOfBirth: ['', Validators.required],
+      legalStatus: ['', Validators.required],
       userId: this.userId
     })
   });
@@ -47,7 +51,7 @@ export class NewAccountComponent implements OnInit {
 
   createAccount() {
     this.stepper.steps.forEach(step => step.editable = false);
-    this.accountService.createAccount(this.newAccountForm.value.account)
+    this.accountService.createAccount(this.newAccountForm.value)
       .subscribe(response => {
         this.toastr.success('account created successfuly!', 'Account');
         this.router.navigateByUrl('/account');

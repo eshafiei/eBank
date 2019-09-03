@@ -1,10 +1,9 @@
-using eBank.DataAccess.Models;
-using eBank.DataAccess.Services.AccountManagement;
+using eBank.DataAccess;
+using eBank.DataAccess.Services.Account;
 using eBank.DataAccess.Services.Log;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;

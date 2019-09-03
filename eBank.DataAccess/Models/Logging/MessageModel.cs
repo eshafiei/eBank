@@ -1,4 +1,4 @@
-﻿namespace eBank.DataAccess.Models.Logging
+﻿namespace eBank.DataAccess.Models
 {
     public class MessageModel
     {

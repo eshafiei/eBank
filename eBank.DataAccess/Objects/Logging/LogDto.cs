@@ -1,12 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace eBank.DataAccess.Objects.Logging
+namespace eBank.DataAccess.Objects
 {
     public class LogDto
     {
         [Key]
-        public long Id { get; set; }
+        public int LogId { get; set; }
 
         public string Message { get; set; }
 
@@ -24,6 +24,6 @@ namespace eBank.DataAccess.Objects.Logging
 
         public string FileName { get; set; }
 
-        public long UserId { get; set; }
+        public int UserId { get; set; }
     }
 }

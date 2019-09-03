@@ -20,8 +20,8 @@ export class AccountDashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-      const userId = 1;
-      this.accountsInfo = this.accountService.getAccounts(userId);
+      const customerId = 3;
+      this.accountsInfo = this.accountService.getAccounts(customerId);
       const commandBarButtons: CommandBarItem[] = [
         {
           title: 'Transfer Money',

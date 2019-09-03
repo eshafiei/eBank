@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using eBank.DataAccess.Models.Logging;
-using eBank.DataAccess.Objects.Logging;
-using eBank.DataAccess.Services.Log;
-using Microsoft.AspNetCore.Http;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using eBank.DataAccess.Models;
+using eBank.DataAccess.Services.Log;
 
 namespace eBank.Web.Controllers
 {
@@ -21,8 +16,8 @@ namespace eBank.Web.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task AddLog([FromBody] LogHistoryModel logInfo) {
-            await _logService.AddLogAsync(logInfo);
+        public async Task AddLog([FromBody] LogModel logModel) {
+            await _logService.AddLogAsync(logModel);
         }
     }
 }

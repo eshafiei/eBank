@@ -1,8 +1,7 @@
-﻿using eBank.DataAccess.Models;
-using eBank.DataAccess.Models.Logging;
-using eBank.DataAccess.Objects.Logging;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Threading.Tasks;
+using eBank.DataAccess.Models;
+using eBank.DataAccess.Objects;
 
 namespace eBank.DataAccess.Services.Log
 {
@@ -14,7 +13,7 @@ namespace eBank.DataAccess.Services.Log
             _eBankContext = eBankContext;
         }
 
-        public async Task<int> AddLogAsync(LogHistoryModel logInfo)
+        public async Task<int> AddLogAsync(LogModel logInfo)
         {
             var messageInfo = JsonConvert.DeserializeObject<MessageModel>(logInfo.Message);
 

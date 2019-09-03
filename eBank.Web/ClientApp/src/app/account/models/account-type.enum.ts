@@ -3,5 +3,5 @@ export enum AccountType {
     JointChecking = 1,
     Saving = 2,
     Credit = 3,
-    Mortgage = 4    
+    Mortgage = 4
 }

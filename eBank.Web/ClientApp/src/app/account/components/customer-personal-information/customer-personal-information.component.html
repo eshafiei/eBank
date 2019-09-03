@@ -1,5 +1,5 @@
 <form [formGroup]="parent" novalidate>  
-  <div formGroupName="personal">
+  <div formGroupName="customer">
     <h4>Personal information</h4>
     <hr />
     <div class="row">        
@@ -21,6 +21,31 @@
               formControlName="lastName">
             <mat-error *ngIf="a.lastName?.hasError('required')">Last name is required</mat-error>
         </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-5" appearance="outline">
+            <mat-label for="dateOfBirth">Date of birth</mat-label>
+            <input matInput
+              [matDatepicker]="picker"
+              placeholder="Date of birth"
+              formControlName="dateOfBirth">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="a.dateOfBirth?.hasError('required')">Date of birth is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+          <mat-form-field class="col-5" appearance="outline">
+            <mat-label for="legalStatus">Legal status</mat-label>
+            <mat-select formControlName="legalStatus">
+              <mat-option
+                *ngFor="let item of legalStatusItems"
+                [value]="legalStatus[item]">
+                {{ item }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="a.legalStatus?.hasError('required')">Legal status is required</mat-error>
+          </mat-form-field>
       </div>
   </div>        
 </form>

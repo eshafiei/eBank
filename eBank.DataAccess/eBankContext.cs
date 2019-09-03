@@ -1,8 +1,7 @@
-﻿using eBank.DataAccess.Objects.AccountManagement;
-using eBank.DataAccess.Objects.Logging;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using eBank.DataAccess.Objects;
 
-namespace eBank.DataAccess.Models
+namespace eBank.DataAccess
 {
     public class EBankContext : DbContext
     {
@@ -11,7 +10,11 @@ namespace eBank.DataAccess.Models
         {
         }
 
+        public DbSet<UserDto> Users { get; set; }
+
         public DbSet<AccountDto> Accounts { get; set; }
+
+        public DbSet<CustomerDto> Customers { get; set; }
 
         public DbSet<LogDto> Logs { get; set; }
 

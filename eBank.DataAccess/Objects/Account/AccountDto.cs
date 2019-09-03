@@ -1,12 +1,13 @@
-﻿using eBank.DataAccess.Models.AccountManagement;
+﻿using eBank.DataAccess.Models;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace eBank.DataAccess.Objects.AccountManagement
+namespace eBank.DataAccess.Objects
 {
     public class AccountDto
     {
         [Key]
-        public int? Id { get; set; }
+        public int AccountId { get; set; }
         
         public long AccountNumber { get; set; }
 
@@ -16,16 +17,20 @@ namespace eBank.DataAccess.Objects.AccountManagement
 
         public bool AccountStatus { get; set; }
 
-        public long UserId { get; set; }
+        public int CustomerId { get; set; }
 
-        public AccountDto() {}
+        [ForeignKey("CustomerId")]
+        public CustomerDto Customer { get; set; }
 
-        public AccountDto(AccountModel model) {
+        public AccountDto() { }
+
+        public AccountDto(AccountModel model)
+        {
             AccountNumber = model.AccountNumber;
             AccountType = model.AccountType;
             Balance = model.Balance;
             AccountStatus = model.AccountStatus;
-            UserId = model.UserId;
+            CustomerId = model.CustomerId;
         }
     }
 }

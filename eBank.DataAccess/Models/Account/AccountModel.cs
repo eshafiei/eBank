@@ -1,5 +1,5 @@
 ﻿
-namespace eBank.DataAccess.Models.AccountManagement
+namespace eBank.DataAccess.Models
 {
     public class AccountModel
     {
@@ -11,6 +11,6 @@ namespace eBank.DataAccess.Models.AccountManagement
 
         public bool AccountStatus { get; set; }
 
-        public long UserId { get; set; }
+        public int CustomerId { get; set; }
     }
 }
