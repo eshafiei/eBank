@@ -1,8 +1,8 @@
 export interface Account {
-    id?: number;
+    accountId?: number;
     accountNumber: number;
     accountType: number;
     balance: number;
     accountStatus: boolean;
-    userId: number;
+    customerId: number;
 }

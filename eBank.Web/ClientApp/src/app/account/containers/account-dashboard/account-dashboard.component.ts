@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 // local services & interfaces
 import { AccountService } from '../../services/account.service';
 import { AppBarService } from 'src/app/shared/services/app-bar.service';
-import { Account } from '../../models/Account.interface';
+import { Account } from '../../models/account.interface';
 import { CommandBarItem } from 'src/app/shared/models/command-bar-item.interface';
 
 @Component({

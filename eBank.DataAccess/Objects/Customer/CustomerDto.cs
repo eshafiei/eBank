@@ -1,4 +1,5 @@
-﻿using eBank.DataAccess.Models;
+﻿using eBank.DataAccess.Enums.Account;
+using eBank.DataAccess.Models;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -32,6 +33,17 @@ namespace eBank.DataAccess.Objects
             DateOfBirth = model.DateOfBirth;
             LegalStatus = (int) model.LegalStatus;
             UserId = model.UserId;
+        }
+
+        public CustomerModel ToModel() {
+            return new CustomerModel
+            {
+                FirstName = FirstName,
+                LastName = LastName,
+                DateOfBirth = DateOfBirth,
+                LegalStatus = (LegalStatus)LegalStatus,
+                UserId = UserId
+            };
         }
     }
 }

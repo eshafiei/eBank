@@ -22,4 +22,8 @@ export class SideNavComponent implements OnInit, OnChanges {
       this.navigationSideNav.toggle();
     }
   }
+
+  closeSideNav() {
+    this.navigationSideNav.close();
+  }
 }

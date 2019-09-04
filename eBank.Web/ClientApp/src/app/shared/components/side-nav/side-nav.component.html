@@ -4,8 +4,8 @@
       <h5 matSubheader>{{ appRoute.routeHeader }}</h5>
       <a *ngFor="let item of appRoute.routeItems" 
         mat-list-item 
-        (click)="navigationSidenav.close()"
-        [routerLink]='[item.route]'
+        (click)="closeSideNav()"
+        [routerLink]="item.route"
         routerLinkActive="list-item-active">
         <mat-icon matListIcon class="app-nav-list-icon"> {{ item.icon }} </mat-icon>
         <small>{{ item.title }}</small>

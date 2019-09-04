@@ -9,6 +9,8 @@ namespace eBank.DataAccess.Services.Account
     {
         Task<IEnumerable<AccountModel>> GetAccounts(int customerId);
 
+        Task<CustomerModel> GetCustomer(int customerId);
+
         Task<int> CreateAccount(AccountViewModel accountViewModel);
     }
 }

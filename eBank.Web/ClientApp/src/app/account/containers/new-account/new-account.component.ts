@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NGXLogger } from 'ngx-logger';
 
 import { AccountService } from '../../services/account.service';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MatStepper } from '@angular/material';
 
 @Component({
@@ -41,12 +41,27 @@ export class NewAccountComponent implements OnInit {
               private fb: FormBuilder) {}
 
   ngOnInit() {
+    this.loadData(this.customerId);
   }
 
   stepperNext() {
     // complete the current step
     this.stepper.selected.completed = true;
     this.stepper.next();
+  }
+
+  loadData(customerId: number) {
+    this.accountService.getCustomer(customerId)
+      .subscribe(data => {
+        const customer = this.newAccountForm.controls.customer as FormGroup;
+        customer.setValue({
+          firstName: data.firstName,
+          lastName: data.lastName,
+          dateOfBirth: data.dateOfBirth,
+          legalStatus: data.legalStatus,
+          userId: data.userId
+        });
+      });
   }
 
   createAccount() {

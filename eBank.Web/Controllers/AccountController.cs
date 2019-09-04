@@ -24,6 +24,13 @@ namespace eBank.Web.Controllers
             return await _accountService.GetAccounts(customerId);
         }
 
+        [HttpGet("[action]/{customerId}")]
+        public async Task<CustomerModel> GetCustomer(int customerId)
+        {
+            return await _accountService.GetCustomer(customerId);
+        }
+
+
         [HttpPost("[action]")]
         public async Task<int> CreateAccount([FromBody] AccountViewModel account)
         {
