@@ -10,13 +10,14 @@ import { CommandBarComponent } from '../components/command-bar/command-bar.compo
 
 // local services
 import { AppBarService } from './../services/app-bar.service';
-
+import { RouterModule, Routes } from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    RouterModule,
   ],
   declarations: [CommandBarComponent],
   providers: [AppBarService],

@@ -21,6 +21,11 @@
             <mat-icon>person_outline</mat-icon>
           </button>
           <mat-menu #auth="matMenu">
+            <button mat-menu-item
+              [routerLink]="['/updatecustomer/']">
+              <mat-icon>edit</mat-icon>
+              Update account
+            </button>
             <button mat-menu-item>
               <mat-icon>exit_to_app</mat-icon>
               Sign out

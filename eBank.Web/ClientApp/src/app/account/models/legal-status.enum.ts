@@ -1,5 +1,5 @@
 export enum LegalStatus {
-    Citizen = 0,
-    PermanentResident = 1,
-    NonResident = 2
+    'Citizen' = 0,
+    'Permanent Resident' = 1,
+    'Non Resident' = 2
 }

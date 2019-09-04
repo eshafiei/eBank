@@ -3,7 +3,7 @@
     <button *ngFor="let item of commandBarButtons"
       mat-button 
       class="command-bar-button" 
-      [disabled]="false">
+      [routerLink]="item.route">
       <mat-icon>{{ item.icon }}</mat-icon>
       {{ item.title }}
     </button>

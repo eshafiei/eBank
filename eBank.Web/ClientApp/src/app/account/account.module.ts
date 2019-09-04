@@ -20,6 +20,11 @@ import { AccountTermsComponent } from './components/account-terms/account-terms.
 import { AccountService } from './services/account.service';
 import { SharedModule } from '../shared/modules/shared.module';
 
+const routes = [
+  { path: 'account', component: AccountDashboardComponent },
+  { path: 'createaccount', component: NewAccountComponent },
+  { path: 'updatecustomer', component: CustomerPersonalInformationComponent },
+];
 
 @NgModule({
   declarations: [
@@ -34,10 +39,7 @@ import { SharedModule } from '../shared/modules/shared.module';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forChild([
-      { path: 'account', component: AccountDashboardComponent },
-      { path: 'createaccount', component: NewAccountComponent }
-    ]),
+    RouterModule.forChild(routes),
     BrowserAnimationsModule,
     MaterialModule,
     SharedModule

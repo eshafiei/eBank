@@ -24,16 +24,24 @@ export class AccountDashboardComponent implements OnInit {
       this.accountsInfo = this.accountService.getAccounts(customerId);
       const commandBarButtons: CommandBarItem[] = [
         {
+          title: 'Account Summary',
+          icon: 'list',
+          route: '/account'
+        },
+        {
           title: 'Transfer Money',
-          icon: 'swap_horiz'
+          icon: 'swap_horiz',
+          route: '/transfer'
         },
         {
           title: 'Pay Bills',
-          icon: 'money'
+          icon: 'money',
+          route: '/billpay'
         },
         {
           title: 'Account Services',
-          icon: 'work'
+          icon: 'work',
+          route: '/accountservices'
         }
       ];
       this.appBar.updateAppBar(commandBarButtons);
