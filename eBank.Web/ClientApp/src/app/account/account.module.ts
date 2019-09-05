@@ -12,8 +12,8 @@ import { MaterialModule } from '../material.module';
 import { AccountSummaryComponent } from './components/account-summary/account-summary.component';
 import { NewAccountComponent } from './containers/new-account/new-account.component';
 import { AccountDashboardComponent } from './containers/account-dashboard/account-dashboard.component';
-import { CustomerPersonalInformationComponent } from './components/customer-personal-information/customer-personal-information.component';
-import { CustomerAccountInformationComponent } from './components/customer-account-information/customer-account-information.component';
+import { AccountBasicComponent } from './components/account-basic/account-basic.component';
+import { AccountDetailComponent } from './components/account-detail/account-detail.component';
 import { AccountTermsComponent } from './components/account-terms/account-terms.component';
 
 // local services & modules
@@ -22,8 +22,7 @@ import { SharedModule } from '../shared/modules/shared.module';
 
 const routes = [
   { path: 'account', component: AccountDashboardComponent },
-  { path: 'createaccount', component: NewAccountComponent },
-  { path: 'updatecustomer', component: CustomerPersonalInformationComponent },
+  { path: 'createaccount', component: NewAccountComponent }
 ];
 
 @NgModule({
@@ -31,8 +30,8 @@ const routes = [
     AccountDashboardComponent,
     AccountSummaryComponent,
     NewAccountComponent,
-    CustomerPersonalInformationComponent,
-    CustomerAccountInformationComponent,
+    AccountBasicComponent,
+    AccountDetailComponent,
     AccountTermsComponent
   ],
   imports: [

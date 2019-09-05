@@ -1,14 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { AccountType } from '../../models/account-type.enum';
+import { AccountType } from '../../enums/account-type.enum';
 
 @Component({
-  selector: 'app-customer-account-information',
-  templateUrl: './customer-account-information.component.html',
-  styleUrls: ['./customer-account-information.component.scss']
+  selector: 'app-account-detail',
+  templateUrl: './account-detail.component.html',
+  styleUrls: ['./account-detail.component.scss']
 })
-export class CustomerAccountInformationComponent implements OnInit {
-  @Input() parent: FormGroup;
+export class AccountDetailComponent implements OnInit {
+  @Input() form: FormGroup;
   accountType: typeof AccountType = AccountType;
   accountTypeItems: string[] = [];
   constructor() { }
@@ -19,6 +19,6 @@ export class CustomerAccountInformationComponent implements OnInit {
   }
 
   get f() {
-    return (this.parent.controls.account as FormGroup).controls;
+    return this.form.controls;
   }
 }

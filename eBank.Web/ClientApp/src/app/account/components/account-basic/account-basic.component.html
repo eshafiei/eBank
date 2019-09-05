@@ -1,0 +1,65 @@
+<form [formGroup]="form" novalidate>
+  <div class="card">
+    <div class="card-header">Basic information</div>
+    <div class="card-body">
+      <div class="row">        
+        <mat-form-field class="col-12" appearance="outline">
+            <mat-label for="firstName">First name</mat-label>
+            <input matInput
+              type="text"
+              formControlName="firstName"
+              placeholder="First name">
+            <mat-error *ngIf="f.firstName?.hasError('required')">First name is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-12" appearance="outline">
+            <mat-label for="lastName">Last name</mat-label>
+            <input matInput
+              type="text"
+              placeholder="Last name"
+              formControlName="lastName">
+            <mat-error *ngIf="f.lastName?.hasError('required')">Last name is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-12" appearance="outline">
+            <mat-label for="dateOfBirth">Date of birth</mat-label>
+            <input matInput
+              [matDatepicker]="picker"
+              placeholder="Date of birth"
+              formControlName="dateOfBirth">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="f.dateOfBirth?.hasError('required')">Date of birth is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+          <mat-form-field class="col-12" appearance="outline">
+            <mat-label for="legalStatus">Legal status</mat-label>
+            <mat-select formControlName="legalStatus">
+              <mat-option
+                *ngFor="let item of legalStatusItems"
+                [value]="legalStatus[item]">
+                {{ item }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="f.legalStatus?.hasError('required')">Legal status is required</mat-error>
+          </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-12" appearance="outline">
+          <mat-label for="legalStatus">Marital status</mat-label>
+          <mat-select formControlName="maritalStatus">
+            <mat-option
+              *ngFor="let item of maritalStatusItems"
+              [value]="maritalStatus[item]">
+              {{ item }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="f.maritalStatus?.hasError('required')">Marital status is required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</form>

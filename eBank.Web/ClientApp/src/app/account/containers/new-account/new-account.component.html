@@ -4,19 +4,26 @@
     <mat-horizontal-stepper linear #stepper>
       <mat-step [stepControl]="customer" completed="false">
         <ng-template matStepLabel>About you</ng-template>
-        <div class="mt-3 mb-3">
-          <app-customer-personal-information [parent]="newAccountForm"></app-customer-personal-information>
-        </div>
-        <button mat-stroked-button color="primary" class="mr-2 col-2" (click)="stepperNext()">Next</button>
+        <div class="container">
+          <div class="row">
+            <div class="col-6">
+                <app-account-basic [form]="newAccountForm.controls.customer"></app-account-basic>
+            </div>
+            <div class="col-6">
+                <app-address [form]="newAccountForm.controls.address"></app-address>
+            </div>            
+          </div>
+          <button mat-stroked-button color="primary" class="mt-4 col-3 pull-right" (click)="stepperNext()">Next</button>
+        </div>       
       </mat-step>
       <mat-step [stepControl]="account" completed="false">
         <ng-template matStepLabel>Account options</ng-template>
         <div class="mt-3 mb-3">
-          <app-customer-account-information [parent]="newAccountForm"></app-customer-account-information>
+          <app-account-detail [form]="newAccountForm.controls.account"></app-account-detail>
         </div>
         <div>
-          <button mat-stroked-button color="warn" class="mr-2 col-2" matStepperPrevious>Back</button>
-          <button mat-stroked-button color="primary" class="mr-2 col-2" (click)="stepperNext()">Next</button>
+          <button mat-stroked-button color="primary" class="mt-4 col-3 pull-right" (click)="stepperNext()">Next</button>
+          <button mat-stroked-button color="warn" class="mt-4 mr-3 col-3 pull-right" matStepperPrevious>Back</button>
         </div>
       </mat-step>
       <mat-step [completed]="stepperCompleted">
@@ -25,15 +32,13 @@
           <app-account-terms [parent]="newAccountForm"></app-account-terms>
         </div>
         <div>
-          <button mat-stroked-button color="warn" class="mr-2 col-2" matStepperPrevious>Back</button>
           <button mat-raised-button
-                  color="primary"
-                  class="mr-2 col-2"
-                  type="button"
-                  [disabled]="newAccountForm.invalid"
-                  (click)="stepperNext();createAccount();">
-            Create
-          </button>
+            color="primary"
+            class="mt-4 col-3 pull-right"
+            type="button"
+            [disabled]="newAccountForm.invalid"
+            (click)="stepperNext();createAccount();">Create</button>
+          <button mat-stroked-button color="warn" class="mr-3 mt-4 col-3 pull-right" matStepperPrevious>Back</button>          
         </div>
       </mat-step>
       <mat-step>
@@ -45,9 +50,7 @@
           <button mat-stroked-button
                   color="accent"
                   class="mr-2 col-2"
-                  [routerLink]="['/account']">
-            Done
-          </button>
+                  [routerLink]="['/account']">Done</button>
         </div>
       </mat-step>
     </mat-horizontal-stepper>

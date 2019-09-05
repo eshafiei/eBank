@@ -31,6 +31,14 @@ export class NewAccountComponent implements OnInit {
       dateOfBirth: ['', Validators.required],
       legalStatus: ['', Validators.required],
       userId: this.userId
+    }),
+    address: this.fb.group({
+      address1: ['', Validators.required],
+      address2: '',
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      zip: ['', Validators.required],
+      country: ['', Validators.required]
     })
   });
   @ViewChild('stepper', null) stepper: MatStepper;

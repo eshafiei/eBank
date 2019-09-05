@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { AccountType } from '../../models/account-type.enum';
+import { AccountType } from '../../enums/account-type.enum';
 import { Account } from '../../models/account.interface';
 
 @Component({

@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // local modules
 import { MaterialModule } from 'src/app/material.module';
 
 // local components
 import { CommandBarComponent } from '../components/command-bar/command-bar.component';
+import { AddressComponent } from './../components/address/address.component';
 
 // local services
 import { AppBarService } from './../services/app-bar.service';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -18,13 +20,19 @@ import { RouterModule, Routes } from '@angular/router';
     MaterialModule,
     FlexLayoutModule,
     RouterModule,
+    ReactiveFormsModule
   ],
-  declarations: [CommandBarComponent],
+  declarations: [
+    CommandBarComponent,
+    AddressComponent
+  ],
   providers: [AppBarService],
   exports: [
     CommandBarComponent,
+    AddressComponent,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ReactiveFormsModule
   ]
 })
 export class SharedModule { }
