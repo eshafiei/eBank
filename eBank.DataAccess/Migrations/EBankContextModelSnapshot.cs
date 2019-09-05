@@ -19,7 +19,7 @@ namespace eBank.DataAccess.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("eBank.DataAccess.Objects.AccountManagement.AccountDto", b =>
+            modelBuilder.Entity("eBank.DataAccess.Models.AccountModel", b =>
                 {
                     b.Property<int>("AccountId")
                         .ValueGeneratedOnAdd()
@@ -44,7 +44,7 @@ namespace eBank.DataAccess.Migrations
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("eBank.DataAccess.Objects.Customer.CustomerDto", b =>
+            modelBuilder.Entity("eBank.DataAccess.Models.CustomerModel", b =>
                 {
                     b.Property<int>("CustomerId")
                         .ValueGeneratedOnAdd()
@@ -67,7 +67,7 @@ namespace eBank.DataAccess.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("eBank.DataAccess.Objects.Logging.LogDto", b =>
+            modelBuilder.Entity("eBank.DataAccess.Models.LogModel", b =>
                 {
                     b.Property<int>("LogId")
                         .ValueGeneratedOnAdd()
@@ -96,7 +96,7 @@ namespace eBank.DataAccess.Migrations
                     b.ToTable("Logs");
                 });
 
-            modelBuilder.Entity("eBank.DataAccess.Objects.User.UserDto", b =>
+            modelBuilder.Entity("eBank.DataAccess.Models.UserModel", b =>
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
@@ -115,17 +115,17 @@ namespace eBank.DataAccess.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("eBank.DataAccess.Objects.AccountManagement.AccountDto", b =>
+            modelBuilder.Entity("eBank.DataAccess.Models.AccountModel", b =>
                 {
-                    b.HasOne("eBank.DataAccess.Objects.Customer.CustomerDto", "Customer")
+                    b.HasOne("eBank.DataAccess.Models.CustomerModel", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("eBank.DataAccess.Objects.Customer.CustomerDto", b =>
+            modelBuilder.Entity("eBank.DataAccess.Models.CustomerModel", b =>
                 {
-                    b.HasOne("eBank.DataAccess.Objects.User.UserDto", "User")
+                    b.HasOne("eBank.DataAccess.Models.UserModel", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using eBank.DataAccess.Models;
-using eBank.DataAccess.Objects;
 using eBank.DataAccess.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,10 +25,9 @@ namespace eBank.DataAccess.Services.Account
                 customer.FirstName = accountViewModel.Customer.FirstName;
                 customer.LastName = accountViewModel.Customer.LastName;
                 customer.DateOfBirth = accountViewModel.Customer.DateOfBirth;
-                customer.LegalStatus = (int) accountViewModel.Customer.LegalStatus;
+                customer.LegalStatus = accountViewModel.Customer.LegalStatus;
             }
-            var accountDto = new AccountDto(accountViewModel.Account);
-            _eBankContext.Accounts.Add(accountDto);            
+            _eBankContext.Accounts.Add(accountViewModel.Account);            
             return await _eBankContext.SaveChangesAsync();
         }
 
@@ -41,7 +39,7 @@ namespace eBank.DataAccess.Services.Account
                 return null;
             }
 
-            return customer.ToModel();
+            return customer;
         }
 
         public async Task<IEnumerable<AccountModel>> GetAccounts(int customerId)

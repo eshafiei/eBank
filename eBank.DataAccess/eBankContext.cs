@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using eBank.DataAccess.Objects;
+using eBank.DataAccess.Models;
 
 namespace eBank.DataAccess
 {
@@ -10,17 +10,17 @@ namespace eBank.DataAccess
         {
         }
 
-        public DbSet<UserDto> Users { get; set; }
+        public DbSet<UserModel> Users { get; set; }
 
-        public DbSet<AccountDto> Accounts { get; set; }
+        public DbSet<AccountModel> Accounts { get; set; }
 
-        public DbSet<CustomerDto> Customers { get; set; }
+        public DbSet<CustomerModel> Customers { get; set; }
 
-        public DbSet<LogDto> Logs { get; set; }
+        public DbSet<LogModel> Logs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AccountDto>()
+            modelBuilder.Entity<AccountModel>()
                 .Property(b => b.Balance)
                 .HasDefaultValue(decimal.Zero);
         }

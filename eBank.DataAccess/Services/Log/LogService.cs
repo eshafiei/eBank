@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Threading.Tasks;
 using eBank.DataAccess.Models;
-using eBank.DataAccess.Objects;
 
 namespace eBank.DataAccess.Services.Log
 {
@@ -17,18 +16,18 @@ namespace eBank.DataAccess.Services.Log
         {
             var messageInfo = JsonConvert.DeserializeObject<MessageModel>(logInfo.Message);
 
-            var logDto = new LogDto {
+            var logModel = new LogModel {
                 Message = messageInfo.Message,
                 Error = messageInfo.Error,
                 FileName = logInfo.FileName,
-                LogDate = logInfo.TimeStamp,
+                LogDate = logInfo.LogDate,
                 LineNumber = logInfo.LineNumber,
                 UserId = 1,
                 Url = messageInfo.Url,
                 Status = messageInfo.Status,
                 StatusText = messageInfo.StatusText
             };
-            _eBankContext.Logs.Add(logDto);
+            _eBankContext.Logs.Add(logModel);
             return await _eBankContext.SaveChangesAsync();
         }
     }
