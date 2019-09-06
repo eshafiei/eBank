@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NGXLogger } from 'ngx-logger';
 
 import { AccountService } from '../../services/account.service';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material';
 
 @Component({
@@ -17,31 +17,12 @@ export class NewAccountComponent implements OnInit {
   userId = 1;
   customerId = 3;
   newAccountForm = this.fb.group({
-    account: this.fb.group({
-      accountType: ['', [Validators.required]],
-      accountNumber: ['', [Validators.required]],
-      balance: [],
-      accountStatus: [null, Validators.required],
-      accountAgreement: [null, Validators.required],
-      customerId: this.customerId
-    }),
-    customer: this.fb.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      dateOfBirth: ['', Validators.required],
-      legalStatus: [null, Validators.required],
-      maritalStatus: [null, Validators.required],
-      userId: this.userId
-    }),
-    address: this.fb.group({
-      address1: ['', Validators.required],
-      address2: '',
-      city: ['', Validators.required],
-      state: ['', Validators.required],
-      zip: ['', Validators.required],
-      country: ['', Validators.required],
-      customerId: this.customerId
-    })
+    accountType: ['', [Validators.required]],
+    accountNumber: ['', [Validators.required]],
+    balance: [],
+    accountStatus: [null, Validators.required],
+    accountAgreement: [null, Validators.required],
+    customerId: this.customerId
   });
   @ViewChild('stepper', null) stepper: MatStepper;
   constructor(private accountService: AccountService,
@@ -51,27 +32,12 @@ export class NewAccountComponent implements OnInit {
               private fb: FormBuilder) {}
 
   ngOnInit() {
-    this.loadData(this.customerId);
   }
 
   stepperNext() {
     // complete the current step
     this.stepper.selected.completed = true;
     this.stepper.next();
-  }
-
-  loadData(customerId: number) {
-    this.accountService.getCustomer(customerId)
-      .subscribe(data => {
-        this.newAccountForm.controls.customer.setValue({
-          firstName: data.firstName,
-          lastName: data.lastName,
-          dateOfBirth: data.dateOfBirth,
-          legalStatus: data.legalStatus,
-          maritalStatus: data.maritalStatus,
-          userId: data.userId
-        });
-      });
   }
 
   createAccount() {

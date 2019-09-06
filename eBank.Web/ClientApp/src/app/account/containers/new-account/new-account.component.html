@@ -1,25 +1,11 @@
 <div class="card w-100">
-  <h5 class="card-header">Open new account</h5>
+  <div class="card-header">Open new account</div>
   <div class="card-body">
     <mat-horizontal-stepper linear #stepper>
-      <mat-step [stepControl]="customer" completed="false">
-        <ng-template matStepLabel>About you</ng-template>
-        <div class="container">
-          <div class="row">
-            <div class="col-6">
-                <app-account-basic [form]="newAccountForm.controls.customer"></app-account-basic>
-            </div>
-            <div class="col-6">
-                <app-address [form]="newAccountForm.controls.address"></app-address>
-            </div>            
-          </div>
-          <button mat-stroked-button color="primary" class="mt-4 col-3 pull-right" (click)="stepperNext()">Next</button>
-        </div>       
-      </mat-step>
       <mat-step [stepControl]="account" completed="false">
-        <ng-template matStepLabel>Account options</ng-template>
+        <ng-template matStepLabel>Account detail</ng-template>
         <div class="mt-3 mb-3">
-          <app-account-detail [form]="newAccountForm.controls.account"></app-account-detail>
+          <app-account-detail [form]="newAccountForm"></app-account-detail>
         </div>
         <div>
           <button mat-stroked-button color="primary" class="mt-4 col-3 pull-right" (click)="stepperNext()">Next</button>
@@ -27,7 +13,7 @@
         </div>
       </mat-step>
       <mat-step [completed]="stepperCompleted">
-        <ng-template matStepLabel>Terms</ng-template>
+        <ng-template matStepLabel>Account terms</ng-template>
         <div class="mt-3 mb-3">
           <app-account-terms [parent]="newAccountForm"></app-account-terms>
         </div>
@@ -54,6 +40,6 @@
         </div>
       </mat-step>
     </mat-horizontal-stepper>
-    <!-- <pre>{{this.newAccountForm.value | json}}</pre> -->
+    <pre>{{this.newAccountForm.value | json}}</pre>
   </div>
 </div>

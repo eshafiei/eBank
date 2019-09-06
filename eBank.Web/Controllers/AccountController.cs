@@ -32,7 +32,7 @@ namespace eBank.Web.Controllers
 
 
         [HttpPost("[action]")]
-        public async Task<int> CreateAccount([FromBody] AccountViewModel account)
+        public async Task<int> CreateAccount([FromBody] AccountModel account)
         {
             return await _accountService.CreateAccount(account);
         }

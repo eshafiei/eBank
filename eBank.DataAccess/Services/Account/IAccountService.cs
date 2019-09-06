@@ -11,6 +11,6 @@ namespace eBank.DataAccess.Services.Account
 
         Task<CustomerModel> GetCustomer(int customerId);
 
-        Task<int> CreateAccount(AccountViewModel accountViewModel);
+        Task<int> CreateAccount(AccountModel accountModel);
     }
 }
