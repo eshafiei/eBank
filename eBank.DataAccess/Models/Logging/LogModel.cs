@@ -1,9 +1,10 @@
-﻿using System;
+﻿using eBank.DataAccess.Models.Base;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace eBank.DataAccess.Models
 {
-    public class LogModel
+    public class LogModel : BaseModel
     {
         [Key]
         public int LogId { get; set; }

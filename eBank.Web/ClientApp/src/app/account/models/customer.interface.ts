@@ -4,5 +4,6 @@ export interface Customer {
     lastName: string;
     dateOfBirth: Date;
     legalStatus: number;
+    maritalStatus: number;
     userId: number;
 }

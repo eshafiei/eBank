@@ -1,6 +1,8 @@
-﻿namespace eBank.DataAccess.Models
+﻿using eBank.DataAccess.Models.Base;
+
+namespace eBank.DataAccess.Models
 {
-    public class MessageModel
+    public class MessageModel : BaseModel
     {
         public int Status { get; set; }
 

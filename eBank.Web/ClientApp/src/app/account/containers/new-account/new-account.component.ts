@@ -29,7 +29,8 @@ export class NewAccountComponent implements OnInit {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       dateOfBirth: ['', Validators.required],
-      legalStatus: ['', Validators.required],
+      legalStatus: [null, Validators.required],
+      maritalStatus: [null, Validators.required],
       userId: this.userId
     }),
     address: this.fb.group({
@@ -38,7 +39,8 @@ export class NewAccountComponent implements OnInit {
       city: ['', Validators.required],
       state: ['', Validators.required],
       zip: ['', Validators.required],
-      country: ['', Validators.required]
+      country: ['', Validators.required],
+      customerId: this.customerId
     })
   });
   @ViewChild('stepper', null) stepper: MatStepper;
@@ -61,12 +63,12 @@ export class NewAccountComponent implements OnInit {
   loadData(customerId: number) {
     this.accountService.getCustomer(customerId)
       .subscribe(data => {
-        const customer = this.newAccountForm.controls.customer as FormGroup;
-        customer.setValue({
+        this.newAccountForm.controls.customer.setValue({
           firstName: data.firstName,
           lastName: data.lastName,
           dateOfBirth: data.dateOfBirth,
           legalStatus: data.legalStatus,
+          maritalStatus: data.maritalStatus,
           userId: data.userId
         });
       });

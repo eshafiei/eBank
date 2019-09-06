@@ -18,7 +18,6 @@ namespace eBank.DataAccess.Services.Account
 
         public async Task<int> CreateAccount(AccountViewModel accountViewModel)
         {
-            
             var customer = _eBankContext.Customers
                                         .FirstOrDefault(c => c.CustomerId == accountViewModel.Account.CustomerId);
             if (customer != null) {
@@ -27,7 +26,20 @@ namespace eBank.DataAccess.Services.Account
                 customer.DateOfBirth = accountViewModel.Customer.DateOfBirth;
                 customer.LegalStatus = accountViewModel.Customer.LegalStatus;
             }
-            _eBankContext.Accounts.Add(accountViewModel.Account);            
+
+            var address = _eBankContext.Address
+                                       .FirstOrDefault(a => a.CustomerId == accountViewModel.Address.CustomerId);
+            if (address != null) {
+                address.Address1 = accountViewModel.Address.Address1;
+                address.Address2 = accountViewModel.Address.Address2;
+                address.City = accountViewModel.Address.City;
+                address.State = accountViewModel.Address.State;
+                address.Zip = accountViewModel.Address.Zip;
+                address.Country = accountViewModel.Address.Country;
+            }
+
+            _eBankContext.Accounts.Add(accountViewModel.Account);
+
             return await _eBankContext.SaveChangesAsync();
         }
 

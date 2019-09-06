@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using eBank.DataAccess.Models.Base;
+using System.ComponentModel.DataAnnotations;
 
 namespace eBank.DataAccess.Models
 {
-    public class UserModel
+    public class UserModel : BaseModel
     {
         [Key]
         public int UserId { get; set; }

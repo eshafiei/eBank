@@ -16,6 +16,8 @@ namespace eBank.DataAccess
 
         public DbSet<CustomerModel> Customers { get; set; }
 
+        public DbSet<AddressModel> Address { get; set; }
+
         public DbSet<LogModel> Logs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

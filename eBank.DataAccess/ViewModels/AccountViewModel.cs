@@ -7,5 +7,7 @@ namespace eBank.DataAccess.ViewModels
         public AccountModel Account { get; set; }
 
         public CustomerModel Customer { get; set; }
+
+        public AddressModel Address { get; set; }
     }
 }

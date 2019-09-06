@@ -1,11 +1,11 @@
-﻿using System;
+﻿using eBank.DataAccess.Models.Base;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using eBank.DataAccess.Enums.Account;
 
 namespace eBank.DataAccess.Models
 {
-    public class CustomerModel
+    public class CustomerModel : BaseModel
     {
         [Key]
         public int CustomerId { get; set; }
@@ -16,7 +16,9 @@ namespace eBank.DataAccess.Models
 
         public DateTime DateOfBirth { get; set; }
 
-        public LegalStatus LegalStatus { get; set; }
+        public int LegalStatus { get; set; }
+
+        public int MaritalStatus { get; set; }
 
         public int UserId { get; set; }
 

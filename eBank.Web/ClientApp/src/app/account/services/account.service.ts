@@ -22,6 +22,11 @@ export class AccountService implements OnInit {
                    .get<Customer>(this.baseUrl + 'api/account/getcustomer/' + customerId);
     }
 
+    getAddress(customerId: number): Observable<Customer> {
+        return this.http
+                   .get<Customer>(this.baseUrl + 'api/account/getaddress/' + customerId);
+    }
+
     createAccount(account: Account): Observable<any> {
         return  this.http
                     .post(this.baseUrl + 'api/account/createaccount', account);
