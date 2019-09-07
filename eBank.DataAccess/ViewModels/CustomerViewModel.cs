@@ -2,12 +2,9 @@
 
 namespace eBank.DataAccess.ViewModels
 {
-    public class AccountViewModel
+    public class CustomerViewModel
     {
-        public AccountModel Account { get; set; }
-
         public CustomerModel Customer { get; set; }
-
         public AddressModel Address { get; set; }
     }
 }

@@ -12,7 +12,6 @@ import { MaterialModule } from '../material.module';
 import { AccountSummaryComponent } from './components/account-summary/account-summary.component';
 import { NewAccountComponent } from './containers/new-account/new-account.component';
 import { AccountDashboardComponent } from './containers/account-dashboard/account-dashboard.component';
-import { AccountBasicComponent } from './components/account-basic/account-basic.component';
 import { AccountDetailComponent } from './components/account-detail/account-detail.component';
 import { AccountTermsComponent } from './components/account-terms/account-terms.component';
 
@@ -30,7 +29,6 @@ const routes = [
     AccountDashboardComponent,
     AccountSummaryComponent,
     NewAccountComponent,
-    AccountBasicComponent,
     AccountDetailComponent,
     AccountTermsComponent
   ],

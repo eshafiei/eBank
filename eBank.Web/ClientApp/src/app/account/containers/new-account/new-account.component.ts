@@ -20,8 +20,8 @@ export class NewAccountComponent implements OnInit {
     accountType: ['', [Validators.required]],
     accountNumber: ['', [Validators.required]],
     balance: [],
-    accountStatus: [null, Validators.required],
-    accountAgreement: [null, Validators.required],
+    accountStatus: [null, Validators.requiredTrue],
+    accountAgreement: [null, Validators.requiredTrue],
     customerId: this.customerId
   });
   @ViewChild('stepper', null) stepper: MatStepper;

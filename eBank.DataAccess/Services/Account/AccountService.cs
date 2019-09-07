@@ -21,17 +21,6 @@ namespace eBank.DataAccess.Services.Account
             return await _eBankContext.SaveChangesAsync();
         }
 
-        public async Task<CustomerModel> GetCustomer(int customerId)
-        {
-            var customer = await _eBankContext.Customers.FirstOrDefaultAsync(c => c.CustomerId == customerId);
-
-            if (customer == null) {
-                return null;
-            }
-
-            return customer;
-        }
-
         public async Task<IEnumerable<AccountModel>> GetAccounts(int customerId)
         {
             return await _eBankContext.Accounts
@@ -44,16 +33,6 @@ namespace eBank.DataAccess.Services.Account
                                               Balance = a.Balance,
                                               CustomerId = a.CustomerId})
                                       .ToListAsync();
-
-            //return await _eBankContext.Customers
-            //               .Join(_eBankContext.Accounts,
-            //                  customer => customer.CustomerId,
-            //                  account => account.CustomerId,
-            //                  (customer, account) =>
-            //                  new AccountViewModel { Account = account, Customer = customer })
-            //               .Where(customerAndAccounts => customerAndAccounts.Customer.CustomerId == customerId)
-            //               .OrderBy(i => i.Account.AccountType)
-            //               .ToListAsync();
         }        
     }
 }

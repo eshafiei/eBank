@@ -4,11 +4,11 @@ import { LegalStatus } from '../../../shared/enums/legal-status.enum';
 import { MaritalStatus } from '../../../shared/enums/marital-status.enum';
 
 @Component({
-  selector: 'app-account-basic',
-  templateUrl: './account-basic.component.html',
-  styleUrls: ['./account-basic.component.scss']
+  selector: 'app-customer-basic',
+  templateUrl: './customer-basic.component.html',
+  styleUrls: ['./customer-basic.component.scss']
 })
-export class AccountBasicComponent implements OnInit {
+export class CustomerBasicComponent implements OnInit {
   @Input() form: FormGroup;
   legalStatus: typeof LegalStatus = LegalStatus;
   legalStatusItems: string[] = [];

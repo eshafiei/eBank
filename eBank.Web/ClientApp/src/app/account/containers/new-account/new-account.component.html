@@ -1,5 +1,5 @@
 <div class="card w-100">
-  <div class="card-header">Open new account</div>
+  <div class="card-header bg-info text-warning">Open new account</div>
   <div class="card-body">
     <mat-horizontal-stepper linear #stepper>
       <mat-step [stepControl]="account" completed="false">
@@ -7,25 +7,24 @@
         <div class="mt-3 mb-3">
           <app-account-detail [form]="newAccountForm"></app-account-detail>
         </div>
-        <div>
-          <button mat-stroked-button color="primary" class="mt-4 col-3 pull-right" (click)="stepperNext()">Next</button>
-          <button mat-stroked-button color="warn" class="mt-4 mr-3 col-3 pull-right" matStepperPrevious>Back</button>
-        </div>
+        <button mat-stroked-button color="primary" class="mt-4 col-3 pull-right" (click)="stepperNext()">Next</button>
       </mat-step>
       <mat-step [completed]="stepperCompleted">
         <ng-template matStepLabel>Account terms</ng-template>
         <div class="mt-3 mb-3">
           <app-account-terms [parent]="newAccountForm"></app-account-terms>
         </div>
-        <div>
-          <button mat-raised-button
-            color="primary"
-            class="mt-4 col-3 pull-right"
-            type="button"
-            [disabled]="newAccountForm.invalid"
-            (click)="stepperNext();createAccount();">Create</button>
-          <button mat-stroked-button color="warn" class="mr-3 mt-4 col-3 pull-right" matStepperPrevious>Back</button>          
-        </div>
+        <button mat-raised-button
+          color="primary"
+          class="col-3 pull-right"
+          type="button"
+          [disabled]="newAccountForm.invalid"
+          (click)="stepperNext();createAccount();">
+          Create
+        </button>
+        <button mat-stroked-button color="warn" class="mr-3 col-3 pull-right" matStepperPrevious>
+          Back
+        </button>
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>Done</ng-template>
@@ -40,6 +39,6 @@
         </div>
       </mat-step>
     </mat-horizontal-stepper>
-    <pre>{{this.newAccountForm.value | json}}</pre>
+    <!-- <pre>{{this.newAccountForm.value | json}}</pre> -->
   </div>
 </div>
