@@ -16,15 +16,6 @@ export class WeatherService implements OnInit {
 
   }
 
-  // getCurrentWeatherByZip(zip, country) {
-  //   this.http.get(`https://api.openweathermap.org/data/2.5/weather?
-  //                  zip=${zip},${country}
-  //                  &appid=${environment.openWeatherMap.appid}`)
-  //     .subscribe((res) => {
-  //       console.log(res);
-  //     });
-  // }
-
   getWeatherForCurrentLocation(position) {
     return this.http
     .get(`https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric&appid=${environment.openWeatherMap.appid}`);
