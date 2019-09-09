@@ -12,7 +12,7 @@ import { SharedModule } from '../shared/shared.module';
 import { CustomerService } from './services/customer.service';
 
 const routes = [
-  { path: 'customer/addcustomer', component: AddEditCustomerComponent }
+  { path: 'customer/updatecustomer', component: AddEditCustomerComponent }
 ];
 
 @NgModule({
