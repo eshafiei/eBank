@@ -9,12 +9,14 @@ import { Account } from '../../models/account.interface';
   templateUrl: './account-summary.component.html'
 })
 export class AccountSummaryComponent implements OnInit {
-
+  isExpanded: boolean;
   @Input() accountsInfo: Account[] = [];
 
   accountType = AccountType;
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.isExpanded = true;
+  }
 }

@@ -3,8 +3,14 @@
 <app-command-bar [commandBarButtons]="commandBarButtons">
 </app-command-bar>
 <app-side-nav [toggleSideNav]="toggle" [appRoutes]="appRoutes">
+    <div class="card pull-right ml-3">
+        <div class="card-header">Additional info</div>
+        <div class="card-body p-3">
+            <app-weather></app-weather>
+        </div>
+    </div>
     <div class="container">
         <router-outlet></router-outlet>
-    </div>  
+    </div>
 </app-side-nav>
   

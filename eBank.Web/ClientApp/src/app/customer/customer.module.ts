@@ -8,7 +8,7 @@ import { CustomerDashboardComponent } from './containers/customer-dashboard/cust
 import { CustomerBasicComponent } from './components/customer-basic/customer-basic.component';
 
 // local services & modules
-import { SharedModule } from '../shared/modules/shared.module';
+import { SharedModule } from '../shared/shared.module';
 import { CustomerService } from './services/customer.service';
 
 const routes = [

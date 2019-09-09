@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // angular material modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from '../material.module';
+import { MaterialModule } from '../shared/modules/material.module';
 
 // local components
 
@@ -17,7 +17,7 @@ import { AccountTermsComponent } from './components/account-terms/account-terms.
 
 // local services & modules
 import { AccountService } from './services/account.service';
-import { SharedModule } from '../shared/modules/shared.module';
+import { SharedModule } from '../shared/shared.module';
 
 const routes = [
   { path: 'account', component: AccountDashboardComponent },

@@ -1,0 +1,26 @@
+<mat-card class="weather" *ngIf="this.currentWeatherData">
+  <div class="row">
+    <div class="col-md-5">
+      <img *ngIf="this.currentWeatherData.weather[0].main ==='Rain'" class="icon-48" src="../../../../assets/images/icons/rainy.png" />
+      <img *ngIf="this.currentWeatherData.weather[0].main ==='Sunny' || this.currentWeatherData.weather[0].main ==='Clear'" class="icon-48" src="../../../../assets/images/icons/sunny.png" />
+      <img *ngIf="this.currentWeatherData.weather[0].main ==='Clouds'" class="icon-48" src="../../../../assets/images/icons/cloudy.png" />
+      <img *ngIf="this.currentWeatherData.weather[0].main ==='Mist'" class="icon-48" src="../../../../assets/images/icons/mist.png" />
+      <br />
+      {{this.currentWeatherData.main.temp}}° C
+    </div>
+    <div class="col-md-7">
+      <div class="d-inline-block">{{this.currentWeatherData.weather[0].description}}</div><br />
+      <div class="d-inline-block small">Humidity: {{this.currentWeatherData.main.humidity}}%</div><br />
+      <div class="d-inline-block small">Wind speed: {{this.currentWeatherData.wind.speed}}</div>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-md-6">
+      {{this.currentTime}}
+    </div>
+    <div class="col-md-6">
+      {{this.currentWeatherData.name}}  <img src="../../../../assets/images/icons/reload.png" class="refresh" (click)="reload()" />
+    </div>
+  </div>
+</mat-card>
