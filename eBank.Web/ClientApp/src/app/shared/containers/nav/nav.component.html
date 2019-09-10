@@ -3,14 +3,22 @@
 <app-command-bar [commandBarButtons]="commandBarButtons">
 </app-command-bar>
 <app-side-nav [toggleSideNav]="toggle" [appRoutes]="appRoutes">
-    <div class="card pull-right ml-3">
-        <div class="card-header">Additional info</div>
-        <div class="card-body p-3">
-            <app-weather></app-weather>
+    <div class="row nomargin">
+        <div class="col-9 mb-3">
+            <router-outlet></router-outlet>
         </div>
-    </div>
-    <div class="container mb-3">
-        <router-outlet></router-outlet>
+        <div class="col-3 mb-3">
+            <app-additional-info>
+                <h3>Test Additional Info and more info for you!</h3>
+            </app-additional-info>
+            <br />
+            <div class="card mt-2">
+                <div class="card-header">Weather information</div>
+                <div class="card-body p-3">
+                    <app-weather></app-weather>
+                </div>
+            </div>
+        </div>
     </div>
 </app-side-nav>
   

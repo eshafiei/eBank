@@ -8,6 +8,7 @@ import { MaterialModule } from '../shared/modules/material.module';
 
 // local components
 import { CommandBarComponent } from './components/command-bar/command-bar.component';
+import { AdditionalInfoComponent } from './components/additional-info/additional-info.component';
 import { AddressComponent } from './components/address/address.component';
 import { WeatherComponent } from './containers/weather/weather.component';
 
@@ -26,6 +27,7 @@ import { RouterModule } from '@angular/router';
   ],
   declarations: [
     CommandBarComponent,
+    AdditionalInfoComponent,
     AddressComponent,
     WeatherComponent
   ],
@@ -34,6 +36,7 @@ import { RouterModule } from '@angular/router';
     WeatherService],
   exports: [
     CommandBarComponent,
+    AdditionalInfoComponent,
     AddressComponent,
     WeatherComponent,
     MaterialModule,

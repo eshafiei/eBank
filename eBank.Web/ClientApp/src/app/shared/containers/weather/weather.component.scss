@@ -5,8 +5,6 @@
     background: -webkit-linear-gradient(left, #87e0fd 0%,#53cbf1 40%,#05abe0 100%); /* Chrome10-25,Safari5.1-6 */
     background: linear-gradient(to right, #87e0fd 0%,#53cbf1 40%,#05abe0 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#87e0fd', endColorstr='#05abe0',GradientType=1 ); /* IE6-9 */
-    width: 330px;
-    height: 160px;
     color: white;
     font-family: "Comic Sans MS", cursive, sans-serif;
     font-size: 16px;
@@ -25,6 +23,6 @@
 }
 
 .refresh {
-    width: 28px;
-    height: 28px;
+    width: 20px;
+    height: 20px;
 }
