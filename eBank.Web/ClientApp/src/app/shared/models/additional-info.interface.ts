@@ -1,4 +1,6 @@
+import { AdditionalInfoItem } from './additional-info-item.interface';
+
 export interface AdditionalInfo {
-    text: string;
-    value: string;
+    title: string;
+    items: AdditionalInfoItem[];
 }

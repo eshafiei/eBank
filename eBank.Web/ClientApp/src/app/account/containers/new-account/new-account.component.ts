@@ -13,6 +13,7 @@ import { AdditionalInfoService } from 'src/app/shared/services/additional-info.s
 import { CustomerViewModel } from './../../../customer/view-models/customer-vm.interface';
 import { AdditionalInfo } from '../../../shared/models/additional-info.interface';
 import { LegalStatus } from 'src/app/shared/enums/legal-status.enum';
+import { AdditionalInfoItem } from 'src/app/shared/models/additional-info-item.interface';
 
 @Component({
   selector: 'app-new-account',
@@ -22,7 +23,6 @@ import { LegalStatus } from 'src/app/shared/enums/legal-status.enum';
 export class NewAccountComponent implements OnInit, OnDestroy {
   userId = 1;
   customerId = 3;
-  customerAdditionalInfo: AdditionalInfo[] = [];
   newAccountForm = this.fb.group({
     accountType: ['', [Validators.required]],
     accountNumber: ['', [Validators.required]],
@@ -67,14 +67,19 @@ export class NewAccountComponent implements OnInit, OnDestroy {
   }
 
   getCustomerBasicInfo() {
+    const customerAdditionalInfo: AdditionalInfoItem[] = [];
     this.customerService.getCustomer(this.customerId)
       .subscribe((customerInfo: CustomerViewModel) => {
-        this.customerAdditionalInfo.push({ text: 'First name', value: customerInfo.customer.firstName });
-        this.customerAdditionalInfo.push({ text: 'Last name', value: customerInfo.customer.lastName });
-        this.customerAdditionalInfo.push({ text: 'Date of birth',
+        customerAdditionalInfo.push({ text: 'First name', value: customerInfo.customer.firstName });
+        customerAdditionalInfo.push({ text: 'Last name', value: customerInfo.customer.lastName });
+        customerAdditionalInfo.push({ text: 'Date of birth',
           value: this.datepipe.transform(customerInfo.customer.dateOfBirth, 'MM/dd/yyyy') });
-        this.customerAdditionalInfo.push({ text: 'Legal status', value: LegalStatus[customerInfo.customer.legalStatus] });
+        customerAdditionalInfo.push({ text: 'Legal status', value: LegalStatus[customerInfo.customer.legalStatus] });
+        const customerInformation: AdditionalInfo = {
+          title: 'Customer information',
+          items: customerAdditionalInfo
+        };
+        this.additionalInfoService.updateAdditionalInfo(customerInformation);
       });
-    this.additionalInfoService.updateAdditionalInfo(this.customerAdditionalInfo);
   }
 }

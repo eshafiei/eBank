@@ -10,7 +10,7 @@ import { AdditionalInfoService } from './../../services/additional-info.service'
   styleUrls: ['./additional-info.component.scss']
 })
 export class AdditionalInfoComponent implements OnInit, AfterViewInit {
-  additionalInfo: AdditionalInfo[];
+  additionalInfo: AdditionalInfo;
   constructor(private additionalInfoService: AdditionalInfoService) { }
 
   ngOnInit() {
@@ -18,6 +18,6 @@ export class AdditionalInfoComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.additionalInfoService.additionalInfoItems
-      .subscribe(items => this.additionalInfo = items);
+      .subscribe(item => this.additionalInfo = item);
   }
 }

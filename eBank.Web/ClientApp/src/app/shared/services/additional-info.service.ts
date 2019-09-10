@@ -7,12 +7,12 @@ import { AdditionalInfo } from './../models/additional-info.interface';
   providedIn: 'root'
 })
 export class AdditionalInfoService {
-  private additionalInfoSource = new BehaviorSubject<AdditionalInfo[]>([]);
+  private additionalInfoSource = new BehaviorSubject<AdditionalInfo>(null);
   additionalInfoItems = this.additionalInfoSource.asObservable();
   constructor() { }
 
-  updateAdditionalInfo(items: AdditionalInfo[]) {
-    this.additionalInfoSource.next(items);
+  updateAdditionalInfo(item: AdditionalInfo) {
+    this.additionalInfoSource.next(item);
   }
 
 }
