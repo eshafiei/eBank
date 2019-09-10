@@ -1,6 +1,13 @@
-<div class="card">
+<div class="card mb-3" *ngIf="additionalInfo?.length > 0">
     <div class="card-header">Additional info</div>
     <div class="card-body p-3">
-        <ng-content></ng-content>
+        <div class="row" *ngFor="let item of additionalInfo">
+            <div class="col">
+                <mat-form-field class="block">
+                    <mat-label class="text-info font-weight-bold">{{item.text}}</mat-label>
+                    <input matInput readonly  class="text-primary" value="{{item.value}}" />
+                </mat-form-field>
+            </div>
+        </div>
     </div>
 </div>
