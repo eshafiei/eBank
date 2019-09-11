@@ -8,7 +8,8 @@
             <input matInput
               type="text"
               formControlName="firstName"
-              placeholder="First name">
+              placeholder="First name"
+              id="firstName">
             <mat-error *ngIf="f.firstName?.hasError('required')">First name is required</mat-error>
         </mat-form-field>
       </div>
