@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, OnDestroy, ComponentRef } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -7,9 +7,11 @@ import { ToastrService } from 'ngx-toastr';
 import { NGXLogger } from 'ngx-logger';
 import { MatStepper } from '@angular/material';
 
+// dynamic component
+import { AdditionalInfoComponent } from './../../../shared/components/additional-info/additional-info.component';
+
 import { AccountService } from '../../services/account.service';
 import { CustomerService } from 'src/app/customer/services/customer.service';
-import { AdditionalInfoService } from 'src/app/shared/services/additional-info.service';
 import { CustomerViewModel } from './../../../customer/view-models/customer-vm.interface';
 import { AdditionalInfo } from '../../../shared/models/additional-info.interface';
 import { LegalStatus } from 'src/app/shared/enums/legal-status.enum';
@@ -23,6 +25,7 @@ import { AdditionalInfoItem } from 'src/app/shared/models/additional-info-item.i
 export class NewAccountComponent implements OnInit, OnDestroy {
   userId = 1;
   customerId = 3;
+  customerInfoComponent: ComponentRef<AdditionalInfoComponent>;
   newAccountForm = this.fb.group({
     accountType: ['', [Validators.required]],
     accountNumber: ['', [Validators.required]],
@@ -32,20 +35,22 @@ export class NewAccountComponent implements OnInit, OnDestroy {
     customerId: this.customerId
   });
   @ViewChild('stepper', null) stepper: MatStepper;
+  @ViewChild('customerBasicInfoEntry', { read: ViewContainerRef, static: true }) customerBasicInfoEntry: ViewContainerRef;
   constructor(private accountService: AccountService,
               private customerService: CustomerService,
               private router: Router,
               private toastr: ToastrService,
               private logger: NGXLogger,
               private fb: FormBuilder,
-              private additionalInfoService: AdditionalInfoService,
-              private datepipe: DatePipe) {}
+              private datepipe: DatePipe,
+              private resolver: ComponentFactoryResolver) {}
 
   ngOnInit() {
     this.getCustomerBasicInfo();
   }
+
   ngOnDestroy() {
-    this.additionalInfoService.updateAdditionalInfo(null);
+    this.customerInfoComponent.destroy();
   }
 
   stepperNext() {
@@ -79,7 +84,9 @@ export class NewAccountComponent implements OnInit, OnDestroy {
           title: 'Customer information',
           items: customerAdditionalInfo
         };
-        this.additionalInfoService.updateAdditionalInfo(customerInformation);
+        const additionalInfoFactory = this.resolver.resolveComponentFactory(AdditionalInfoComponent);
+        this.customerInfoComponent = this.customerBasicInfoEntry.createComponent(additionalInfoFactory);
+        this.customerInfoComponent.instance.additionalInfo = customerInformation;
       });
   }
 }

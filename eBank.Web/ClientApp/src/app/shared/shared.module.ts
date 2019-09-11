@@ -44,6 +44,9 @@ import { RouterModule } from '@angular/router';
     MaterialModule,
     FlexLayoutModule,
     ReactiveFormsModule
+  ],
+  entryComponents: [
+    AdditionalInfoComponent
   ]
 })
 export class SharedModule { }
