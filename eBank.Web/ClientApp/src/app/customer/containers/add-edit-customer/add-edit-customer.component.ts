@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NGXLogger } from 'ngx-logger';
 
@@ -16,7 +16,8 @@ import { CustomerService } from '../../services/customer.service';
 })
 export class AddEditCustomerComponent implements OnInit {
   userId = 1;
-  customerId = 3;
+  customerId: number;
+  isEdit: boolean;
   customerForm = this.fb.group({
     customer: this.fb.group({
       customerId: this.customerId,
@@ -39,11 +40,19 @@ export class AddEditCustomerComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private customerService: CustomerService,
     private router: Router,
+    private route: ActivatedRoute,
     private toastr: ToastrService,
     private logger: NGXLogger) { }
 
   ngOnInit() {
-    this.loadData(this.customerId);
+    this.customerId = this.route.snapshot.params.customerId;
+    if (this.customerId) {
+      this.isEdit = true;
+    }
+
+    if (this.isEdit) {
+      this.loadData(this.customerId);
+    }
   }
 
   loadData(customerId: number) {
@@ -69,8 +78,9 @@ export class AddEditCustomerComponent implements OnInit {
       });
   }
 
-  updateCustomer() {
-    this.customerService.updateCustomer(this.customerForm.value)
+  submit() {
+    if (this.isEdit) {
+      this.customerService.updateCustomer(this.customerForm.value)
       .subscribe(response => {
         this.toastr.success('account created successfuly!', 'Account');
         this.router.navigateByUrl('/account');
@@ -78,5 +88,6 @@ export class AddEditCustomerComponent implements OnInit {
         this.toastr.error(error.message, 'Account');
         this.logger.error(error);
       });
+    }
   }
 }

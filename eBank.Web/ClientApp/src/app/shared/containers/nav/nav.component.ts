@@ -64,9 +64,9 @@ export class NavComponent implements OnInit, AfterViewInit {
         routeHeader: 'Customer management',
         routeItems: [
           {
-            title: 'Customer information',
-            icon: 'edit',
-            route: '/customer/updatecustomer'
+            title: 'Add new customer',
+            icon: 'add',
+            route: '/customer/addcustomer'
           }
         ]
       }
