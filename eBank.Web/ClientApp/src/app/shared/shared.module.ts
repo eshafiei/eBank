@@ -16,6 +16,10 @@ import { WeatherComponent } from './containers/weather/weather.component';
 import { AppBarService } from './services/app-bar.service';
 import { WeatherService } from './services/weather.service';
 import { RouterModule } from '@angular/router';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './store/effects/auth.effects';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './store/app.states';
 
 @NgModule({
   imports: [
@@ -23,7 +27,9 @@ import { RouterModule } from '@angular/router';
     MaterialModule,
     FlexLayoutModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreModule.forRoot((reducers) as any, {}),
+    EffectsModule.forRoot([AuthEffects])
   ],
   declarations: [
     CommandBarComponent,
