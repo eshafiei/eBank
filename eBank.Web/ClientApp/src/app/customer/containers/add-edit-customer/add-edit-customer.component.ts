@@ -82,7 +82,7 @@ export class AddEditCustomerComponent implements OnInit {
     if (this.isEdit) {
       this.customerService.updateCustomer(this.customerForm.value)
       .subscribe(response => {
-        this.toastr.success('account created successfuly!', 'Account');
+        this.toastr.success('account updated successfuly!', 'Account');
         this.router.navigateByUrl('/account');
       }, (error: HttpErrorResponse) => {
         this.toastr.error(error.message, 'Account');
