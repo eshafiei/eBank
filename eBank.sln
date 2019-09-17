@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eBank.Web", "eBank.Web\eBank.Web.csproj", "{E141AAFC-A846-471A-A2A4-9324D56DF7F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eBank.DataAccess", "eBank.DataAccess\eBank.DataAccess.csproj", "{2C91CED0-0CEA-4986-9DCB-9B5DFE54AEFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eBank.DataAccess", "eBank.DataAccess\eBank.DataAccess.csproj", "{2C91CED0-0CEA-4986-9DCB-9B5DFE54AEFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

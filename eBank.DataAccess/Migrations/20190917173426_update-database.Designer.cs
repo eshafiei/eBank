@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eBank.DataAccess;
 
 namespace eBank.DataAccess.Migrations
 {
     [DbContext(typeof(EBankContext))]
-    partial class EBankContextModelSnapshot : ModelSnapshot
+    [Migration("20190917173426_update-database")]
+    partial class updatedatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,9 +75,6 @@ namespace eBank.DataAccess.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
-
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
@@ -115,8 +114,6 @@ namespace eBank.DataAccess.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -253,13 +250,11 @@ namespace eBank.DataAccess.Migrations
 
                     b.Property<int>("MaritalStatus");
 
-                    b.Property<string>("UserId");
+                    b.Property<int>("UserId");
 
                     b.HasKey("CustomerId");
 
-                    b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Customers");
                 });
@@ -286,22 +281,30 @@ namespace eBank.DataAccess.Migrations
 
                     b.Property<string>("Url");
 
-                    b.Property<string>("UserId");
+                    b.Property<int>("UserId");
 
                     b.HasKey("LogId");
 
                     b.ToTable("Logs");
                 });
 
-            modelBuilder.Entity("eBank.DataAccess.Models.User.ApplicationUser", b =>
+            modelBuilder.Entity("eBank.DataAccess.Models.UserModel", b =>
                 {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("EmailAddress");
 
-                    b.Property<string>("LastName");
+                    b.Property<string>("Password");
 
-                    b.HasDiscriminator().HasValue("ApplicationUser");
+                    b.Property<bool>("Status");
+
+                    b.Property<string>("Username");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("UserModel");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -367,9 +370,10 @@ namespace eBank.DataAccess.Migrations
 
             modelBuilder.Entity("eBank.DataAccess.Models.CustomerModel", b =>
                 {
-                    b.HasOne("eBank.DataAccess.Models.User.ApplicationUser", "ApplicationUser")
-                        .WithOne("Customer")
-                        .HasForeignKey("eBank.DataAccess.Models.CustomerModel", "UserId");
+                    b.HasOne("eBank.DataAccess.Models.UserModel", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

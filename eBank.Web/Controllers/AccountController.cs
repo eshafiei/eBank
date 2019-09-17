@@ -1,8 +1,8 @@
-﻿using eBank.DataAccess.Models;
-using eBank.DataAccess.Services.Account;
+﻿using System.Threading.Tasks;
+using eBank.DataAccess.Models.User;
+using eBank.DataAccess.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace eBank.Web.Controllers
 {
@@ -10,23 +10,49 @@ namespace eBank.Web.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private IAccountService _accountService;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AccountController(IAccountService accountService)
+        public AccountController(
+            UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager
+            )
         {
-            _accountService = accountService;
-        }
-
-        [HttpGet("[action]/{customerId}")]
-        public async Task<IEnumerable<AccountModel>> GetAccounts(int customerId)
-        {
-            return await _accountService.GetAccounts(customerId);
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         [HttpPost("[action]")]
-        public async Task<int> CreateAccount([FromBody] AccountModel account)
+        public async Task<IActionResult> Register([FromBody]RegisterViewModel model)
         {
-            return await _accountService.CreateAccount(account);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = new ApplicationUser { UserName = model.UserName, FirstName = model.FirstName, LastName = model.LastName, Email = model.Email };
+
+            var result = await _userManager.CreateAsync(user, model.Password);
+
+            string role = "Basic User";
+
+            if (result.Succeeded)
+            {
+                if (await _roleManager.FindByNameAsync(role) == null)
+                {
+                    await _roleManager.CreateAsync(new IdentityRole(role));
+                }
+                await _userManager.AddToRoleAsync(user, role);
+                await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("userName", user.UserName));
+                await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("firstName", user.FirstName));
+                await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("lastName", user.LastName));
+                await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("email", user.Email));
+                await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("role", role));
+
+                return Ok(new ProfileViewModel(user));
+            }
+
+            return BadRequest(result.Errors);
         }
     }
 }

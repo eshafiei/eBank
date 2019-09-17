@@ -17,12 +17,12 @@ export class AuthService {
   }
 
   logIn(email: string, password: string): Observable<any> {
-    const url = `${this.baseUrl}/login`;
+    const url = `${this.baseUrl}/account/login`;
     return this.http.post<User>(url, {email, password});
   }
 
   signUp(email: string, password: string): Observable<User> {
-    const url = `${this.baseUrl}/register`;
+    const url = `${this.baseUrl}/account/register`;
     return this.http.post<User>(url, {email, password});
   }
 

@@ -1,16 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using eBank.DataAccess.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace eBank.DataAccess
 {
-    public class EBankContext : DbContext
+    public class EBankContext : IdentityDbContext<IdentityUser>
     {
         public EBankContext(DbContextOptions options)
             : base(options)
         {
         }
-
-        public DbSet<UserModel> Users { get; set; }
 
         public DbSet<AccountModel> Accounts { get; set; }
 
@@ -22,6 +22,8 @@ namespace eBank.DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<AccountModel>()
                 .Property(b => b.Balance)
                 .HasDefaultValue(decimal.Zero);

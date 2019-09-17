@@ -22,7 +22,7 @@ namespace eBank.DataAccess.Services.Log
                 FileName = logInfo.FileName,
                 LogDate = logInfo.LogDate,
                 LineNumber = logInfo.LineNumber,
-                UserId = 1,
+                UserId = "1",
                 Url = messageInfo.Url,
                 Status = messageInfo.Status,
                 StatusText = messageInfo.StatusText

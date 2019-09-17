@@ -25,6 +25,6 @@ namespace eBank.DataAccess.Models
 
         public string FileName { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
     }
 }

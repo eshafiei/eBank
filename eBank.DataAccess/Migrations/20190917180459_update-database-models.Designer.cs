@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eBank.DataAccess;
 
 namespace eBank.DataAccess.Migrations
 {
     [DbContext(typeof(EBankContext))]
-    partial class EBankContextModelSnapshot : ModelSnapshot
+    [Migration("20190917180459_update-database-models")]
+    partial class updatedatabasemodels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -296,10 +298,6 @@ namespace eBank.DataAccess.Migrations
             modelBuilder.Entity("eBank.DataAccess.Models.User.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<string>("LastName");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });

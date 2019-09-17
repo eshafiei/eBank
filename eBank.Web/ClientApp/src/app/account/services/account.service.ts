@@ -13,11 +13,11 @@ export class AccountService implements OnInit {
 
     getAccounts(userId: number): Observable<any> {
         return  this.http
-                    .get(this.baseUrl + 'api/account/getaccounts/' + userId);
+                    .get(this.baseUrl + 'api/bankaccount/getaccounts/' + userId);
     }
 
     createAccount(account: Account): Observable<any> {
         return  this.http
-                    .post(this.baseUrl + 'api/account/createaccount', account);
+                    .post(this.baseUrl + 'api/bankaccount/createaccount', account);
     }
 }

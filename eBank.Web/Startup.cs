@@ -1,10 +1,13 @@
 using eBank.DataAccess;
+using eBank.DataAccess.Models.User;
 using eBank.DataAccess.Services.Account;
 using eBank.DataAccess.Services.Customer;
 using eBank.DataAccess.Services.Log;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
@@ -32,13 +35,39 @@ namespace eBank.Web
             });
 
             services.AddDbContext<EBankContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:eBankDB"]));
-            
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<EBankContext>()
+                .AddDefaultTokenProviders();
+
             // Inject Services
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<ILogService, LogService>();
+            services.AddIdentityServer()
+                .AddDeveloperSigningCredential()
+                .AddInMemoryPersistedGrants()
+                .AddInMemoryIdentityResources(Config.GetIdentityResources())
+                .AddInMemoryApiResources(Config.GetApiResources())
+                .AddInMemoryClients(Config.GetClients())
+                .AddAspNetIdentity<ApplicationUser>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                // base-address of your identityserver
+                options.Authority = "https://localhost:44326/";
+
+                // name of the API resource
+                options.Audience = "api1";
+
+                options.RequireHttpsMetadata = true;
+            });
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -64,6 +93,9 @@ namespace eBank.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+
+            app.UseIdentityServer();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

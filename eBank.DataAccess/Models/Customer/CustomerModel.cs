@@ -1,4 +1,5 @@
 ﻿using eBank.DataAccess.Models.Base;
+using eBank.DataAccess.Models.User;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,9 +21,8 @@ namespace eBank.DataAccess.Models
 
         public int MaritalStatus { get; set; }
 
-        public int UserId { get; set; }
-
-        [ForeignKey("UserId")]
-        public UserModel User { get; set; }
+        [ForeignKey("ApplicationUser")]
+        public string UserId { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }
