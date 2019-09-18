@@ -15,7 +15,7 @@ import { CustomerService } from '../../services/customer.service';
   styleUrls: ['./add-edit-customer.component.scss']
 })
 export class AddEditCustomerComponent implements OnInit {
-  userId = 1;
+  userId = 'ec9426bc-fb05-4a38-b63b-f265cbdfb816';
   customerId: number;
   isEdit: boolean;
   customerForm = this.fb.group({

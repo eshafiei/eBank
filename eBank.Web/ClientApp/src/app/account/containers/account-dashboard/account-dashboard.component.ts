@@ -20,7 +20,7 @@ export class AccountDashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-      const customerId = 3;
+      const customerId = 7;
       this.accountsInfo = this.accountService.getAccounts(customerId);
       const commandBarButtons: CommandBarItem[] = [
         {

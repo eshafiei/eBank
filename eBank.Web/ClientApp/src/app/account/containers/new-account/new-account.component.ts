@@ -23,8 +23,8 @@ import { AdditionalInfoItem } from 'src/app/shared/models/additional-info-item.i
   templateUrl: './new-account.component.html'
 })
 export class NewAccountComponent implements OnInit, OnDestroy {
-  userId = 1;
-  customerId = 3;
+  userId = 'ec9426bc-fb05-4a38-b63b-f265cbdfb816';
+  customerId = 7;
   customerInfoComponent: ComponentRef<AdditionalInfoComponent>;
   newAccountForm = this.fb.group({
     accountType: ['', [Validators.required]],

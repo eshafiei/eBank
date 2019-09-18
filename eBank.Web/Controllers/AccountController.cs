@@ -1,27 +1,52 @@
 ﻿using System.Threading.Tasks;
 using eBank.DataAccess.Models.User;
 using eBank.DataAccess.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eBank.Web.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class AccountController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private SignInManager<ApplicationUser> _signInManager;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
-            RoleManager<IdentityRole> roleManager
+            RoleManager<IdentityRole> roleManager,
+            SignInManager<ApplicationUser> signInManager
             )
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _signInManager = signInManager;
         }
 
+        [AllowAnonymous]
+        [HttpPost("[action]")]
+        public async Task<IActionResult> Login([FromBody]LoginModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                ApplicationUser appUser = await _userManager.FindByEmailAsync(model.Email);
+                if (appUser != null)
+                {
+                    await _signInManager.SignOutAsync();
+                    Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(appUser, model.Password, false, false);
+                    if (result.Succeeded)
+                        return Ok(appUser);
+                }
+                ModelState.AddModelError(nameof(model.Email), "Login Failed: Invalid Email or password");
+            }
+            return BadRequest(ModelState);
+        }
+
+        [AllowAnonymous]
         [HttpPost("[action]")]
         public async Task<IActionResult> Register([FromBody]RegisterViewModel model)
         {

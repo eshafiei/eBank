@@ -11,9 +11,9 @@ export class AccountService implements OnInit {
 
     ngOnInit() {}
 
-    getAccounts(userId: number): Observable<any> {
+    getAccounts(customerId: number): Observable<any> {
         return  this.http
-                    .get(this.baseUrl + 'api/bankaccount/getaccounts/' + userId);
+                    .get(this.baseUrl + 'api/bankaccount/getaccounts/' + customerId);
     }
 
     createAccount(account: Account): Observable<any> {

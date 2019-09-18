@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../shared/store/app.states';
+import { LogIn } from 'src/app/shared/store/actions/user.actions';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,11 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.user);
+    const payload = {
+      email: this.user.email,
+      password: this.user.password
+    };
+    this.store.dispatch(new LogIn(payload));
   }
 
 }
