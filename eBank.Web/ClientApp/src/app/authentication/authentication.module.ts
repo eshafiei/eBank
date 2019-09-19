@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // containers
 import { UserDashboardComponent } from './containers/user-dashboard/user-dashboard.component';
 import { LoginComponent } from './containers/login/login.component';
 import { SignupComponent } from './containers/signup/signup.component';
+import { SharedModule } from '../shared/shared.module';
 
 // components
 
@@ -24,6 +25,8 @@ const routes = [
     imports: [
         CommonModule,
         FormsModule,
+        ReactiveFormsModule,
+        SharedModule,
         RouterModule.forChild(routes)
     ],
     exports: [

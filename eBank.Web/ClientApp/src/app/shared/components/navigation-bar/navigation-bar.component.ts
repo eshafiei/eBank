@@ -1,4 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store/app.states';
+import { LogOut } from '../../store/actions/auth.actions';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -9,6 +12,10 @@ export class NavigationBarComponent {
   customerId = 7;
   @Output() toggleSidenav = new EventEmitter<void>();
 
-  constructor() {
+  constructor(private store: Store<AppState>) {
+  }
+
+  logOut(): void {
+    this.store.dispatch(new LogOut);
   }
 }

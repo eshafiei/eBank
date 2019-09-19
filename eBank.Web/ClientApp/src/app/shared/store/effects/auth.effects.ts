@@ -5,8 +5,8 @@ import { Observable, of } from 'rxjs';
 import { switchMap, map, catchError, tap } from 'rxjs/operators';
 
 import { AuthService } from '../../../authentication/services/auth.service';
-import { AuthActionTypes, LogIn, LogInSuccess, LogInFailure } from '../actions/user.actions';
-import { User } from 'src/app/authentication/models/user';
+import { AuthActionTypes, LogIn, LogInSuccess, LogInFailure, SignUp, SignUpSuccess, SignUpFailure } from '../actions/auth.actions';
+import { TokenResponse } from 'src/app/authentication/models/token-response.interface';
 
 @Injectable()
 export class AuthEffects {
@@ -24,14 +24,13 @@ export class AuthEffects {
             ofType(AuthActionTypes.LOGIN),
             map((action: LogIn) => action.payload),
             switchMap(payload => {
-                return this.authService.logIn(payload.email, payload.password).pipe(
-                  map((user) => {
-                    console.log(user);
-                    return new LogInSuccess({token: user.token, email: payload.email});
+                return this.authService.logIn(payload.username, payload.password).pipe(
+                  map((tokenInfo: TokenResponse) => {
+                    return new LogInSuccess(tokenInfo, payload.username);
                   }),
-                  catchError((error) => {
-                    console.log(error);
-                    return of(new LogInFailure({ error: error }));
+                  catchError((httpErrorResponse) => {
+                    console.log(httpErrorResponse);
+                    return of(new LogInFailure({ errors: httpErrorResponse.error }));
                   }));
             })
         );
@@ -39,8 +38,8 @@ export class AuthEffects {
     @Effect({ dispatch: false })
     LogInSuccess: Observable<any> = this.actions.pipe(
         ofType(AuthActionTypes.LOGIN_SUCCESS),
-        tap((user: User) => {
-            localStorage.setItem('token', user.token);
+        tap((response: any) => {
+            localStorage.setItem('token', response.tokenInfo.access_token);
             this.router.navigateByUrl('account');
         })
     );
@@ -48,5 +47,46 @@ export class AuthEffects {
     @Effect({ dispatch: false })
     LogInFailure: Observable<any> = this.actions.pipe(
         ofType(AuthActionTypes.LOGIN_FAILURE)
+    );
+
+    @Effect()
+    SignUp: Observable<any> = this.actions.pipe(
+        ofType(AuthActionTypes.SIGNUP),
+        map((action: SignUp) => action.payload),
+        switchMap(payload => {
+            console.log(payload);
+            return this.authService.signUp(payload).pipe(
+                map((tokenInfo: TokenResponse) => {
+                    return new SignUpSuccess(tokenInfo, payload.username);
+                }),
+                catchError((httpErrorResponse) => {
+                    console.log(httpErrorResponse);
+                    return of(new SignUpFailure({ errors: httpErrorResponse.error }));
+                }));
+        })
+    );
+
+    @Effect({ dispatch: false })
+    SignUpSuccess: Observable<any> = this.actions.pipe(
+        ofType(AuthActionTypes.SIGNUP_SUCCESS),
+        tap((response: any) => {
+            console.log('sign up success: ', response);
+            localStorage.setItem('token', response.tokenInfo.access_token);
+            this.router.navigateByUrl('/');
+        })
+    );
+
+    @Effect({ dispatch: false })
+    SignUpFailure: Observable<any> = this.actions.pipe(
+        ofType(AuthActionTypes.SIGNUP_FAILURE)
+    );
+
+    @Effect({ dispatch: false })
+    public LogOut: Observable<any> = this.actions.pipe(
+        ofType(AuthActionTypes.LOGOUT),
+        tap((user) => {
+            localStorage.removeItem('token');
+            this.router.navigateByUrl('/login');
+        })
     );
 }

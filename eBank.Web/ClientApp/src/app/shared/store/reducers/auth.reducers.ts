@@ -1,5 +1,6 @@
-import { User } from 'src/app/authentication/models/user';
-import { AuthActionTypes, All } from '../actions/user.actions';
+import { User } from '../../../authentication/models/user.interface';
+import { AuthActionTypes, All } from '../actions/auth.actions';
+import { ErrorResponse } from '../../../authentication/models/error-response.interface';
 
 export interface State {
     // is a user authenticated?
@@ -7,34 +8,53 @@ export interface State {
     // if authenticated, there should be a user object
     user: User | null;
     // error message
-    errorMessage: string | null;
+    errorMessages: ErrorResponse[] | null;
 }
 
 export const initialState: State = {
     isAuthenticated: false,
     user: null,
-    errorMessage: null
+    errorMessages: null
 };
 
 export function reducer(state = initialState, action: All): State {
-    console.log('reducer ==> action', action);
     switch (action.type) {
       case AuthActionTypes.LOGIN_SUCCESS: {
         return {
           ...state,
           isAuthenticated: true,
           user: {
-            token: action.payload.token,
-            email: action.payload.email
+            username: action.username,
+            access_token: action.tokenInfo.access_token
           },
-          errorMessage: null
+          errorMessages: null
         };
       }
       case AuthActionTypes.LOGIN_FAILURE: {
         return {
           ...state,
-          errorMessage: 'Incorrect email and/or password.'
+          errorMessages: action.payload.errors
         };
+      }
+      case AuthActionTypes.SIGNUP_SUCCESS: {
+        return {
+          ...state,
+          isAuthenticated: true,
+          user: {
+            username: action.username,
+            access_token: action.tokenInfo.access_token
+          },
+          errorMessages: null
+        };
+      }
+      case AuthActionTypes.SIGNUP_FAILURE: {
+        return {
+          ...state,
+          errorMessages: action.payload.errors
+        };
+      }
+      case AuthActionTypes.LOGOUT: {
+        return initialState;
       }
       default: {
         return state;

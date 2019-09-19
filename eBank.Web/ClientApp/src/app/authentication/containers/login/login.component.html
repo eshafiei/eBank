@@ -1,36 +1,51 @@
-<div class="row">
-  <div class="col-md-4">
-    <h4>Log in</h4>
-    <hr/>
-    <form (ngSubmit)="onSubmit()" ngNativeValidate>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input
-          [(ngModel)]="user.email"
-          name="email"
-          type="email"
-          required
-          class="form-control"
-          id="email"
-          placeholder="enter your email">
+<div class="card">
+  <div class="card-header text-warning font-weight-bold bg-info">Log in</div>
+  <div class="card-body">
+    <div class="row mb-3">
+      <div class="col-12">
+        <span class="text-info font-weight-bold mr-2">Don't have an account?</span>
+        <a class="text-success font-weight-bolder" [routerLink]="['/signup']">Sign up!</a>
+      </div>      
+    </div>    
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+      <div class="row">
+        <mat-form-field class="col-12" appearance="outline">
+          <mat-label>Username</mat-label>
+          <input matInput
+                  type="text"
+                  formControlName="username"
+                  placeholder="username"
+                  [ngClass]="{'is-invalid': f.username.touched && f.username.errors}">
+          <mat-error *ngIf="f.username?.hasError('required')">Username is required</mat-error>
+        </mat-form-field>
       </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          [(ngModel)]="user.password"
-          name="password"
-          type="password"
-          required
-          class="form-control"
-          id="password"
-          placeholder="enter a password">
+      <div class="row">
+        <mat-form-field class="col-12" appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput
+                  type="password"
+                  formControlName="password"
+                  placeholder="password"
+                  [ngClass]="{'is-invalid': f.password.touched && f.password.errors}">
+          <mat-error *ngIf="f.password?.hasError('required')">Password is required</mat-error>
+        </mat-form-field>
       </div>
-      <button type="submit" class="btn btn-primary mr-3">Submit</button>
-      <a [routerLink]="['/']" class="btn btn-success">Cancel</a>
-    </form>
-    <div class="mt-3">
-      <span>Don't have an account?&nbsp;</span>
-      <a [routerLink]="['/signup']">Sign up!</a>
-    </div>
+      <div class="row">
+        <div class="col-12">
+          <button mat-raised-button
+            color="primary"
+            class="col-2 pull-right"
+            type="submit"
+            [disabled]="loginForm.invalid">
+            Login
+          </button>
+          <div *ngIf="errorMessages">
+            <div class="alert alert-danger col-8" role="alert">
+              {{ errorMessages.error_description }}
+            </div>
+          </div>
+        </div>
+      </div>  
+    </form>  
   </div>
 </div>

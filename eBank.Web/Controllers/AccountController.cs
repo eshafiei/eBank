@@ -33,7 +33,7 @@ namespace eBank.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                ApplicationUser appUser = await _userManager.FindByEmailAsync(model.Email);
+                ApplicationUser appUser = await _userManager.FindByNameAsync(model.UserName);
                 if (appUser != null)
                 {
                     await _signInManager.SignOutAsync();
@@ -41,7 +41,7 @@ namespace eBank.Web.Controllers
                     if (result.Succeeded)
                         return Ok(appUser);
                 }
-                ModelState.AddModelError(nameof(model.Email), "Login Failed: Invalid Email or password");
+                ModelState.AddModelError(nameof(model.UserName), "Login Failed: Invalid Email or password");
             }
             return BadRequest(ModelState);
         }

@@ -3,9 +3,11 @@ import { Observable } from 'rxjs';
 
 // local services & interfaces
 import { AccountService } from '../../services/account.service';
-import { AppBarService } from 'src/app/shared/services/app-bar.service';
+import { AppBarService } from '../../../shared/services/app-bar.service';
 import { Account } from '../../models/account.interface';
-import { CommandBarItem } from 'src/app/shared/models/command-bar-item.interface';
+import { CommandBarItem } from '../../../shared/models/command-bar-item.interface';
+import { Store } from '@ngrx/store';
+import { AppState, selectAuthState } from '../../../shared/store/app.states';
 
 @Component({
     selector: 'app-account-dashboard',
@@ -15,8 +17,14 @@ import { CommandBarItem } from 'src/app/shared/models/command-bar-item.interface
 export class AccountDashboardComponent implements OnInit {
     accountsInfo: Observable<Account[]>;
     commandBarButtons: CommandBarItem[] = [];
+    getState: Observable<any>;
+    isAuthenticated: false;
+    user = null;
+    errorMessage = null;
     constructor(private accountService: AccountService,
-                private appBar: AppBarService) {
+                private appBar: AppBarService,
+                private store: Store<AppState>) {
+                  this.getState = this.store.select(selectAuthState);
     }
 
     ngOnInit() {
@@ -45,5 +53,10 @@ export class AccountDashboardComponent implements OnInit {
         }
       ];
       this.appBar.updateAppBar(commandBarButtons);
+      this.getState.subscribe((state) => {
+        this.isAuthenticated = state.isAuthenticated;
+        this.user = state.user;
+        this.errorMessage = state.errorMessage;
+      });
     }
 }

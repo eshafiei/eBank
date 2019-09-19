@@ -38,7 +38,6 @@ const routes = [
     ReactiveFormsModule,
     RouterModule.forChild(routes),
     BrowserAnimationsModule,
-    MaterialModule,
     SharedModule
   ],
   providers: [
