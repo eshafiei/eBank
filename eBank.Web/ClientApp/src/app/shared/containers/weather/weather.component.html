@@ -1,34 +1,39 @@
-<mat-card class="weather" *ngIf="this.currentWeatherData">
-  <div class="row">
-    <div class="col-5">
-      <img *ngIf="this.currentWeatherData.weather[0].main ==='Rain'" 
-        class="icon-48" src="../../../../assets/images/icons/rainy.png" />
-      <img *ngIf="this.currentWeatherData.weather[0].main ==='Sunny' || 
-                  this.currentWeatherData.weather[0].main ==='Clear'" 
-        class="icon-48" src="../../../../assets/images/icons/sunny.png" />
-      <img *ngIf="this.currentWeatherData.weather[0].main ==='Clouds'" 
-        class="icon-48" src="../../../../assets/images/icons/cloudy.png" />
-      <img *ngIf="this.currentWeatherData.weather[0].main ==='Mist'" 
-        class="icon-48" src="../../../../assets/images/icons/mist.png" />
-      <img *ngIf="this.currentWeatherData.weather[0].main ==='Thunderstorm'" 
-      class="icon-48" src="../../../../assets/images/icons/thunderstorm.png" />
-      <br />
-      <strong>{{this.currentWeatherData.main.temp}}°C</strong>
+<div class="size-wrapper">
+  <div class="card weather" *ngIf="this.currentWeatherData">
+    <div class="card-header">Weather information</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-5">
+          <img *ngIf="this.currentWeatherData.weather[0].main ==='Rain'" 
+            class="icon-48" src="../../../../assets/images/icons/rainy.png" />
+          <img *ngIf="this.currentWeatherData.weather[0].main ==='Sunny' || 
+                      this.currentWeatherData.weather[0].main ==='Clear'" 
+            class="icon-48" src="../../../../assets/images/icons/sunny.png" />
+          <img *ngIf="this.currentWeatherData.weather[0].main ==='Clouds'" 
+            class="icon-48" src="../../../../assets/images/icons/cloudy.png" />
+          <img *ngIf="this.currentWeatherData.weather[0].main ==='Mist'" 
+            class="icon-48" src="../../../../assets/images/icons/mist.png" />
+          <img *ngIf="this.currentWeatherData.weather[0].main ==='Thunderstorm'" 
+            class="icon-48" src="../../../../assets/images/icons/thunderstorm.png" />
+          <br />
+          <strong>{{this.currentWeatherData.main.temp}}°C</strong>
+        </div>
+        <div class="col-7">
+          <div class="d-inline-block">{{this.currentWeatherData.weather[0].description}}</div><br />
+          <div class="d-inline-block small">Humidity: {{this.currentWeatherData.main.humidity}}%</div><br />
+          <div class="d-inline-block small">Wind speed: {{this.currentWeatherData.wind.speed}}</div>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-5">
+          <strong>{{this.currentTime}}</strong>
+        </div>
+        <div class="col-7">
+          {{this.currentWeatherData.name}} <img src="../../../../assets/images/icons/reload.png" 
+            class="refresh" (click)="reload()" />
+        </div>
+      </div>
     </div>
-    <div class="col-7">
-      <div class="d-inline-block">{{this.currentWeatherData.weather[0].description}}</div><br />
-      <div class="d-inline-block small">Humidity: {{this.currentWeatherData.main.humidity}}%</div><br />
-      <div class="d-inline-block small">Wind speed: {{this.currentWeatherData.wind.speed}}</div>
-    </div>
-  </div>
-  <hr />
-  <div class="row">
-    <div class="col-5">
-      <strong>{{this.currentTime}}</strong>
-    </div>
-    <div class="col-7">
-      {{this.currentWeatherData.name}} <img src="../../../../assets/images/icons/reload.png" 
-        class="refresh" (click)="reload()" />
-    </div>
-  </div>
-</mat-card>
+  </div>    
+</div>

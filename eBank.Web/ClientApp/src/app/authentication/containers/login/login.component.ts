@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 // local
-import { User } from '../../models/user.interface';
 import { Store } from '@ngrx/store';
 import { AppState, selectAuthState } from '../../../shared/store/app.states';
 import { LogIn } from 'src/app/shared/store/actions/auth.actions';

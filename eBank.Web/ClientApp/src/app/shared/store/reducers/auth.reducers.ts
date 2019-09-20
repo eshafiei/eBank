@@ -19,17 +19,6 @@ export const initialState: State = {
 
 export function reducer(state = initialState, action: All): State {
     switch (action.type) {
-      case AuthActionTypes.LOGIN_SUCCESS: {
-        return {
-          ...state,
-          isAuthenticated: true,
-          user: {
-            username: action.username,
-            access_token: action.tokenInfo.access_token
-          },
-          errorMessages: null
-        };
-      }
       case AuthActionTypes.LOGIN_FAILURE: {
         return {
           ...state,
@@ -55,6 +44,23 @@ export function reducer(state = initialState, action: All): State {
       }
       case AuthActionTypes.LOGOUT: {
         return initialState;
+      }
+      case AuthActionTypes.TOKEN_SUCCESS: {
+        return {
+          ...state,
+          isAuthenticated: true,
+          user: {
+            username: action.username,
+            access_token: action.tokenInfo.access_token
+          },
+          errorMessages: null
+        };
+      }
+      case AuthActionTypes.TOKEN_FAILURE: {
+        return {
+          ...state,
+          errorMessages: action.payload.errors
+        };
       }
       default: {
         return state;

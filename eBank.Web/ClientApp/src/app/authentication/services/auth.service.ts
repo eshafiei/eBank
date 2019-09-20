@@ -18,7 +18,7 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  logIn(username: string, password: string): Observable<any> {
+  refreshToken(username: string, password: string): Observable<any> {
     const url = `${this.baseUrl}connect/token`;
     const httpHeaders = new HttpHeaders({
       'Content-Type' : 'application/x-www-form-urlencoded'
@@ -33,8 +33,16 @@ export class AuthService {
       .set('scope', 'api1 openid')
       .set('client_id', 'ro.angular')
       .set('client_secret', 'secret');
+    console.log(payload);
+    return this.http.post<any>(url, payload, options);
+  }
 
-    return this.http.post<TokenResponse>(url, payload, options);
+  logIn(username: string, password: string): Observable<any> {
+    const url = `${this.baseUrl}api/account/login`;
+    return this.http.post<boolean>(url, {
+      'username': username,
+      'password': password
+    });
   }
 
   signUp(userInfo: RegisterRequest): Observable<any> {
