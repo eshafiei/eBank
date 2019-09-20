@@ -7,7 +7,7 @@ import { switchMap, map, catchError, tap } from 'rxjs/operators';
 import { AuthService } from '../../../authentication/services/auth.service';
 import { AuthActionTypes, LogIn, LogInSuccess,
     LogInFailure, SignUp, SignUpSuccess, SignUpFailure,
-    TokenFailure, TokenSuccess } from '../actions/auth.actions';
+    TokenFailure, TokenSuccess, RefreshToken } from '../actions/auth.actions';
 import { TokenResponse } from 'src/app/authentication/models/token-response.interface';
 
 @Injectable()
@@ -53,7 +53,7 @@ export class AuthEffects {
     RefreshToken: Observable<any> = this.actions
         .pipe(
             ofType(AuthActionTypes.REFRESH_TOKEN),
-            map((action: LogIn) => action.payload),
+            map((action: RefreshToken) => action.payload),
             switchMap(payload => {
                 return this.authService.refreshToken(payload.username, payload.password).pipe(
                     map((tokenInfo: any) => {

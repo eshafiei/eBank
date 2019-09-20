@@ -1,7 +1,6 @@
 import { Action } from '@ngrx/store';
 import { TokenResponse } from 'src/app/authentication/models/token-response.interface';
 
-
 export enum AuthActionTypes {
   LOGIN = '[Auth] Login',
   LOGIN_SUCCESS = '[Auth] Login Success',
@@ -9,10 +8,10 @@ export enum AuthActionTypes {
   SIGNUP = '[Auth] Signup',
   SIGNUP_SUCCESS = '[Auth] Signup Success',
   SIGNUP_FAILURE = '[Auth] Signup Failure',
-  LOGOUT = '[Auth] Logout',
   REFRESH_TOKEN = '[Auth] Refresh Token',
   TOKEN_SUCCESS = '[Auth] Token Success',
-  TOKEN_FAILURE = '[Auth] Token Failure'
+  TOKEN_FAILURE = '[Auth] Token Failure',
+  LOGOUT = '[Auth] Logout'
 }
 
 export class LogIn implements Action {
@@ -45,10 +44,6 @@ export class SignUpFailure implements Action {
   constructor(public payload: any) {}
 }
 
-export class LogOut implements Action {
-  readonly type = AuthActionTypes.LOGOUT;
-}
-
 export class RefreshToken implements Action {
   readonly type = AuthActionTypes.REFRESH_TOKEN;
   constructor(public payload: any) {}
@@ -64,6 +59,10 @@ export class TokenFailure implements Action {
   constructor(public payload: any) {}
 }
 
+export class LogOut implements Action {
+  readonly type = AuthActionTypes.LOGOUT;
+}
+
 export type All =
     | LogIn
     | LogInSuccess
@@ -71,7 +70,7 @@ export type All =
     | SignUp
     | SignUpSuccess
     | SignUpFailure
-    | LogOut
     | RefreshToken
     | TokenSuccess
-    | TokenFailure;
+    | TokenFailure
+    | LogOut;

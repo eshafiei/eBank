@@ -10,10 +10,11 @@ import { CustomerBasicComponent } from './components/customer-basic/customer-bas
 // local services & modules
 import { SharedModule } from '../shared/shared.module';
 import { CustomerService } from './services/customer.service';
+import { AuthGuardService as AuthGuard } from './../authentication/services/auth-guard.service';
 
 const routes = [
-  { path: 'customer/addcustomer', component: AddEditCustomerComponent },
-  { path: 'customer/updatecustomer/:customerId', component: AddEditCustomerComponent }
+  { path: 'customer/addcustomer', component: AddEditCustomerComponent, canActivate: [AuthGuard]  },
+  { path: 'customer/updatecustomer/:customerId', component: AddEditCustomerComponent, canActivate: [AuthGuard]  }
 ];
 
 @NgModule({

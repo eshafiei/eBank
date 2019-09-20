@@ -1,11 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, CanActivate } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-// angular material modules
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from '../shared/modules/material.module';
 
 // local components
 
@@ -17,11 +13,12 @@ import { AccountTermsComponent } from './components/account-terms/account-terms.
 
 // local services & modules
 import { AccountService } from './services/account.service';
+import { AuthGuardService as AuthGuard } from './../authentication/services/auth-guard.service';
 import { SharedModule } from '../shared/shared.module';
 
 const routes = [
-  { path: 'account', component: AccountDashboardComponent },
-  { path: 'createaccount', component: NewAccountComponent }
+  { path: 'account', component: AccountDashboardComponent, canActivate: [AuthGuard] },
+  { path: 'createaccount', component: NewAccountComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
@@ -37,11 +34,11 @@ const routes = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
-    BrowserAnimationsModule,
     SharedModule
   ],
   providers: [
-    AccountService
+    AccountService,
+    AuthGuard
   ],
   exports: []
 })

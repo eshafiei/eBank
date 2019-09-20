@@ -10,7 +10,7 @@ import { LoginComponent } from './containers/login/login.component';
 import { SignupComponent } from './containers/signup/signup.component';
 
 // services & modules
-import { TokenInterceptor } from './services/token.interceptor';
+import { TokenInterceptor, ErrorInterceptor } from './services/token.interceptor';
 import { AuthService } from './services/auth.service';
 import { SharedModule } from '../shared/shared.module';
 
@@ -39,6 +39,11 @@ const routes = [
         {
             provide: HTTP_INTERCEPTORS,
             useClass: TokenInterceptor,
+            multi: true
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ErrorInterceptor,
             multi: true
         }
     ],
