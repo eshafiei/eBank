@@ -39,16 +39,8 @@ export class AuthEffects {
     @Effect({ dispatch: false })
     LogInSuccess: Observable<any> = this.actions.pipe(
         ofType(AuthActionTypes.LOGIN_SUCCESS),
-        map((action: LogInSuccess) => action.payload),
-        switchMap(payload => {
-            return this.authService.refreshToken(payload.username, payload.password).pipe(
-                map((tokenInfo: any) => {
-                    return new TokenSuccess(tokenInfo, payload.username);
-                }),
-                catchError((httpErrorResponse) => {
-                    return of(new TokenFailure({ errors: httpErrorResponse.error }));
-                })
-            );
+        tap((response: any) => {
+            this.router.navigateByUrl('account');
         })
     );
 
@@ -57,12 +49,28 @@ export class AuthEffects {
         ofType(AuthActionTypes.LOGIN_FAILURE)
     );
 
+    @Effect()
+    RefreshToken: Observable<any> = this.actions
+        .pipe(
+            ofType(AuthActionTypes.REFRESH_TOKEN),
+            map((action: LogIn) => action.payload),
+            switchMap(payload => {
+                return this.authService.refreshToken(payload.username, payload.password).pipe(
+                    map((tokenInfo: any) => {
+                        return new TokenSuccess(tokenInfo, payload.username);
+                    }),
+                    catchError((httpErrorResponse) => {
+                        return of(new TokenFailure({ errors: httpErrorResponse.error }));
+                    })
+                );
+            })
+        );
+
     @Effect({ dispatch: false })
     TokenSuccess: Observable<any> = this.actions.pipe(
         ofType(AuthActionTypes.TOKEN_SUCCESS),
         tap((response: any) => {
             localStorage.setItem('token', response.tokenInfo.access_token);
-            this.router.navigateByUrl('account');
         })
     );
 

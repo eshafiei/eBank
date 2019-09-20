@@ -10,6 +10,7 @@ export enum AuthActionTypes {
   SIGNUP_SUCCESS = '[Auth] Signup Success',
   SIGNUP_FAILURE = '[Auth] Signup Failure',
   LOGOUT = '[Auth] Logout',
+  REFRESH_TOKEN = '[Auth] Refresh Token',
   TOKEN_SUCCESS = '[Auth] Token Success',
   TOKEN_FAILURE = '[Auth] Token Failure'
 }
@@ -48,6 +49,11 @@ export class LogOut implements Action {
   readonly type = AuthActionTypes.LOGOUT;
 }
 
+export class RefreshToken implements Action {
+  readonly type = AuthActionTypes.REFRESH_TOKEN;
+  constructor(public payload: any) {}
+}
+
 export class TokenSuccess implements Action {
   readonly type = AuthActionTypes.TOKEN_SUCCESS;
   constructor(public tokenInfo: TokenResponse, public username: string) {}
@@ -66,5 +72,6 @@ export type All =
     | SignUpSuccess
     | SignUpFailure
     | LogOut
+    | RefreshToken
     | TokenSuccess
     | TokenFailure;

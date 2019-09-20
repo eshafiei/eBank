@@ -33,7 +33,6 @@ export class AuthService {
       .set('scope', 'api1 openid')
       .set('client_id', 'ro.angular')
       .set('client_secret', 'secret');
-    console.log(payload);
     return this.http.post<any>(url, payload, options);
   }
 
