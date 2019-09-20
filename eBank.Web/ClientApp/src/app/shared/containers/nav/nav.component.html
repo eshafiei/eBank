@@ -3,13 +3,9 @@
 <app-command-bar [commandBarButtons]="commandBarButtons">
 </app-command-bar>
 <app-side-nav [toggleSideNav]="toggle" [appRoutes]="appRoutes">
-    <div class="row nomargin">
-        <div class="col-9 mb-3">
+    <div class="row nomargin container-padding">
+        <div class="col-12 mb-2">
             <router-outlet></router-outlet>
-        </div>
-        <div class="col-3 mb-3">
-            <app-weather></app-weather>
         </div>
     </div>
 </app-side-nav>
-  

@@ -13,8 +13,8 @@ import { CustomerService } from './services/customer.service';
 import { AuthGuardService as AuthGuard } from './../authentication/services/auth-guard.service';
 
 const routes = [
-  { path: 'customer/addcustomer', component: AddEditCustomerComponent, canActivate: [AuthGuard]  },
-  { path: 'customer/updatecustomer/:customerId', component: AddEditCustomerComponent, canActivate: [AuthGuard]  }
+  { path: 'customer/addcustomer', component: AddEditCustomerComponent, canActivate: [AuthGuard] },
+  { path: 'customer/updatecustomer/:customerId', component: AddEditCustomerComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { User } from '../models/user.interface';
-import { TokenResponse } from '../models/token-response.interface';
 import { RegisterRequest } from '../models/register-request.interface';
 
 @Injectable({

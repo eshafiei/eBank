@@ -1,5 +1,6 @@
 ﻿using eBank.DataAccess.Models;
 using eBank.DataAccess.Services.Account;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 namespace eBank.Web.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class BankAccountController : ControllerBase
     {

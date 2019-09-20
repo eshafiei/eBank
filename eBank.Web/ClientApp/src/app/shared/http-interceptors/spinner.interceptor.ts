@@ -6,9 +6,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable()
 export class SpinnerInterceptor implements HttpInterceptor {
-    
     count = 0;
-
     constructor(private spinner: NgxSpinnerService) {}
 
     intercept (request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -20,7 +18,7 @@ export class SpinnerInterceptor implements HttpInterceptor {
         return next.handle(request)
                    .pipe (finalize(() => {
                         this.count--;
-                        if ( this.count == 0 ) {
+                        if ( this.count === 0 ) {
                             this.spinner.hide();
                         }
                     })

@@ -1,84 +1,86 @@
-<div class="card">
-  <div class="card-header text-warning font-weight-bold bg-info">Sign up</div>
-  <div class="card-body">
-      <div class="row mb-3">
-        <div class="col-12">
-          <span class="text-info font-weight-bold mr-2">Already have an account?</span>
-          <a class="text-success font-weight-bolder" [routerLink]="['/login']">Log in!</a>
-        </div>      
-      </div>
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
-      <div class="row">
-        <mat-form-field class="col-12" appearance="outline">
-          <mat-label>Username</mat-label>
-          <input matInput
-                type="text"
-                formControlName="username"
-                placeholder="username"
-                [ngClass]="{'is-invalid': f.username.touched && f.username.errors}">
-          <mat-error *ngIf="f.username?.hasError('required')">Username is required</mat-error>
-        </mat-form-field>
-      </div>
-      <div class="row">
-        <mat-form-field class="col-12" appearance="outline">
-          <mat-label>Password</mat-label>
-          <input matInput
-                type="password"
-                formControlName="password"
-                placeholder="password"
-                [ngClass]="{'is-invalid': f.password.touched && f.password.errors}">
-          <mat-error *ngIf="f.password?.hasError('required')">Password is required</mat-error>
-        </mat-form-field>
-      </div>
-      <div class="row">
-        <mat-form-field class="col-12" appearance="outline">
-          <mat-label>First name</mat-label>
-          <input matInput
-                type="text"
-                formControlName="firstName"
-                placeholder="First name"
-                [ngClass]="{'is-invalid': f.firstName.touched && f.firstName.errors}">
-          <mat-error *ngIf="f.password?.hasError('required')">First name is required</mat-error>
-        </mat-form-field>
-      </div>
-      <div class="row">
-        <mat-form-field class="col-12" appearance="outline">
-          <mat-label>Last name</mat-label>
-          <input matInput
-                type="text"
-                formControlName="lastName"
-                placeholder="Last name"
-                [ngClass]="{'is-invalid': f.lastName.touched && f.lastName.errors}">
-          <mat-error *ngIf="f.lastName?.hasError('required')">Last name is required</mat-error>
-        </mat-form-field>
-      </div>
-      <div class="row">
-        <mat-form-field class="col-12" appearance="outline">
-          <mat-label>Email</mat-label>
-          <input matInput
-                type="email"
-                formControlName="email"
-                placeholder="Email"
-                [ngClass]="{'is-invalid': f.email.touched && f.email.errors}">
-          <mat-error *ngIf="f.email?.hasError('required')">Email is required</mat-error>
-        </mat-form-field>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <button mat-raised-button
-            color="primary"
-            class="col-2 pull-right"
-            type="submit"
-            [disabled]="registerForm.invalid">
-            Sign up
-          </button>
-          <div *ngIf="errorMessages">
-            <div class="alert alert-danger col-8" role="alert" *ngFor="let item of errorMessages">
-              {{ item.description }}
+<div class="signup-center-wrapper">
+  <div class="card">
+    <div class="card-header text-warning font-weight-bold bg-info">Sign up</div>
+    <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-12">
+            <span class="text-info font-weight-bold mr-2">Already have an account?</span>
+            <a class="text-success font-weight-bolder" [routerLink]="['/login']">Log in!</a>
+          </div>      
+        </div>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+        <div class="row">
+          <mat-form-field class="col-12" appearance="outline">
+            <mat-label>Username</mat-label>
+            <input matInput
+                  type="text"
+                  formControlName="username"
+                  placeholder="username"
+                  [ngClass]="{'is-invalid': f.username.touched && f.username.errors}">
+            <mat-error *ngIf="f.username?.hasError('required')">Username is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field class="col-12" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput
+                  type="password"
+                  formControlName="password"
+                  placeholder="password"
+                  [ngClass]="{'is-invalid': f.password.touched && f.password.errors}">
+            <mat-error *ngIf="f.password?.hasError('required')">Password is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field class="col-12" appearance="outline">
+            <mat-label>First name</mat-label>
+            <input matInput
+                  type="text"
+                  formControlName="firstName"
+                  placeholder="First name"
+                  [ngClass]="{'is-invalid': f.firstName.touched && f.firstName.errors}">
+            <mat-error *ngIf="f.password?.hasError('required')">First name is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field class="col-12" appearance="outline">
+            <mat-label>Last name</mat-label>
+            <input matInput
+                  type="text"
+                  formControlName="lastName"
+                  placeholder="Last name"
+                  [ngClass]="{'is-invalid': f.lastName.touched && f.lastName.errors}">
+            <mat-error *ngIf="f.lastName?.hasError('required')">Last name is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field class="col-12" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput
+                  type="email"
+                  formControlName="email"
+                  placeholder="Email"
+                  [ngClass]="{'is-invalid': f.email.touched && f.email.errors}">
+            <mat-error *ngIf="f.email?.hasError('required')">Email is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <button mat-raised-button
+              color="primary"
+              class="col-2 pull-right"
+              type="submit"
+              [disabled]="registerForm.invalid">
+              Sign up
+            </button>
+            <div *ngIf="errorMessages">
+              <div class="alert alert-danger col-8" role="alert" *ngFor="let item of errorMessages">
+                {{ item.description }}
+              </div>
             </div>
           </div>
-        </div>
-      </div>  
-    </form>
+        </div>  
+      </form>
+    </div>
   </div>
 </div>

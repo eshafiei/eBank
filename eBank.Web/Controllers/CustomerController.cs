@@ -1,11 +1,13 @@
 ﻿using System.Threading.Tasks;
 using eBank.DataAccess.Services.Customer;
 using eBank.DataAccess.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eBank.Web.Controllers
 {
     [Route("api/[controller]")]
+    //[Authorize]
     [ApiController]
     public class CustomerController : ControllerBase
     {
