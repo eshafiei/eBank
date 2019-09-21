@@ -1,10 +1,10 @@
 <app-navigation-bar (toggleSidenav)="toggleNav()">
 </app-navigation-bar>
-<app-command-bar [commandBarButtons]="commandBarButtons">
-</app-command-bar>
+<!-- <app-command-bar [commandBarButtons]="commandBarButtons">
+</app-command-bar> -->
 <app-side-nav [toggleSideNav]="toggle" [appRoutes]="appRoutes">
     <div class="row nomargin container-padding">
-        <div class="col-12 mb-2">
+        <div class="col-12">
             <router-outlet></router-outlet>
         </div>
     </div>

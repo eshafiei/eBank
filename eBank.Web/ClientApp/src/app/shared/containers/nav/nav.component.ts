@@ -75,7 +75,7 @@ export class NavComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.appBar.commanBarItems.subscribe(items => {
-      this.commandBarButtons = items;
+      // this.commandBarButtons = items;
       this.cd.detectChanges();
     });
   }

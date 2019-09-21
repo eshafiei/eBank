@@ -22,8 +22,8 @@ $mat-small: 'max-width: 959px';
 }
 
 .command-bar {
-  position: fixed;
-  top: 50px;
+  position: inherit;
+  top: 0;
   left: 0;
   right: 0;
   z-index: 998;
