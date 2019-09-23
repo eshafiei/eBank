@@ -6,7 +6,7 @@
       <mat-icon>menu</mat-icon>
     </button>
     <span class="toolbar-title">eBank</span>
-    <div fxFlex fxLayout fxLayoutAlign="flex-end">
+    <div fxFlex fxLayout fxLayoutAlign="flex-end" *ngIf="isAuthenticated">
       <ul fxLayout fxLayoutGap="20px" class="navigation-items">
         <li fxHide.xs>
           <button mat-icon-button>
@@ -19,29 +19,20 @@
           </button>
         </li>
         <li>
-          <button mat-icon-button [matMenuTriggerFor]="auth">
-            <mat-icon>person_outline</mat-icon>
+          <button mat-icon-button [matMenuTriggerFor]="auth" class="mr-2">
+            {{ loggedInUser }}
           </button>
           <mat-menu #auth="matMenu">
-            <div *ngIf="isAuthenticated">
-              <button mat-menu-item
-                [routerLink]="['/customer/updatecustomer', customerId]">
-                <mat-icon>person_pin</mat-icon>
-                Update profile
-              </button>
-              <button mat-menu-item
-                (click)="logOut()">
-                <mat-icon>lock</mat-icon>
-                Sign out
-              </button>
-            </div>
-            <div *ngIf="!isAuthenticated">
-              <button mat-menu-item
-                [routerLink]="['/login']">
-                <mat-icon>lock_open</mat-icon>
-                Log in
-              </button>
-            </div>
+            <button mat-menu-item
+              [routerLink]="['/customer/updatecustomer', customerId]">
+              <mat-icon>person_pin</mat-icon>
+              Update profile
+            </button>
+            <button mat-menu-item
+              (click)="logOut()">
+              <mat-icon>lock</mat-icon>
+              Sign out
+            </button>
           </mat-menu>
         </li>
       </ul>

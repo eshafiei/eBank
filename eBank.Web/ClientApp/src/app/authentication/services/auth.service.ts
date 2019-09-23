@@ -17,6 +17,10 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
+  getLoggedInUser(): string {
+    return localStorage.getItem('username');
+  }
+
   refreshToken(username: string, password: string): Observable<any> {
     const url = `${this.baseUrl}connect/token`;
     const httpHeaders = new HttpHeaders({

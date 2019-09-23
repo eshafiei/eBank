@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace eBank.Web.Controllers
 {
     [Route("api/[controller]")]
-    //[Authorize]
+    [Authorize]
     [ApiController]
     public class CustomerController : ControllerBase
     {

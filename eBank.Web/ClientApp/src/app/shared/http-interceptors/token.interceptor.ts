@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 import { AuthService } from '../../authentication/services/auth.service';
+import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   constructor(private auth: AuthService) {}
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token: string = this.auth.getToken();
-    const excludedRequests = ['login', 'register', 'openweather', 'token'];
+    const excludedRequests = ['register', 'openweather', 'token'];
     if (excludedRequests.some(element => request.url.search(element) !== -1)) {
       return next.handle(request);
     }
@@ -20,7 +21,16 @@ export class TokenInterceptor implements HttpInterceptor {
         'Content-Type': 'application/json'
       }
     });
-    return next.handle(request);
+    return next.handle(request).pipe(
+      tap(response => {
+          if (response instanceof HttpResponse) {
+              if (response.body && response.body.success) {
+                console.log(response);
+                // localStorage.setItem('token', response.tokenInfo.access_token);
+              }
+          }
+      })
+    );
   }
 }
 
