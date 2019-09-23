@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace eBank.DataAccess.Services.Account
 {
-    public class AccountService : IAccountService
+    public class BankAccountService : IBankAccountService
     {
         readonly EBankContext _eBankContext;
 
-        public AccountService(EBankContext context)
+        public BankAccountService(EBankContext context)
         {
             _eBankContext = context;
         }

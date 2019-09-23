@@ -12,9 +12,9 @@ namespace eBank.Web.Controllers
     [ApiController]
     public class BankAccountController : ControllerBase
     {
-        private IAccountService _accountService;
+        private IBankAccountService _accountService;
 
-        public BankAccountController(IAccountService accountService)
+        public BankAccountController(IBankAccountService accountService)
         {
             _accountService = accountService;
         }

@@ -40,7 +40,7 @@ namespace eBank.Web
                 .AddDefaultTokenProviders();
 
             // Inject Services
-            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IBankAccountService, BankAccountService>();
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<ILogService, LogService>();
             services.AddIdentityServer()
