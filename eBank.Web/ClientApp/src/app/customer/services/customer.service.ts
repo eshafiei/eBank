@@ -13,9 +13,9 @@ export class CustomerService {
   constructor(private http: HttpClient,
     @Inject('BASE_URL') private baseUrl: string) { }
 
-  getCustomer(customerId: number): Observable<CustomerViewModel> {
+  getCustomer(userId: string): Observable<CustomerViewModel> {
     return this.http
-              .get<CustomerViewModel>(this.baseUrl + 'api/customer/getcustomer/' + customerId);
+              .get<CustomerViewModel>(this.baseUrl + 'api/customer/getcustomer/' + userId);
   }
 
   updateCustomer(customerModel: CustomerViewModel): Observable<any> {

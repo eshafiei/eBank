@@ -23,16 +23,16 @@ import { AdditionalInfoItem } from 'src/app/shared/models/additional-info-item.i
   templateUrl: './new-account.component.html'
 })
 export class NewAccountComponent implements OnInit, OnDestroy {
-  userId = 'ec9426bc-fb05-4a38-b63b-f265cbdfb816';
-  customerId = 7;
+  customerId: number;
+  loggedInUserId: string;
   customerInfoComponent: ComponentRef<AdditionalInfoComponent>;
   newAccountForm = this.fb.group({
     accountType: ['', [Validators.required]],
     accountNumber: ['', [Validators.required]],
-    balance: [],
+    balance: null,
     accountStatus: [null, Validators.requiredTrue],
     accountAgreement: [null, Validators.requiredTrue],
-    customerId: this.customerId
+    customerId: null
   });
   @ViewChild('stepper', null) stepper: MatStepper;
   @ViewChild('customerBasicInfoEntry', { read: ViewContainerRef, static: true }) customerBasicInfoEntry: ViewContainerRef;
@@ -46,7 +46,8 @@ export class NewAccountComponent implements OnInit, OnDestroy {
               private resolver: ComponentFactoryResolver) {}
 
   ngOnInit() {
-    this.getCustomerBasicInfo();
+    this.loggedInUserId = localStorage.getItem('userId');
+    this.getCustomerBasicInfo(this.loggedInUserId);
   }
 
   ngOnDestroy() {
@@ -61,6 +62,7 @@ export class NewAccountComponent implements OnInit, OnDestroy {
 
   createAccount() {
     this.stepper.steps.forEach(step => step.editable = false);
+    this.newAccountForm.value.customerId = this.customerId;
     this.accountService.createAccount(this.newAccountForm.value)
       .subscribe(response => {
         this.toastr.success('account created successfuly!', 'Account');
@@ -71,10 +73,11 @@ export class NewAccountComponent implements OnInit, OnDestroy {
       });
   }
 
-  getCustomerBasicInfo() {
+  getCustomerBasicInfo(userId: string) {
     const customerAdditionalInfo: AdditionalInfoItem[] = [];
-    this.customerService.getCustomer(this.customerId)
+    this.customerService.getCustomer(userId)
       .subscribe((customerInfo: CustomerViewModel) => {
+        this.customerId = customerInfo.customer.customerId;
         customerAdditionalInfo.push({ text: 'First name', value: customerInfo.customer.firstName });
         customerAdditionalInfo.push({ text: 'Last name', value: customerInfo.customer.lastName });
         customerAdditionalInfo.push({ text: 'Date of birth',

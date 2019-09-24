@@ -5,7 +5,7 @@ namespace eBank.DataAccess.Services.Customer
 {
     public interface ICustomerService
     {
-        Task<CustomerViewModel> GetCustomer(int customerId);
+        Task<CustomerViewModel> GetCustomer(string userId);
         Task<int> UpdateCustomer(CustomerViewModel model);
     }
 }

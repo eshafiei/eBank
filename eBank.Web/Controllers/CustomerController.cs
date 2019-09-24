@@ -18,10 +18,10 @@ namespace eBank.Web.Controllers
             _customerService = customerService;
         }
 
-        [HttpGet("[action]/{customerId}")]
-        public async Task<CustomerViewModel> GetCustomer(int customerId)
+        [HttpGet("[action]/{userId}")]
+        public async Task<CustomerViewModel> GetCustomer(string userId)
         {
-            return await _customerService.GetCustomer(customerId);
+            return await _customerService.GetCustomer(userId);
         }
 
         [HttpPost("[action]")]

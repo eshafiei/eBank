@@ -32,8 +32,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.store.dispatch(new RefreshToken(this.loginForm.value));
-    // this.store.dispatch(new LogIn(this.loginForm.value));
+    this.store.dispatch(new LogIn(this.loginForm.value));
   }
 
   get f() {

@@ -39,7 +39,7 @@ namespace eBank.Web.Controllers
                     await _signInManager.SignOutAsync();
                     Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(appUser, model.Password, false, false);
                     if (result.Succeeded)
-                        return Ok(true);
+                        return Ok(appUser);
                 }
                 ModelState.AddModelError(nameof(model.UserName), "Login Failed: Invalid Email or password");
             }

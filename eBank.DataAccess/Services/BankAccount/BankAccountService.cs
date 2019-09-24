@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using eBank.DataAccess.Models;
+using eBank.DataAccess.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace eBank.DataAccess.Services.Account
@@ -21,17 +22,19 @@ namespace eBank.DataAccess.Services.Account
             return await _eBankContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<AccountModel>> GetAccounts(int customerId)
+        public async Task<IEnumerable<AccountViewModel>> GetAccounts(string userId)
         {
             return await _eBankContext.Accounts
-                                      .Where(a => a.CustomerId == customerId)
-                                      .OrderBy(a => a.AccountType)
-                                      .Select(a => new AccountModel {
-                                              AccountNumber = a.AccountNumber,
-                                              AccountType = a.AccountType,
-                                              AccountStatus = a.AccountStatus,
-                                              Balance = a.Balance,
-                                              CustomerId = a.CustomerId})
+                                      .Join(_eBankContext.Customers,
+                                        account => account.CustomerId,
+                                        customer => customer.CustomerId,
+                                        (account, customer) =>
+                                            new AccountViewModel {
+                                              Account = account,
+                                              Customer = customer
+                                            })
+                                      .Where(accountAndCustomer => accountAndCustomer.Customer.UserId == userId)
+                                      .OrderBy(accountAndCustomer => accountAndCustomer.Account.AccountType)
                                       .ToListAsync();
         }        
     }

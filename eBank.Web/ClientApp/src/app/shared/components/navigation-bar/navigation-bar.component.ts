@@ -11,7 +11,6 @@ import { AuthService } from './../../../authentication/services/auth.service';
   styleUrls: ['./navigation-bar.component.scss']
 })
 export class NavigationBarComponent implements OnInit {
-  customerId = 7;
   isAuthenticated: boolean;
   loggedInUser = null;
   user = null;

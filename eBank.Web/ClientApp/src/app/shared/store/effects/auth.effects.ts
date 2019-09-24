@@ -27,8 +27,8 @@ export class AuthEffects {
             map((action: LogIn) => action.payload),
             switchMap(payload => {
                 return this.authService.logIn(payload.username, payload.password).pipe(
-                  map((response: boolean) => {
-                    return new LogInSuccess(response);
+                  map((response: any) => {
+                    return new LogInSuccess(response.id);
                   }),
                   catchError((httpErrorResponse) => {
                     return of(new LogInFailure({ errors: httpErrorResponse.error }));
@@ -39,14 +39,17 @@ export class AuthEffects {
     @Effect({ dispatch: false })
     LogInSuccess: Observable<any> = this.actions.pipe(
         ofType(AuthActionTypes.LOGIN_SUCCESS),
-        tap((response: boolean) => {
-            this.router.navigate(['account']);
+        tap((response: any) => {
+            localStorage.setItem('userId', response.payload);
         })
     );
 
     @Effect({ dispatch: false })
     LogInFailure: Observable<any> = this.actions.pipe(
-        ofType(AuthActionTypes.LOGIN_FAILURE)
+        ofType(AuthActionTypes.LOGIN_FAILURE),
+        tap((error: any) => {
+            console.log(error);
+        })
     );
 
     @Effect()
@@ -70,6 +73,7 @@ export class AuthEffects {
     TokenSuccess: Observable<any> = this.actions.pipe(
         ofType(AuthActionTypes.TOKEN_SUCCESS),
         tap((response: any) => {
+            console.log(response);
             localStorage.setItem('token', response.tokenInfo.access_token);
             localStorage.setItem('username', response.username);
             this.router.navigate(['account']);
@@ -118,6 +122,7 @@ export class AuthEffects {
         tap((user) => {
             localStorage.removeItem('token');
             localStorage.removeItem('username');
+            localStorage.removeItem('userId');
             this.router.navigateByUrl('/login');
         })
     );

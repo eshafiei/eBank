@@ -15,7 +15,7 @@ import { CustomerService } from '../../services/customer.service';
   styleUrls: ['./add-edit-customer.component.scss']
 })
 export class AddEditCustomerComponent implements OnInit {
-  userId = 'ec9426bc-fb05-4a38-b63b-f265cbdfb816';
+  loggedInUserId: string;
   customerId: number;
   isEdit: boolean;
   customerForm = this.fb.group({
@@ -26,7 +26,7 @@ export class AddEditCustomerComponent implements OnInit {
       dateOfBirth: ['', Validators.required],
       legalStatus: [null, Validators.required],
       maritalStatus: [null, Validators.required],
-      userId: this.userId
+      userId: this.loggedInUserId
     }),
     address: this.fb.group({
       address1: ['', Validators.required],
@@ -45,18 +45,19 @@ export class AddEditCustomerComponent implements OnInit {
     private logger: NGXLogger) { }
 
   ngOnInit() {
+    this.loggedInUserId = localStorage.getItem('userId');
     this.customerId = this.route.snapshot.params.customerId;
     if (this.customerId) {
       this.isEdit = true;
     }
 
     if (this.isEdit) {
-      this.loadData(this.customerId);
+      this.loadData(this.loggedInUserId);
     }
   }
 
-  loadData(customerId: number) {
-    this.customerService.getCustomer(customerId)
+  loadData(userId: string) {
+    this.customerService.getCustomer(userId)
       .subscribe(data => {
         this.customerForm.controls.customer.setValue({
           customerId: this.customerId,

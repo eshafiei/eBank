@@ -14,7 +14,7 @@ namespace eBank.DataAccess.Services.Customer
             _eBankContext = eBankContext;
         }
 
-        public async Task<CustomerViewModel> GetCustomer(int customerId)
+        public async Task<CustomerViewModel> GetCustomer(string userId)
         {
             return await _eBankContext.Customers
                            .Join(_eBankContext.Address,
@@ -22,11 +22,11 @@ namespace eBank.DataAccess.Services.Customer
                               address => address.CustomerId,
                               (customer, address) =>
                               new CustomerViewModel { Customer = customer, Address = address })
-                           .Where(customerAndAddress => customerAndAddress.Customer.CustomerId == customerId)
+                           .Where(customerAndAddress => customerAndAddress.Customer.UserId == userId)
                            .FirstOrDefaultAsync();
         }
 
-        public async Task<int> UpdateCustomer(CustomerViewModel model)
+            public async Task<int> UpdateCustomer(CustomerViewModel model)
         {
             var customer = _eBankContext.Customers.FirstOrDefault(c => c.CustomerId == model.Customer.CustomerId);
             if (customer != null)
