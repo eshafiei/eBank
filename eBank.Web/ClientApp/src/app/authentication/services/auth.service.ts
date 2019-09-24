@@ -58,4 +58,9 @@ export class AuthService {
     });
   }
 
+  isAdminUser(userId: string): Observable<boolean> {
+    const url = `${this.baseUrl}api/account/isAdminUser/`;
+    return this.http.get<boolean>(url + userId);
+  }
+
 }

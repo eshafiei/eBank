@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
 using eBank.DataAccess.Models.User;
 using eBank.DataAccess.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -68,16 +69,23 @@ namespace eBank.Web.Controllers
                     await _roleManager.CreateAsync(new IdentityRole(role));
                 }
                 await _userManager.AddToRoleAsync(user, role);
-                await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("userName", user.UserName));
-                await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("firstName", user.FirstName));
-                await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("lastName", user.LastName));
-                await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("email", user.Email));
-                await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("role", role));
+                await _userManager.AddClaimAsync(user, new Claim("userName", user.UserName));
+                await _userManager.AddClaimAsync(user, new Claim("firstName", user.FirstName));
+                await _userManager.AddClaimAsync(user, new Claim("lastName", user.LastName));
+                await _userManager.AddClaimAsync(user, new Claim("email", user.Email));
+                await _userManager.AddClaimAsync(user, new Claim("role", role));
 
                 return Ok(new ProfileViewModel(user));
             }
 
             return BadRequest(result.Errors);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("[action]/{userId}")]
+        public async Task<bool> IsAdminUser(string userId) {
+            var currentUser = await _userManager.FindByIdAsync(userId);
+            return await _userManager.IsInRoleAsync(currentUser, "Admin");
         }
     }
 }

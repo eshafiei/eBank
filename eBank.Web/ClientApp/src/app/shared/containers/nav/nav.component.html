@@ -2,7 +2,7 @@
 </app-navigation-bar>
 <!-- <app-command-bar [commandBarButtons]="commandBarButtons">
 </app-command-bar> -->
-<app-side-nav [toggleSideNav]="toggle" [appRoutes]="appRoutes">
+<app-side-nav [toggleSideNav]="toggle" [appRoutes]="appRoutes" [isAdminUser]="isAdminUser" *ngIf="isAdminUser !== undefined">
     <div class="row nomargin container-padding">
         <div class="col-12">
             <router-outlet></router-outlet>

@@ -1,22 +1,27 @@
-import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AppRoute } from './../../models/app-route.interface';
 
-import { CommandBarItem } from '../../models/command-bar-item.interface';
-
 // local services
-import { AppBarService } from '../../services/app-bar.service';
+import { AuthService } from './../../../authentication/services/auth.service';
 
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
-export class NavComponent implements OnInit, AfterViewInit {
+export class NavComponent implements OnInit {
   appRoutes: AppRoute[];
   toggle: boolean;
-  commandBarButtons: CommandBarItem[];
-  constructor(private appBar: AppBarService,
-    private cd: ChangeDetectorRef) { }
+  isAdminUser: boolean;
+  loggedInUserId: string;
+  constructor(private auth: AuthService) {
+    this.loggedInUserId = localStorage.getItem('userId');
+    this.auth.isAdminUser(this.loggedInUserId)
+      .subscribe((response: boolean) => {
+        console.log('from nav ctor: ', response);
+        this.isAdminUser = response;
+      });
+  }
 
   ngOnInit() {
     this.appRoutes = [
@@ -62,6 +67,7 @@ export class NavComponent implements OnInit, AfterViewInit {
       },
       {
         routeHeader: 'Customer management',
+        adminAccess: true,
         routeItems: [
           {
             title: 'Add new customer',
@@ -71,13 +77,6 @@ export class NavComponent implements OnInit, AfterViewInit {
         ]
       }
     ];
-  }
-
-  ngAfterViewInit() {
-    this.appBar.commanBarItems.subscribe(items => {
-      // this.commandBarButtons = items;
-      this.cd.detectChanges();
-    });
   }
 
   toggleNav() {
