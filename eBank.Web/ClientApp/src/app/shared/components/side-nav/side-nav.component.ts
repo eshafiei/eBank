@@ -11,19 +11,21 @@ import { MatSidenav } from '@angular/material';
 export class SideNavComponent implements OnInit, OnChanges {
   @Input() appRoutes: AppRoute[];
   @Input() toggleSideNav: boolean;
-  @Input() isAdminUser: boolean;
   @ViewChild('navigationSideNav', null) navigationSideNav: MatSidenav;
   constructor() {}
 
   ngOnInit() {
-    if (this.appRoutes && !this.isAdminUser) {
-      this.appRoutes = this.appRoutes.filter(i => i.adminAccess !== true);
-    }
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['toggleSideNav'].currentValue !== changes['toggleSideNav'].previousValue) {
+    if (changes['toggleSideNav'] &&
+          changes['toggleSideNav'].currentValue !== changes['toggleSideNav'].previousValue) {
       this.navigationSideNav.toggle();
+    }
+    if (changes['appRoutes'] &&
+          changes['appRoutes'].currentValue !== changes['appRoutes'].previousValue) {
+      this.appRoutes = changes['appRoutes'].currentValue;
+      console.log('change occured!', this.appRoutes);
     }
   }
 

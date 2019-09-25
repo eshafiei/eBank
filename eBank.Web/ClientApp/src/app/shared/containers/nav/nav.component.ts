@@ -3,6 +3,9 @@ import { AppRoute } from './../../models/app-route.interface';
 
 // local services
 import { AuthService } from './../../../authentication/services/auth.service';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState, selectAuthState } from '../../store/app.states';
 
 @Component({
   selector: 'app-nav',
@@ -11,16 +14,14 @@ import { AuthService } from './../../../authentication/services/auth.service';
 })
 export class NavComponent implements OnInit {
   appRoutes: AppRoute[];
+  userAppRoutes: AppRoute[];
   toggle: boolean;
   isAdminUser: boolean;
   loggedInUserId: string;
-  constructor(private auth: AuthService) {
-    this.loggedInUserId = localStorage.getItem('userId');
-    this.auth.isAdminUser(this.loggedInUserId)
-      .subscribe((response: boolean) => {
-        console.log('from nav ctor: ', response);
-        this.isAdminUser = response;
-      });
+  getState: Observable<any>;
+  constructor(private auth: AuthService,
+    private store: Store<AppState>) {
+      this.getState = this.store.select(selectAuthState);
   }
 
   ngOnInit() {
@@ -77,6 +78,21 @@ export class NavComponent implements OnInit {
         ]
       }
     ];
+
+    this.getState.subscribe((state) => {
+      this.loggedInUserId = localStorage.getItem('userId');
+      if (this.loggedInUserId) {
+        this.auth.isAdminUser(this.loggedInUserId)
+          .subscribe((response: boolean) => {
+            this.isAdminUser = response;
+            if (this.isAdminUser) {
+              this.userAppRoutes = this.appRoutes;
+            } else {
+              this.userAppRoutes = this.appRoutes.filter(i => i.adminAccess !== true);
+            }
+          });
+      }
+    });
   }
 
   toggleNav() {
