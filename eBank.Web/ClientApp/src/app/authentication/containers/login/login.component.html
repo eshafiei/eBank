@@ -27,6 +27,7 @@
                     type="password"
                     formControlName="password"
                     placeholder="password"
+                    autocomplete="new-password"
                     [ngClass]="{'is-invalid': f.password.touched && f.password.errors}">
             <mat-error *ngIf="f.password?.hasError('required')">Password is required</mat-error>
           </mat-form-field>
