@@ -25,7 +25,6 @@ export class SideNavComponent implements OnInit, OnChanges {
     if (changes['appRoutes'] &&
           changes['appRoutes'].currentValue !== changes['appRoutes'].previousValue) {
       this.appRoutes = changes['appRoutes'].currentValue;
-      console.log('change occured!', this.appRoutes);
     }
   }
 
