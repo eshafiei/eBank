@@ -71,9 +71,9 @@ export class NavComponent implements OnInit {
         adminAccess: true,
         routeItems: [
           {
-            title: 'Add new customer',
-            icon: 'add',
-            route: '/customer/addcustomer'
+            title: 'Manage Customers',
+            icon: 'assignment_turned_in',
+            route: '/customer/managecustomers'
           }
         ]
       }

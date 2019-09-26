@@ -26,9 +26,9 @@ namespace eBank.DataAccess.Services.Customer
                            .FirstOrDefaultAsync();
         }
 
-            public async Task<int> UpdateCustomer(CustomerViewModel model)
+        public async Task<int> UpdateCustomer(CustomerViewModel model)
         {
-            var customer = _eBankContext.Customers.FirstOrDefault(c => c.CustomerId == model.Customer.CustomerId);
+            var customer = _eBankContext.Customers.FirstOrDefault(c => c.UserId == model.Customer.UserId);
             if (customer != null)
             {
                 customer.FirstName = model.Customer.FirstName;
@@ -36,15 +36,24 @@ namespace eBank.DataAccess.Services.Customer
                 customer.DateOfBirth = model.Customer.DateOfBirth;
                 customer.LegalStatus = model.Customer.LegalStatus;
                 customer.MaritalStatus = model.Customer.MaritalStatus;
+
+                var address = _eBankContext.Address.FirstOrDefault(a => a.CustomerId == customer.CustomerId);
+                if (address != null)
+                {
+                    address.Address1 = model.Address.Address1;
+                    address.Address2 = model.Address.Address2;
+                    address.City = model.Address.City;
+                    address.State = model.Address.State;
+                    address.Zip = model.Address.Zip;
+                    address.Country = model.Address.Country;
+                }
             }
-            var address = _eBankContext.Address.FirstOrDefault(a => a.CustomerId == model.Customer.CustomerId);
-            if (address != null) {
-                address.Address1 = model.Address.Address1;
-                address.Address2 = model.Address.Address2;
-                address.City = model.Address.City;
-                address.State = model.Address.State;
-                address.Zip = model.Address.Zip;
-                address.Country = model.Address.Country;
+            else
+            {
+                _eBankContext.Customers.Add(model.Customer);
+                _eBankContext.SaveChanges();
+                model.Address.CustomerId = model.Customer.CustomerId;
+                _eBankContext.Address.Add(model.Address);
             }
             return await _eBankContext.SaveChangesAsync();
         }

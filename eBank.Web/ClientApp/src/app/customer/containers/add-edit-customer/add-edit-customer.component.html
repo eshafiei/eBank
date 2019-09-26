@@ -1,5 +1,5 @@
 <div class="card">
-  <div class="card-header bg-info text-warning">{{isEdit ? 'Update customer' : 'Add customer' }}</div>
+  <div class="card-header bg-info text-warning">Update Information</div>
   <div class="card-body">
     <div class="container">
       <div class="row">
@@ -17,7 +17,7 @@
           type="button"
           [disabled]="customerForm.invalid"
           (click)="submit()">
-          {{ isEdit ? 'Update' : 'Create' }}
+          Update
         </button>
         <button mat-stroked-button 
           color="warn" 
