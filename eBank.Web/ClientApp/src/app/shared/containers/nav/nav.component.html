@@ -1,6 +1,6 @@
-<app-navigation-bar (toggleSidenav)="toggleNav()">
+<app-navigation-bar (toggleSidenav)="toggleNav()" [isAuthenticated]="isAuthenticated" [loggedInUsername]="loggedInUsername">
 </app-navigation-bar>
-<!-- <app-command-bar [commandBarButtons]="commandBarButtons">
+<!-- <app-command-bar [commandBarButtons]="commandBarButtons" [isAuthenticated]="isAuthenticated">
 </app-command-bar> -->
 <app-side-nav [toggleSideNav]="toggle" [appRoutes]="userAppRoutes">
     <div class="row nomargin container-padding">

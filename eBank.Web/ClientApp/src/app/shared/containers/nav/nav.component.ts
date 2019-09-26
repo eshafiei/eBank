@@ -17,7 +17,9 @@ export class NavComponent implements OnInit {
   userAppRoutes: AppRoute[];
   toggle: boolean;
   isAdminUser: boolean;
+  isAuthenticated: boolean;
   loggedInUserId: string;
+  loggedInUsername: string;
   getState: Observable<any>;
   constructor(private auth: AuthService,
     private store: Store<AppState>) {
@@ -25,6 +27,7 @@ export class NavComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.checkAuthState();
     this.appRoutes = [
       {
         routeHeader: 'Account',
@@ -97,6 +100,18 @@ export class NavComponent implements OnInit {
 
   toggleNav() {
     this.toggle = !this.toggle;
+  }
+
+  checkAuthState() {
+    const username = this.auth.getLoggedInUser();
+    const token = this.auth.getToken();
+    if (token && username) {
+      this.isAuthenticated = true;
+      this.loggedInUsername = username;
+    } else {
+      this.isAuthenticated = false;
+      this.loggedInUsername = null;
+    }
   }
 }
 

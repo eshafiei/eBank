@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Output, OnInit, OnChanges } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState, selectAuthState } from '../../store/app.states';
 import { Observable } from 'rxjs';
+
 import { LogOut } from '../../store/actions/auth.actions';
-import { AuthService } from './../../../authentication/services/auth.service';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -11,44 +11,26 @@ import { AuthService } from './../../../authentication/services/auth.service';
   styleUrls: ['./navigation-bar.component.scss']
 })
 export class NavigationBarComponent implements OnInit {
-  isAuthenticated: boolean;
-  loggedInUser = null;
-  user = null;
-  errorMessage = null;
-  getState: Observable<any>;
+  @Input() isAuthenticated: boolean;
+  @Input() loggedInUsername: string;
   @Output() toggleSidenav = new EventEmitter<void>();
+  getState: Observable<any>;
 
-  constructor(private store: Store<AppState>,
-    private auth: AuthService) {
+  constructor(private store: Store<AppState>) {
     this.getState = this.store.select(selectAuthState);
   }
 
   ngOnInit() {
-    this.checkAuthState();
     this.getState.subscribe((state) => {
       if (state.user) {
         this.isAuthenticated = state.isAuthenticated;
-        this.loggedInUser = state.user.username;
-        this.user = state.user;
-        this.errorMessage = state.errorMessage;
+        this.loggedInUsername = state.user.username;
       }
     });
   }
 
   logOut(): void {
+    this.isAuthenticated = false;
     this.store.dispatch(new LogOut);
-    this.checkAuthState();
-  }
-
-  checkAuthState() {
-    const username = this.auth.getLoggedInUser();
-    const token = this.auth.getToken();
-    if (token && username) {
-      this.isAuthenticated = true;
-      this.loggedInUser = username;
-    } else {
-      this.isAuthenticated = false;
-      this.loggedInUser = null;
-    }
   }
 }
