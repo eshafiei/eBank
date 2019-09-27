@@ -1,5 +1,5 @@
 import { User } from '../../../authentication/models/user.interface';
-import { AuthActionTypes, All } from '../actions/auth.actions';
+import { AuthActionTypes, All, IdleTime } from '../actions/auth.actions';
 import { ErrorResponse } from '../../../authentication/models/error-response.interface';
 
 export interface State {
@@ -9,12 +9,15 @@ export interface State {
     user: User | null;
     // error message
     errorMessages: ErrorResponse[] | null;
+
+    idleStartTime: any;
 }
 
 export const initialState: State = {
     isAuthenticated: false,
     user: null,
-    errorMessages: null
+    errorMessages: null,
+    idleStartTime: null
 };
 
 export function reducer(state = initialState, action: All): State {
@@ -60,6 +63,12 @@ export function reducer(state = initialState, action: All): State {
         return {
           ...state,
           errorMessages: action.payload.errors
+        };
+      }
+      case AuthActionTypes.IDLE_TIME: {
+        return {
+          ...state,
+          idleStartTime: action.payload
         };
       }
       default: {

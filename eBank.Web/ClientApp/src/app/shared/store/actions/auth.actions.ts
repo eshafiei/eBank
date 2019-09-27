@@ -11,7 +11,8 @@ export enum AuthActionTypes {
   REFRESH_TOKEN = '[Auth] Refresh Token',
   TOKEN_SUCCESS = '[Auth] Token Success',
   TOKEN_FAILURE = '[Auth] Token Failure',
-  LOGOUT = '[Auth] Logout'
+  LOGOUT = '[Auth] Logout',
+  IDLE_TIME = '[Auth] Idle Time'
 }
 
 export class LogIn implements Action {
@@ -63,6 +64,11 @@ export class LogOut implements Action {
   readonly type = AuthActionTypes.LOGOUT;
 }
 
+export class IdleTime implements Action {
+  readonly type = AuthActionTypes.IDLE_TIME;
+  constructor(public payload: any) {}
+}
+
 export type All =
     | LogIn
     | LogInSuccess
@@ -73,4 +79,5 @@ export type All =
     | RefreshToken
     | TokenSuccess
     | TokenFailure
-    | LogOut;
+    | LogOut
+    | IdleTime;

@@ -33,7 +33,6 @@ export class WeatherComponent implements OnInit {
         this.weatherService.getWeatherForCurrentLocation(position)
           .subscribe((data) => {
             this.currentWeatherData = data;
-            console.log(data);
           });
       });
     }

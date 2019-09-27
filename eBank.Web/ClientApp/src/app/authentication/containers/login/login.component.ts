@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 // local
 import { Store } from '@ngrx/store';
 import { AppState, selectAuthState } from '../../../shared/store/app.states';
-import { LogIn, RefreshToken } from 'src/app/shared/store/actions/auth.actions';
+import { LogIn } from 'src/app/shared/store/actions/auth.actions';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ErrorResponse } from '../../models/error-response.interface';

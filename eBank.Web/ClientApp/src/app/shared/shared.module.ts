@@ -15,6 +15,7 @@ import { WeatherComponent } from './containers/weather/weather.component';
 // local services
 import { AppBarService } from './services/app-bar.service';
 import { WeatherService } from './services/weather.service';
+import { AutoLogoutService } from './services/auto-logout.service';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './store/effects/auth.effects';
@@ -40,7 +41,8 @@ import { reducers } from './store/app.states';
   providers: [
     AppBarService,
     WeatherService,
-    DatePipe
+    DatePipe,
+    AutoLogoutService
   ],
   exports: [
     CommandBarComponent,

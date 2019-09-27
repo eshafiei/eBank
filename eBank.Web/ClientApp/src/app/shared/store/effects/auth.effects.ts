@@ -73,7 +73,6 @@ export class AuthEffects {
     TokenSuccess: Observable<any> = this.actions.pipe(
         ofType(AuthActionTypes.TOKEN_SUCCESS),
         tap((response: any) => {
-            console.log(response);
             localStorage.setItem('token', response.tokenInfo.access_token);
             localStorage.setItem('username', response.username);
             this.router.navigate(['account']);
@@ -123,7 +122,7 @@ export class AuthEffects {
             localStorage.removeItem('token');
             localStorage.removeItem('username');
             localStorage.removeItem('userId');
-            this.router.navigateByUrl('/login');
+            this.router.navigate(['login']);
         })
     );
 }
