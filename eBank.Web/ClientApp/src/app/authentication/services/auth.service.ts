@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 import { User } from '../models/user.interface';
 import { RegisterRequest } from '../models/register-request.interface';
@@ -9,7 +9,8 @@ import { RegisterRequest } from '../models/register-request.interface';
   providedIn: 'root'
 })
 export class AuthService {
-
+  private authStatedataSource = new BehaviorSubject<boolean>(true);
+  authStatus = this.authStatedataSource.asObservable();
   constructor(private http: HttpClient,
     @Inject('BASE_URL') private baseUrl: string) { }
 
@@ -61,6 +62,11 @@ export class AuthService {
   isAdminUser(userId: string): Observable<boolean> {
     const url = `${this.baseUrl}api/account/isAdminUser/`;
     return this.http.get<boolean>(url + userId);
+  }
+
+  authStateChanged() {
+    console.log('from auth service...');
+    this.authStatedataSource.next(true);
   }
 
 }

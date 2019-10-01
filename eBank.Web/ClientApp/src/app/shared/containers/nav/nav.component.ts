@@ -3,7 +3,7 @@ import { AppRoute } from './../../models/app-route.interface';
 
 // local services
 import { AuthService } from './../../../authentication/services/auth.service';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState, selectAuthState } from '../../store/app.states';
 
@@ -13,6 +13,8 @@ import { AppState, selectAuthState } from '../../store/app.states';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
+  private isAuthenticatedDataSource = new BehaviorSubject<boolean>(true);
+  authStatus = this.isAuthenticatedDataSource.asObservable();
   appRoutes: AppRoute[];
   userAppRoutes: AppRoute[];
   toggle: boolean;
@@ -96,6 +98,10 @@ export class NavComponent implements OnInit {
           });
       }
     });
+
+    this.auth.authStatus.subscribe(isChanged => {
+      this.checkAuthState();
+    });
   }
 
   toggleNav() {
@@ -112,6 +118,7 @@ export class NavComponent implements OnInit {
       this.isAuthenticated = false;
       this.loggedInUsername = null;
     }
+    this.isAuthenticatedDataSource.next(this.isAuthenticated);
   }
 }
 

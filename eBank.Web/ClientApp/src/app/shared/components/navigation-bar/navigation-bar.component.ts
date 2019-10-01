@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Output, OnInit, Input } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, Input, Inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState, selectAuthState } from '../../store/app.states';
 import { Observable } from 'rxjs';
 
 import { LogOut } from '../../store/actions/auth.actions';
+import { NavComponent } from './../../containers/nav/nav.component';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -11,12 +12,13 @@ import { LogOut } from '../../store/actions/auth.actions';
   styleUrls: ['./navigation-bar.component.scss']
 })
 export class NavigationBarComponent implements OnInit {
-  @Input() isAuthenticated: boolean;
+  isAuthenticated: boolean;
   @Input() loggedInUsername: string;
   @Output() toggleSidenav = new EventEmitter<void>();
   getState: Observable<any>;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>,
+    @Inject(NavComponent) private nav: NavComponent) {
     this.getState = this.store.select(selectAuthState);
   }
 
@@ -27,10 +29,12 @@ export class NavigationBarComponent implements OnInit {
         this.loggedInUsername = state.user.username;
       }
     });
+    this.nav.authStatus.subscribe(status => {
+      this.isAuthenticated = status;
+    });
   }
 
   logOut(): void {
-    this.isAuthenticated = false;
     this.store.dispatch(new LogOut);
   }
 }

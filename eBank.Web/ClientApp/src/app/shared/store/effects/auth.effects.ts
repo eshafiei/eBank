@@ -15,7 +15,7 @@ export class AuthEffects {
 
     constructor(
         private actions: Actions,
-        private authService: AuthService,
+        private auth: AuthService,
         private router: Router
     ) {}
 
@@ -26,7 +26,7 @@ export class AuthEffects {
             ofType(AuthActionTypes.LOGIN),
             map((action: LogIn) => action.payload),
             switchMap(payload => {
-                return this.authService.logIn(payload.username, payload.password).pipe(
+                return this.auth.logIn(payload.username, payload.password).pipe(
                   map((response: any) => {
                     return new LogInSuccess(response.id);
                   }),
@@ -58,7 +58,7 @@ export class AuthEffects {
             ofType(AuthActionTypes.REFRESH_TOKEN),
             map((action: RefreshToken) => action.payload),
             switchMap(payload => {
-                return this.authService.refreshToken(payload.username, payload.password).pipe(
+                return this.auth.refreshToken(payload.username, payload.password).pipe(
                     map((tokenInfo: any) => {
                         return new TokenSuccess(tokenInfo, payload.username);
                     }),
@@ -89,7 +89,7 @@ export class AuthEffects {
         ofType(AuthActionTypes.SIGNUP),
         map((action: SignUp) => action.payload),
         switchMap(payload => {
-            return this.authService.signUp(payload).pipe(
+            return this.auth.signUp(payload).pipe(
                 map((tokenInfo: TokenResponse) => {
                     return new SignUpSuccess(tokenInfo, payload.username);
                 }),
@@ -106,7 +106,7 @@ export class AuthEffects {
         tap((response: any) => {
             console.log('sign up success: ', response);
             localStorage.setItem('token', response.tokenInfo.access_token);
-            this.router.navigateByUrl('/');
+            this.router.navigate(['account']);
         })
     );
 
@@ -122,6 +122,7 @@ export class AuthEffects {
             localStorage.removeItem('token');
             localStorage.removeItem('username');
             localStorage.removeItem('userId');
+            this.auth.authStateChanged();
             this.router.navigate(['login']);
         })
     );
