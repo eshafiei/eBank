@@ -102,12 +102,7 @@ export class AuthEffects {
 
     @Effect({ dispatch: false })
     SignUpSuccess: Observable<any> = this.actions.pipe(
-        ofType(AuthActionTypes.SIGNUP_SUCCESS),
-        tap((response: any) => {
-            console.log('sign up success: ', response);
-            localStorage.setItem('token', response.tokenInfo.access_token);
-            this.router.navigate(['account']);
-        })
+        ofType(AuthActionTypes.SIGNUP_SUCCESS)
     );
 
     @Effect({ dispatch: false })

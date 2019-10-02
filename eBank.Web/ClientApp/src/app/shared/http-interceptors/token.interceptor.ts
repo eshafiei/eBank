@@ -14,7 +14,7 @@ export class TokenInterceptor implements HttpInterceptor {
     private store: Store<AppState>) {}
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token: string = this.auth.getToken();
-    const excludedRequests = ['register', 'openweather', 'token'];
+    const excludedRequests = ['openweather', 'token'];
     if (excludedRequests.some(element => request.url.search(element) !== -1)) {
       return next.handle(request);
     }
@@ -30,7 +30,7 @@ export class TokenInterceptor implements HttpInterceptor {
       tap(response => {
           if (response instanceof HttpResponse) {
             if (response.body) {
-              if (request.url.indexOf('login') !== -1) {
+              if (request.url.indexOf('login') !== -1 || request.url.indexOf('register') !== -1) {
                   const username = request.body.username;
                   const password = request.body.password;
                   const payload = {
