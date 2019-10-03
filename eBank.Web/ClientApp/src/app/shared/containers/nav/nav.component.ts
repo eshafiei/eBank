@@ -52,7 +52,7 @@ export class NavComponent implements OnInit {
           {
             title: 'Transfer money',
             icon: 'trending_flat',
-            route: '/transfer'
+            route: '/transfer/transfer-money'
           },
           {
             title: 'Pay bills',

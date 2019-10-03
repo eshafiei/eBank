@@ -22,20 +22,21 @@ namespace eBank.DataAccess.Services.Account
             return await _eBankContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<AccountViewModel>> GetAccounts(string userId)
+        public async Task<IEnumerable<AccountViewModel>> GetAccountsAsync(string userId)
         {
             return await _eBankContext.Accounts
                                       .Join(_eBankContext.Customers,
                                         account => account.CustomerId,
                                         customer => customer.CustomerId,
                                         (account, customer) =>
-                                            new AccountViewModel {
-                                              Account = account,
-                                              Customer = customer
+                                            new AccountViewModel
+                                            {
+                                                Account = account,
+                                                Customer = customer
                                             })
                                       .Where(accountAndCustomer => accountAndCustomer.Customer.UserId == userId)
                                       .OrderBy(accountAndCustomer => accountAndCustomer.Account.AccountType)
                                       .ToListAsync();
-        }        
+        }
     }
 }

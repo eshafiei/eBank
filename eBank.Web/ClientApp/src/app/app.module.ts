@@ -26,6 +26,7 @@ import { NavigationBarComponent } from './shared/components/navigation-bar/navig
 import { NavComponent } from './shared/containers/nav/nav.component';
 import { SharedModule } from './shared/shared.module';
 import { CustomerModule } from './customer/customer.module';
+import { TransferModule } from './transfer/transfer.module';
 
 // local services
 
@@ -59,6 +60,7 @@ const routes: Routes = [
     AuthenticationModule,
     AccountModule,
     CustomerModule,
+    TransferModule,
     LayoutModule,
     SharedModule
   ],

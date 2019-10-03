@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 // local imports
-import { Account } from '../models/account.interface';
+import { IAccount } from '../models/account.interface';
 
 @Injectable()
 export class AccountService implements OnInit {
@@ -16,7 +16,7 @@ export class AccountService implements OnInit {
                     .get(this.baseUrl + 'api/bankaccount/getaccounts/' + userId);
     }
 
-    createAccount(account: Account): Observable<any> {
+    createAccount(account: IAccount): Observable<any> {
         return  this.http
                     .post(this.baseUrl + 'api/bankaccount/createaccount', account);
     }

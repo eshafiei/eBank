@@ -7,7 +7,7 @@ namespace eBank.DataAccess.Services.Account
 {
     public interface IBankAccountService
     {
-        Task<IEnumerable<AccountViewModel>> GetAccounts(string userId);
+        Task<IEnumerable<AccountViewModel>> GetAccountsAsync(string userId);        
 
         Task<int> CreateAccount(AccountModel accountModel);
     }

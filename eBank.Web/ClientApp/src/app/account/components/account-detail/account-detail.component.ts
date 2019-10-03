@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { AccountType } from '../../enums/account-type.enum';
+import { AccountType } from '../../../shared/enums/account-type.enum';
 
 @Component({
   selector: 'app-account-detail',

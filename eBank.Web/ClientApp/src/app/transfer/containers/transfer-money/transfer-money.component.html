@@ -1,0 +1,55 @@
+<div class="card">
+    <div class="card-header bg-info text-warning">Transfer Money</div>
+    <div class="card-body">
+      <div class="row">
+        <mat-horizontal-stepper linear #stepper class="col-12">
+          <mat-step [stepControl]="account" completed="false">
+            <ng-template matStepLabel>Transfer detail</ng-template>
+            <div class="mt-3 mb-3">
+              <app-transfer-basic [form]="transferForm" [customerAccounts]="customerAccounts"></app-transfer-basic>
+            </div>
+            <div class="mt-3">
+              <button mat-stroked-button color="primary" class="col-3 pull-right" 
+                [disabled]="transferForm.invalid" (click)="stepperNext()">
+                Next
+              </button>
+              <button mat-stroked-button color="warn" class="mr-3 col-3 pull-right" [routerLink]="['/account']">
+                Cancel
+              </button>
+            </div>        
+          </mat-step>
+            <mat-step [completed]="stepperCompleted">
+              <ng-template matStepLabel>Transfer Review</ng-template>
+              <div class="mt-3 mb-3">
+                <app-transfer-review [form]="transferForm"></app-transfer-review>
+              </div>
+              <div class="mt-3">
+                <button mat-raised-button
+                  color="primary"
+                  class="col-3 pull-right"
+                  type="button"
+                  [disabled]="transferForm.invalid"
+                  (click)="stepperNext();submit();">
+                  Submit
+                </button>
+                <button mat-stroked-button color="warn" class="mr-3 col-3 pull-right" matStepperPrevious>
+                  Back
+                </button>
+              </div>        
+            </mat-step>
+            <mat-step>
+              <ng-template matStepLabel>Done</ng-template>
+              <div class="mt-3 mb-3">
+                <h5>Transfer completed. Founds will be available shortly.</h5>
+              </div>        
+              <div>
+                <button mat-stroked-button
+                        color="accent"
+                        class="mr-2 col-2"
+                        [routerLink]="['/account']">Done</button>
+              </div>
+            </mat-step>
+          </mat-horizontal-stepper>
+      </div>
+    </div>
+  </div>  

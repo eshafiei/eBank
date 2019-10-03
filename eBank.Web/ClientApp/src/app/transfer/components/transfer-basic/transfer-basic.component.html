@@ -1,0 +1,81 @@
+<form [formGroup]="form" novalidate>
+  <div class="card">
+    <div class="card-header">Transfer Details</div>
+    <div class="card-body">
+      <div class="row">
+        <mat-form-field class="col-12" appearance="outline">
+          <mat-label for="originAccount">From</mat-label>
+          <mat-select formControlName="originAccount">
+            <mat-option *ngFor="let account of customerAccounts"
+                        [value]="account.accountType">
+              <span>{{ accountType[account.accountType] }} (account number: {{ account.accountNumber }})</span>
+              <small class="pull-right"> Current balance: {{ account.balance | currency }}</small>
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="f.originAccount?.hasError('required')">From account is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-12" appearance="outline">
+          <mat-label for="destinationAccount">To</mat-label>
+          <mat-select formControlName="destinationAccount">
+            <mat-option *ngFor="let account of customerAccounts"
+                        [value]="account.accountType">
+              <span>{{ accountType[account.accountType] }} (account number: {{ account.accountNumber }}) </span>
+              <small class="pull-right"> Current balance: {{ account.balance | currency }}</small>
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="f.destinationAccount?.hasError('required')">To account is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-12" appearance="outline">
+          <mat-label for="frequency">Frequency</mat-label>
+          <mat-select formControlName="frequency">
+            <mat-option *ngFor="let item of frequencyItems"
+                        [value]="frequency[item]">
+              {{ item }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="f.frequency?.hasError('required')">Frequency is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-12" appearance="outline">
+          <mat-label for="transferDate">Send on</mat-label>
+          <input matInput
+                 [matDatepicker]="picker"
+                 placeholder="Transfer date"
+                 formControlName="transferDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="f.transferDate?.hasError('required')">Transfer date is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-12" appearance="outline">
+          <mat-label for="amount">Amount</mat-label>
+          <input matInput
+                 type="number"
+                 min="0"
+                 max="10000"
+                 formControlName="amount"
+                 placeholder="Amount">
+          <mat-error *ngIf="f.amount?.hasError('required')">Amount is required</mat-error>
+          <mat-error *ngIf="f.amount?.hasError('max')">Maximum allowed transfer amount reached</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-12" appearance="outline">
+          <mat-label for="note">Memo (optional)</mat-label>
+          <input matInput
+                 type="text"
+                 maxlength="50"
+                 formControlName="note"
+                 placeholder="Note...">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <!-- <pre>{{ form.value | json }}</pre> -->
+</form>

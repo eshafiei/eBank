@@ -1,7 +1,4 @@
 ﻿using eBank.DataAccess.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace eBank.DataAccess.ViewModels
 {

@@ -3,6 +3,7 @@ using eBank.DataAccess.Models.User;
 using eBank.DataAccess.Services.Account;
 using eBank.DataAccess.Services.Customer;
 using eBank.DataAccess.Services.Log;
+using eBank.DataAccess.Services.TransferMoney;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -42,6 +43,7 @@ namespace eBank.Web
             // Inject Services
             services.AddScoped<IBankAccountService, BankAccountService>();
             services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<ITransferMoneyService, TransferMoneyService>();
             services.AddScoped<ILogService, LogService>();
             services.AddIdentityServer()
                 .AddDeveloperSigningCredential()

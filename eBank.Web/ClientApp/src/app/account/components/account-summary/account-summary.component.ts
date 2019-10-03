@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { AccountType } from '../../enums/account-type.enum';
-import { Account } from '../../models/account.interface';
+import { AccountType } from '../../../shared/enums/account-type.enum';
+import { IAccount } from '../../models/account.interface';
 
 @Component({
   selector: 'app-account-summary',
@@ -10,7 +10,7 @@ import { Account } from '../../models/account.interface';
 })
 export class AccountSummaryComponent implements OnInit {
   isExpanded: boolean;
-  @Input() accountsInfo: Account[] = [];
+  @Input() accountsInfo: IAccount[] = [];
 
   accountType = AccountType;
 

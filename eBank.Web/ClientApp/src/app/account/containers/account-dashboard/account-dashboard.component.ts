@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 // local services & interfaces
 import { AccountService } from '../../services/account.service';
-import { Account } from '../../models/account.interface';
+import { IAccount } from '../../models/account.interface';
 
 @Component({
     selector: 'app-account-dashboard',
@@ -11,7 +11,7 @@ import { Account } from '../../models/account.interface';
     templateUrl: './account-dashboard.component.html'
 })
 export class AccountDashboardComponent implements OnInit {
-    accountsInfo: Observable<Account[]>;
+    accountsInfo: Observable<IAccount[]>;
     constructor(private accountService: AccountService) {
     }
 
