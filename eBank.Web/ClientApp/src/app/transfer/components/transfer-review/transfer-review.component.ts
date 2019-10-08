@@ -1,5 +1,6 @@
 import { Component, OnInit, ComponentFactoryResolver, ViewChild, ViewContainerRef,
   ComponentRef, Input, OnChanges, SimpleChanges } from '@angular/core';
+import * as moment from 'moment';
 
 import { AdditionalInfoItem } from 'src/app/shared/models/additional-info-item.interface';
 import { AdditionalInfo } from 'src/app/shared/models/additional-info.interface';
@@ -26,7 +27,6 @@ export class TransferReviewComponent implements OnInit, OnChanges {
     private datepipe: DatePipe) { }
 
   ngOnInit() {
-
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -82,8 +82,20 @@ export class TransferReviewComponent implements OnInit, OnChanges {
   }
 
   getDeliveryDate(transferDate: Date) {
-    const deliveryDate = new Date(transferDate);
-    deliveryDate.setDate(deliveryDate.getDate() + 2);
+    let deliveryDate = moment(transferDate);
+    deliveryDate = this.addBusinessDays(deliveryDate, 2);
     return deliveryDate;
+  }
+
+  addBusinessDays = (momentDate: moment.Moment, daysToAdd: number) => {
+    const weekend = [moment().day('Saturday').weekday(), moment().day('Sunday').weekday()];
+    let daysAdded = 0;
+    while (daysAdded < daysToAdd) {
+      momentDate = momentDate.add(1, 'days');
+      if (!weekend.includes(momentDate.weekday())) {
+        daysAdded++;
+      }
+    }
+    return momentDate;
   }
 }
