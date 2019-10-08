@@ -39,19 +39,20 @@ export class TransferReviewComponent implements OnInit, OnChanges {
     });
   }
 
-  pushInfo(transferInfo: FormGroup) {
+  pushInfo(transferForm: FormGroup) {
+    console.log(transferForm.controls['destinationAccount']);
     const additionalInfoFactory = this.resolver.resolveComponentFactory(AdditionalInfoComponent);
     this.transferReviewComponent = this.transferReview.createComponent(additionalInfoFactory);
     this.transferReviewInfo = [];
-      this.transferReviewInfo.push({ text: 'From account', value: this.accountType[transferInfo.controls['originAccount'].value] });
-      this.transferReviewInfo.push({ text: 'To account', value: this.accountType[transferInfo.controls['destinationAccount'].value] });
-      this.transferReviewInfo.push({ text: 'Frequency', value: this.frequency[transferInfo.controls['frequency'].value] });
+      this.transferReviewInfo.push({ text: 'From account', value: this.accountType[transferForm.controls['originAccount'].value] });
+      this.transferReviewInfo.push({ text: 'To account', value: this.accountType[transferForm.controls['destinationAccount'].value] });
+      this.transferReviewInfo.push({ text: 'Frequency', value: this.frequency[transferForm.controls['frequency'].value] });
       this.transferReviewInfo.push({ text: 'Send on',
-        value: this.datepipe.transform(transferInfo.controls['transferDate'].value, 'MM/dd/yyyy') });
-      this.transferReviewInfo.push({ text: 'Amount', value: transferInfo.controls['amount'].value });
-      this.transferReviewInfo.push({ text: 'Memo', value: transferInfo.controls['note'].value });
+        value: this.datepipe.transform(transferForm.controls['transferDate'].value, 'MM/dd/yyyy') });
+      this.transferReviewInfo.push({ text: 'Amount', value: `$${transferForm.controls['amount'].value}` });
+      this.transferReviewInfo.push({ text: 'Memo', value: transferForm.controls['note'].value });
       const transferReviewInformation: AdditionalInfo = {
-        title: 'Transfer Review',
+        title: 'Verify Transfer',
         items: this.transferReviewInfo
       };
       this.transferReviewComponent.instance.additionalInfo = transferReviewInformation;

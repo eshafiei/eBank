@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 // local modules
 import { MaterialModule } from '../shared/modules/material.module';
@@ -30,7 +31,8 @@ import { reducers } from './store/app.states';
     RouterModule,
     ReactiveFormsModule,
     StoreModule.forRoot((reducers) as any, {}),
-    EffectsModule.forRoot([AuthEffects])
+    EffectsModule.forRoot([AuthEffects]),
+    CurrencyMaskModule
   ],
   declarations: [
     CommandBarComponent,
@@ -51,7 +53,8 @@ import { reducers } from './store/app.states';
     WeatherComponent,
     MaterialModule,
     FlexLayoutModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CurrencyMaskModule
   ],
   entryComponents: [
     AdditionalInfoComponent
