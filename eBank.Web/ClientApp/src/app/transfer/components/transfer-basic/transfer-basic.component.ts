@@ -36,9 +36,9 @@ export class TransferBasicComponent implements OnInit, OnChanges {
     return this.form.controls;
   }
 
-  accountChanged(selectedAccountId: number) {
+  accountChanged(selectedAccount: IAccount) {
     this.transferDestinationAccounts =
-      this.customerAccounts.filter(a => a.accountId !== selectedAccountId);
+      this.customerAccounts.filter(a => a.accountId !== selectedAccount.accountId);
   }
 
 }

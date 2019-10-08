@@ -15,9 +15,9 @@ export class TransferMoneyComponent implements OnInit {
   transferForm = this.fb.group({
     originAccount: [null, Validators.required],
     destinationAccount: [null, Validators.required],
-    frequency: [null, Validators.required],
-    transferDate: [null, Validators.required],
-    amount: [null, [Validators.required, Validators.max]],
+    frequency: [0, Validators.required],
+    transferDate: [new Date(), Validators.required],
+    amount: [0, [Validators.required, Validators.max, Validators.min]],
     note: [null]
   });
   @ViewChild('stepper', null) stepper: MatStepper;
@@ -39,6 +39,10 @@ export class TransferMoneyComponent implements OnInit {
   }
 
   submit() {
+    if (this.transferForm.value) {
+      this.transferForm.value.originAccount = this.transferForm.value.originAccount.accountId;
+      this.transferForm.value.destinationAccount = this.transferForm.value.destinationAccount.accountId;
+    }
     console.log(this.transferForm.value);
   }
 

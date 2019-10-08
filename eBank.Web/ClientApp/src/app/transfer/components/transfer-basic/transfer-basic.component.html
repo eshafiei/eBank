@@ -8,7 +8,7 @@
           <mat-select formControlName="originAccount"
             (selectionChange)="accountChanged($event.value)">
             <mat-option *ngFor="let account of transferOriginAccounts"
-                        [value]="account.accountId">
+                        [value]="account">
               <span>{{ accountType[account.accountType] }} (account number: {{ account.accountNumber }})</span>
               <small class="pull-right"> Current balance: {{ account.balance | currency }}</small>
             </mat-option>
@@ -21,7 +21,7 @@
           <mat-label for="destinationAccount">To</mat-label>
           <mat-select formControlName="destinationAccount">
             <mat-option *ngFor="let account of transferDestinationAccounts"
-                        [value]="account.accountId">
+                        [value]="account">
               <span>{{ accountType[account.accountType] }} (account number: {{ account.accountNumber }}) </span>
               <small class="pull-right"> Current balance: {{ account.balance | currency }}</small>
             </mat-option>
@@ -58,8 +58,8 @@
           <mat-label for="amount">Amount</mat-label>
           <input matInput
                  currencyMask
-                 min="0"
-                 max="10000"
+                 [min]="0.01"
+                 [max]="10000"
                  formControlName="amount"
                  placeholder="Amount">
           <mat-error *ngIf="f.amount?.hasError('required')">Amount is required</mat-error>

@@ -8,6 +8,7 @@ import { FormGroup } from '@angular/forms';
 import { AccountType } from 'src/app/shared/enums/account-type.enum';
 import { Frequency } from '../../enums/frequency.enum';
 import { DatePipe } from '@angular/common';
+import { IAccount } from 'src/app/account/models/account.interface';
 
 @Component({
   selector: 'app-transfer-review',
@@ -40,26 +41,49 @@ export class TransferReviewComponent implements OnInit, OnChanges {
   }
 
   pushInfo(transferForm: FormGroup) {
-    console.log(transferForm.controls['destinationAccount']);
     const additionalInfoFactory = this.resolver.resolveComponentFactory(AdditionalInfoComponent);
     this.transferReviewComponent = this.transferReview.createComponent(additionalInfoFactory);
+
     this.transferReviewInfo = [];
-      this.transferReviewInfo.push({ text: 'From account', value: this.accountType[transferForm.controls['originAccount'].value] });
-      this.transferReviewInfo.push({ text: 'To account', value: this.accountType[transferForm.controls['destinationAccount'].value] });
-      this.transferReviewInfo.push({ text: 'Frequency', value: this.frequency[transferForm.controls['frequency'].value] });
-      this.transferReviewInfo.push({ text: 'Send on',
-        value: this.datepipe.transform(transferForm.controls['transferDate'].value, 'MM/dd/yyyy') });
-      this.transferReviewInfo.push({ text: 'Amount', value: `$${transferForm.controls['amount'].value}` });
-      this.transferReviewInfo.push({ text: 'Memo', value: transferForm.controls['note'].value });
-      const transferReviewInformation: AdditionalInfo = {
-        title: 'Verify Transfer',
-        items: this.transferReviewInfo
-      };
-      this.transferReviewComponent.instance.additionalInfo = transferReviewInformation;
+
+    if (transferForm.controls['originAccount'].value) {
+      this.transferReviewInfo.push(
+        { text: 'From account', value: this.getAccountDisplayText(transferForm.controls['originAccount'].value)}
+      );
+    }
+    if (transferForm.controls['destinationAccount'].value) {
+      this.transferReviewInfo.push(
+        { text: 'To account', value: this.getAccountDisplayText(transferForm.controls['destinationAccount'].value)}
+      );
+    }
+
+    this.transferReviewInfo.push({ text: 'Frequency', value: this.frequency[transferForm.controls['frequency'].value] });
+
+    this.transferReviewInfo.push({ text: 'Send on',
+      value: this.datepipe.transform(transferForm.controls['transferDate'].value, 'MM/dd/yyyy') });
+
+    this.transferReviewInfo.push({ text: 'Delivers by',
+      value: this.datepipe.transform(this.getDeliveryDate(transferForm.controls['transferDate'].value), 'MM/dd/yyyy') });
+
+    this.transferReviewInfo.push({ text: 'Amount', value: `$${transferForm.controls['amount'].value}` });
+    this.transferReviewInfo.push({ text: 'Memo', value: transferForm.controls['note'].value });
+
+    const transferReviewInformation: AdditionalInfo = {
+      title: 'Verify Transfer',
+      items: this.transferReviewInfo
+    };
+
+    this.transferReviewComponent.instance.additionalInfo = transferReviewInformation;
   }
 
-  // ngOnDestroy() {
-  //   this.transferReviewComponent.destroy();
-  // }
+  getAccountDisplayText(account: IAccount) {
+    return `${this.accountType[account.accountType]} account ending in ...${account.accountNumber.toString()
+      .substr(account.accountNumber.toString().length - 4, 4)} with current balance of $${account.balance}`;
+  }
 
+  getDeliveryDate(transferDate: Date) {
+    const deliveryDate = new Date(transferDate);
+    deliveryDate.setDate(deliveryDate.getDate() + 2);
+    return deliveryDate;
+  }
 }
