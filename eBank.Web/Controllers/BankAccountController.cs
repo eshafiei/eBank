@@ -1,6 +1,5 @@
 ﻿using eBank.DataAccess.Models;
 using eBank.DataAccess.Services.Account;
-using eBank.DataAccess.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -20,14 +19,14 @@ namespace eBank.Web.Controllers
             _accountService = accountService;
         }
 
-        [HttpGet("[action]/{userId}")]
-        public async Task<IEnumerable<AccountViewModel>> GetAccounts(string userId)
+        [HttpGet("{customerId}")]
+        public async Task<IEnumerable<AccountModel>> BankAccount(int customerId)
         {
-            return await _accountService.GetAccountsAsync(userId);
+            return await _accountService.GetAccountsAsync(customerId);
         }
 
-        [HttpPost("[action]")]
-        public async Task<int> CreateAccount([FromBody] AccountModel account)
+        [HttpPost]
+        public async Task<int> BankAccount([FromBody] AccountModel account)
         {
             return await _accountService.CreateAccount(account);
         }

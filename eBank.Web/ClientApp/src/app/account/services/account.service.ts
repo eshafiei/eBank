@@ -1,23 +1,21 @@
-import { OnInit, Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment.prod';
 
-// local imports
-import { IAccount } from '../models/account.interface';
+// local
+import { ResourceService } from '../../shared/services/resource.service';
+import { AccountSerializer } from '../models/account.serializer';
+import { IAccount } from '../interfaces/account.interface';
 
-@Injectable()
-export class AccountService implements OnInit {
-    constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {}
-
-    ngOnInit() {}
-
-    getAccounts(userId: string): Observable<any> {
-        return  this.http
-                    .get(this.baseUrl + 'api/bankaccount/getaccounts/' + userId);
-    }
-
-    createAccount(account: IAccount): Observable<any> {
-        return  this.http
-                    .post(this.baseUrl + 'api/bankaccount/createaccount', account);
+@Injectable({
+    providedIn: 'root'
+})
+export class AccountService extends ResourceService<IAccount> {
+    constructor(httpClient: HttpClient) {
+        super(
+            httpClient,
+            environment.baseUrl,
+            'bankAccount',
+            new AccountSerializer());
     }
 }

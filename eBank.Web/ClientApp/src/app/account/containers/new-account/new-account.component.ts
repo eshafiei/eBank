@@ -9,7 +9,6 @@ import { MatStepper } from '@angular/material';
 
 // dynamic component
 import { AdditionalInfoComponent } from './../../../shared/components/additional-info/additional-info.component';
-
 import { AccountService } from '../../services/account.service';
 import { CustomerService } from 'src/app/customer/services/customer.service';
 import { AdditionalInfo } from '../../../shared/interfaces/additional-info.interface';
@@ -64,7 +63,7 @@ export class NewAccountComponent implements OnInit, OnDestroy {
   createAccount() {
     this.stepper.steps.forEach(step => step.editable = false);
     this.newAccountForm.value.customerId = this.customerId;
-    this.accountService.createAccount(this.newAccountForm.value)
+    this.accountService.create(this.newAccountForm.value)
       .subscribe(response => {
         this.toastr.success('account created successfuly!', 'Account');
         this.router.navigateByUrl('/account');

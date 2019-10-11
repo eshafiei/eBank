@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material';
 import { TransferMoneyService } from '../../services/transfer-money.service';
-import { IAccount } from 'src/app/account/models/account.interface';
+import { IAccount } from 'src/app/account/interfaces/account.interface';
 
 @Component({
   selector: 'app-transfer-money',

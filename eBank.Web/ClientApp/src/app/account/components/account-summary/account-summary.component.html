@@ -5,7 +5,7 @@
                 Account Summary
             </mat-panel-title>
         </mat-expansion-panel-header>
-            <div class="card shadow p-3 mb-4 mt-4 bg-white rounded" *ngFor="let accountModel of accountsInfo | async">
+            <div class="card shadow p-3 mb-4 mt-4 bg-white rounded" *ngFor="let account of accountsInfo | async">
                 <div class="card-body">
                     <div class="row">
                         <div class="container">
@@ -13,11 +13,11 @@
                                 <span><i class="fa fa-lg fa-money"></i></span>
                             </div>
                             <div class="col-xs-5 pull-left">
-                                <span class="account-type">{{ accountType[accountModel.account.accountType] }}</span> <br />
-                                {{ accountModel.account.accountNumber }}
+                                <span class="account-type">{{ accountType[account.accountType] }}</span> <br />
+                                {{ account.accountNumber }}
                             </div>
                             <div class="col-xs-6 pull-right">
-                                <div class="account-balance">{{ accountModel.account.balance | currency }}</div>
+                                <div class="account-balance">{{ account.balance | currency }}</div>
                                 <small>Available balance</small>
                             </div>
                         </div>

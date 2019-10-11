@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 // local services & interfaces
 import { AccountService } from '../../services/account.service';
-import { IAccount } from '../../models/account.interface';
+import { IAccount } from '../../interfaces/account.interface';
 
 @Component({
     selector: 'app-account-dashboard',
@@ -16,7 +16,8 @@ export class AccountDashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-      const userId = localStorage.getItem('userId');
-      this.accountsInfo = this.accountService.getAccounts(userId);
+      // const userId = localStorage.getItem('userId');
+      const customerId = 7;
+      this.accountsInfo = this.accountService.list(customerId);
     }
 }

@@ -9,7 +9,7 @@ import { FormGroup } from '@angular/forms';
 import { AccountType } from 'src/app/shared/enums/account-type.enum';
 import { Frequency } from '../../enums/frequency.enum';
 import { DatePipe } from '@angular/common';
-import { IAccount } from 'src/app/account/models/account.interface';
+import { IAccount } from 'src/app/account/interfaces/account.interface';
 
 @Component({
   selector: 'app-transfer-review',

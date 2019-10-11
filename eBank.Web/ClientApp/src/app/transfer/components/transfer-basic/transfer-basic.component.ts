@@ -2,7 +2,7 @@ import { Component, OnInit, Input, AfterContentInit, OnChanges, SimpleChanges } 
 import { FormGroup } from '@angular/forms';
 import { AccountType } from '../../../shared/enums/account-type.enum';
 import { Frequency } from '../../enums/frequency.enum';
-import { IAccount } from '../../../account/models/account.interface';
+import { IAccount } from '../../../account/interfaces/account.interface';
 
 @Component({
   selector: 'app-transfer-basic',

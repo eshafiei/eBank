@@ -1,4 +1,6 @@
-export interface IAccount {
+import { Resource } from '../../shared/interfaces/resource.interface';
+
+export interface IAccount extends Resource {
     accountId?: number;
     accountNumber: number;
     accountType: number;

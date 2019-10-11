@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { AccountType } from '../../../shared/enums/account-type.enum';
-import { IAccount } from '../../models/account.interface';
+import { IAccount } from '../../interfaces/account.interface';
 
 @Component({
   selector: 'app-account-summary',
