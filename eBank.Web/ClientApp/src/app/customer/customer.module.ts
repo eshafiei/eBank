@@ -18,7 +18,7 @@ const routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'customer/updatecustomer/:id',
+    path: 'customer/updatecustomer',
     component: AddEditCustomerComponent,
     canActivate: [AuthGuard]
   }

@@ -117,6 +117,7 @@ export class AuthEffects {
             localStorage.removeItem('token');
             localStorage.removeItem('username');
             localStorage.removeItem('userId');
+            localStorage.removeItem('customerId');
             this.auth.authStateChanged();
             this.router.navigate(['login']);
         })

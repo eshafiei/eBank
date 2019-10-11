@@ -19,16 +19,16 @@ namespace eBank.Web.Controllers
             _accountService = accountService;
         }
 
-        [HttpGet("{customerId}")]
-        public async Task<IEnumerable<AccountModel>> BankAccount(int customerId)
+        [HttpGet("{userId}")]
+        public async Task<IEnumerable<AccountModel>> BankAccount(string userId)
         {
-            return await _accountService.GetAccountsAsync(customerId);
+            return await _accountService.GetAccountsAsync(userId);
         }
 
         [HttpPost]
         public async Task<int> BankAccount([FromBody] AccountModel account)
         {
-            return await _accountService.CreateAccount(account);
+            return await _accountService.CreateAccountAsync(account);
         }
     }
 }

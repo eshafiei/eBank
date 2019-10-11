@@ -7,7 +7,7 @@ export class CustomerSerializer implements Serializer<ICustomer> {
     fromJson(json: any): Customer {
         const customer = new Customer();
         customer.id = json.id;
-        customer.customerId = json.CustomerId;
+        customer.customerId = json.customerId;
         customer.firstName = json.firstName;
         customer.lastName = json.lastName;
         customer.dateOfBirth = json.dateOfBirth;

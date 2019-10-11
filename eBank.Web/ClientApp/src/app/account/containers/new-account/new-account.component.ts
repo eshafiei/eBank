@@ -15,6 +15,7 @@ import { AdditionalInfo } from '../../../shared/interfaces/additional-info.inter
 import { LegalStatus } from 'src/app/shared/enums/legal-status.enum';
 import { AdditionalInfoItem } from 'src/app/shared/interfaces/additional-info-item.interface';
 import { ICustomer } from 'src/app/customer/interfaces/customer.interface';
+import { AuthService } from 'src/app/authentication/services/auth.service';
 
 @Component({
   selector: 'app-new-account',
@@ -23,7 +24,6 @@ import { ICustomer } from 'src/app/customer/interfaces/customer.interface';
 })
 export class NewAccountComponent implements OnInit, OnDestroy {
   customerId: number;
-  loggedInUserId: string;
   customerInfoComponent: ComponentRef<AdditionalInfoComponent>;
   newAccountForm = this.fb.group({
     accountType: ['', [Validators.required]],
@@ -37,6 +37,7 @@ export class NewAccountComponent implements OnInit, OnDestroy {
   @ViewChild('customerBasicInfoEntry', { read: ViewContainerRef, static: true }) customerBasicInfoEntry: ViewContainerRef;
   constructor(private accountService: AccountService,
               private customerService: CustomerService,
+              private authService: AuthService,
               private router: Router,
               private toastr: ToastrService,
               private logger: NGXLogger,
@@ -45,9 +46,8 @@ export class NewAccountComponent implements OnInit, OnDestroy {
               private resolver: ComponentFactoryResolver) {}
 
   ngOnInit() {
-    // this.loggedInUserId = localStorage.getItem('userId');
-    const customerId = 7;
-    this.getCustomerBasicInfo(customerId);
+    const userId = this.authService.getLoggedInUserId();
+    this.getCustomerBasicInfo(userId);
   }
 
   ngOnDestroy() {
@@ -73,9 +73,9 @@ export class NewAccountComponent implements OnInit, OnDestroy {
       });
   }
 
-  getCustomerBasicInfo(customerId: number) {
+  getCustomerBasicInfo(userId: string) {
     const customerAdditionalInfo: AdditionalInfoItem[] = [];
-    this.customerService.read(customerId)
+    this.customerService.read(userId)
       .subscribe((customer: ICustomer) => {
         this.customerId = customer.customerId;
         customerAdditionalInfo.push({ text: 'First name', value: customer.firstName });

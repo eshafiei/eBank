@@ -18,8 +18,12 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  getLoggedInUser(): string {
+  getLoggedInUserName(): string {
     return localStorage.getItem('username');
+  }
+
+  getLoggedInUserId(): string {
+    return localStorage.getItem('userId');
   }
 
   refreshToken(username: string, password: string): Observable<any> {
@@ -65,7 +69,6 @@ export class AuthService {
   }
 
   authStateChanged() {
-    console.log('from auth service...');
     this.authStatedataSource.next(true);
   }
 

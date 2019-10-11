@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using eBank.DataAccess.Models;
-using eBank.DataAccess.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace eBank.DataAccess.Services.Account
@@ -16,18 +15,21 @@ namespace eBank.DataAccess.Services.Account
             _eBankContext = context;
         }
 
-        public async Task<int> CreateAccount(AccountModel account)
+        public async Task<IEnumerable<AccountModel>> GetAccountsAsync(string userId)
+        {
+            var accounts = from a in _eBankContext.Accounts
+                        join c in _eBankContext.Customers on a.CustomerId equals c.CustomerId
+                        where c.UserId == userId
+                        orderby a.AccountType
+                        select a;
+
+            return await accounts.ToListAsync();                        
+        }
+
+        public async Task<int> CreateAccountAsync(AccountModel account)
         {
             _eBankContext.Accounts.Add(account);
             return await _eBankContext.SaveChangesAsync();
-        }
-
-        public async Task<IEnumerable<AccountModel>> GetAccountsAsync(int customerId)
-        {
-            return await _eBankContext.Accounts
-                                      .Where(account => account.CustomerId == customerId)
-                                      .OrderBy(account => account.AccountType)
-                                      .ToListAsync();
         }
     }
 }

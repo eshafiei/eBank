@@ -16,8 +16,8 @@ export class AccountDashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-      // const userId = localStorage.getItem('userId');
-      const customerId = 7;
-      this.accountsInfo = this.accountService.list(customerId);
+      const userId = localStorage.getItem('userId');
+      this.accountsInfo = this.accountService.list(userId);
     }
 }
+

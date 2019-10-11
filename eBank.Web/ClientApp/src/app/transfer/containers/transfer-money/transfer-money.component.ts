@@ -25,7 +25,6 @@ export class TransferMoneyComponent implements OnInit {
     private transferService: TransferMoneyService) { }
 
   ngOnInit() {
-    this.customerId = 7;
     this.transferService.getAccountsDropDown(7)
       .subscribe((accounts: IAccount[]) => {
         this.customerAccounts = accounts;

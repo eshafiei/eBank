@@ -24,13 +24,13 @@ export class ResourceService<T extends Resource> {
         .pipe(map(data => this.serializer.fromJson(data) as T));
     }
 
-    read(id: number): Observable<T> {
+    read(id: any): Observable<T> {
       return this.httpClient
         .get(`${this.url}/${this.endpoint}/${id}`)
         .pipe(map((data: any) => this.serializer.fromJson(data) as T));
     }
 
-    list(id: number): Observable<T[]> {
+    list(id: any): Observable<T[]> {
       return this.httpClient
         .get(`${this.url}/${this.endpoint}/${id}`)
         .pipe(map((data: any) => this.convertData(data)));

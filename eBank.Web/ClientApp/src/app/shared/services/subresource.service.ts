@@ -28,7 +28,7 @@ export class SubResourceService<T extends Resource> {
             );
     }
 
-    read(parentId: number, id: number = 0): Observable<T> {
+    read(parentId: any, id: number = 0): Observable<T> {
         return this.httpClient
             .get(`${this.url}/${this.parentEndpoint}/${parentId}/${this.endpoint}/${id}`)
             .pipe(map((data: any) => this.serializer.fromJson(data) as T));

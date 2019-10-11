@@ -29,8 +29,51 @@ export class NavComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.appRoutes = this.getAppRoutes();
     this.checkAuthState();
-    this.appRoutes = [
+    this.auth.authStatus.subscribe(isChanged => {
+      this.checkAuthState();
+    });
+  }
+
+  toggleNav() {
+    if (!this.userAppRoutes) {
+      this.checkUserAccess();
+    }
+    this.toggle = !this.toggle;
+  }
+
+  checkUserAccess() {
+    this.loggedInUserId = this.auth.getLoggedInUserId();
+    if (this.loggedInUserId) {
+      this.auth.isAdminUser(this.loggedInUserId)
+        .subscribe((response: boolean) => {
+          this.isAdminUser = response;
+          if (this.isAdminUser) {
+            this.userAppRoutes = this.appRoutes;
+          } else {
+            this.userAppRoutes = this.appRoutes.filter(i => i.adminAccess !== true);
+          }
+        });
+    }
+  }
+
+  checkAuthState() {
+    const username = this.auth.getLoggedInUserName();
+    const token = this.auth.getToken();
+    if (token && username) {
+      this.isAuthenticated = true;
+      this.loggedInUsername = username;
+    } else {
+      this.isAuthenticated = false;
+      this.loggedInUsername = null;
+      this.userAppRoutes = null;
+    }
+    this.isAuthenticatedDataSource.next(this.isAuthenticated);
+  }
+
+  getAppRoutes() {
+    return [
       {
         routeHeader: 'Account',
         routeItems: [
@@ -83,46 +126,6 @@ export class NavComponent implements OnInit {
         ]
       }
     ];
-
-    this.auth.authStatus.subscribe(isChanged => {
-      this.checkAuthState();
-    });
-  }
-
-  toggleNav() {
-    if (!this.userAppRoutes) {
-      this.checkUserAccess();
-    }
-    this.toggle = !this.toggle;
-  }
-
-  checkUserAccess() {
-    this.loggedInUserId = localStorage.getItem('userId');
-    if (this.loggedInUserId) {
-      this.auth.isAdminUser(this.loggedInUserId)
-        .subscribe((response: boolean) => {
-          this.isAdminUser = response;
-          if (this.isAdminUser) {
-            this.userAppRoutes = this.appRoutes;
-          } else {
-            this.userAppRoutes = this.appRoutes.filter(i => i.adminAccess !== true);
-          }
-        });
-    }
-  }
-
-  checkAuthState() {
-    const username = this.auth.getLoggedInUser();
-    const token = this.auth.getToken();
-    if (token && username) {
-      this.isAuthenticated = true;
-      this.loggedInUsername = username;
-    } else {
-      this.isAuthenticated = false;
-      this.loggedInUsername = null;
-      this.userAppRoutes = null;
-    }
-    this.isAuthenticatedDataSource.next(this.isAuthenticated);
   }
 }
 
