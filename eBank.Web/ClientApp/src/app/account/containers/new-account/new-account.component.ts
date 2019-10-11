@@ -12,10 +12,10 @@ import { AdditionalInfoComponent } from './../../../shared/components/additional
 
 import { AccountService } from '../../services/account.service';
 import { CustomerService } from 'src/app/customer/services/customer.service';
-import { CustomerViewModel } from './../../../customer/view-models/customer-vm.interface';
-import { AdditionalInfo } from '../../../shared/models/additional-info.interface';
+import { AdditionalInfo } from '../../../shared/interfaces/additional-info.interface';
 import { LegalStatus } from 'src/app/shared/enums/legal-status.enum';
-import { AdditionalInfoItem } from 'src/app/shared/models/additional-info-item.interface';
+import { AdditionalInfoItem } from 'src/app/shared/interfaces/additional-info-item.interface';
+import { ICustomer } from 'src/app/customer/interfaces/customer.interface';
 
 @Component({
   selector: 'app-new-account',
@@ -46,8 +46,9 @@ export class NewAccountComponent implements OnInit, OnDestroy {
               private resolver: ComponentFactoryResolver) {}
 
   ngOnInit() {
-    this.loggedInUserId = localStorage.getItem('userId');
-    this.getCustomerBasicInfo(this.loggedInUserId);
+    // this.loggedInUserId = localStorage.getItem('userId');
+    const customerId = 7;
+    this.getCustomerBasicInfo(customerId);
   }
 
   ngOnDestroy() {
@@ -73,16 +74,16 @@ export class NewAccountComponent implements OnInit, OnDestroy {
       });
   }
 
-  getCustomerBasicInfo(userId: string) {
+  getCustomerBasicInfo(customerId: number) {
     const customerAdditionalInfo: AdditionalInfoItem[] = [];
-    this.customerService.getCustomer(userId)
-      .subscribe((customerInfo: CustomerViewModel) => {
-        this.customerId = customerInfo.customer.customerId;
-        customerAdditionalInfo.push({ text: 'First name', value: customerInfo.customer.firstName });
-        customerAdditionalInfo.push({ text: 'Last name', value: customerInfo.customer.lastName });
+    this.customerService.read(customerId)
+      .subscribe((customer: ICustomer) => {
+        this.customerId = customer.customerId;
+        customerAdditionalInfo.push({ text: 'First name', value: customer.firstName });
+        customerAdditionalInfo.push({ text: 'Last name', value: customer.lastName });
         customerAdditionalInfo.push({ text: 'Date of birth',
-          value: this.datepipe.transform(customerInfo.customer.dateOfBirth, 'MM/dd/yyyy') });
-        customerAdditionalInfo.push({ text: 'Legal status', value: LegalStatus[customerInfo.customer.legalStatus] });
+          value: this.datepipe.transform(customer.dateOfBirth, 'MM/dd/yyyy') });
+        customerAdditionalInfo.push({ text: 'Legal status', value: LegalStatus[customer.legalStatus] });
         const customerInformation: AdditionalInfo = {
           title: 'Customer information',
           items: customerAdditionalInfo

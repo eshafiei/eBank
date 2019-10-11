@@ -13,6 +13,7 @@ import { NavComponent } from './../../containers/nav/nav.component';
 })
 export class NavigationBarComponent implements OnInit {
   isAuthenticated: boolean;
+  customerId = 7;
   @Input() loggedInUsername: string;
   @Output() toggleSidenav = new EventEmitter<void>();
   getState: Observable<any>;

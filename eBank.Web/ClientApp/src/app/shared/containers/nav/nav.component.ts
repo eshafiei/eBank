@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AppRoute } from './../../models/app-route.interface';
+import { AppRoute } from '../../interfaces/app-route.interface';
 
 // local services
 import { AuthService } from './../../../authentication/services/auth.service';

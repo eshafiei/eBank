@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { CommandBarItem } from '../models/command-bar-item.interface';
+import { CommandBarItem } from '../interfaces/command-bar-item.interface';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable()

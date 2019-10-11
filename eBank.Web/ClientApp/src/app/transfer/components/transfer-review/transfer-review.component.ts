@@ -2,8 +2,8 @@ import { Component, OnInit, ComponentFactoryResolver, ViewChild, ViewContainerRe
   ComponentRef, Input, OnChanges, SimpleChanges } from '@angular/core';
 import * as moment from 'moment';
 
-import { AdditionalInfoItem } from 'src/app/shared/models/additional-info-item.interface';
-import { AdditionalInfo } from 'src/app/shared/models/additional-info.interface';
+import { AdditionalInfoItem } from 'src/app/shared/interfaces/additional-info-item.interface';
+import { AdditionalInfo } from 'src/app/shared/interfaces/additional-info.interface';
 import { AdditionalInfoComponent } from 'src/app/shared/components/additional-info/additional-info.component';
 import { FormGroup } from '@angular/forms';
 import { AccountType } from 'src/app/shared/enums/account-type.enum';

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { CommandBarItem } from '../../models/command-bar-item.interface';
+import { CommandBarItem } from '../../interfaces/command-bar-item.interface';
 
 @Component({
   selector: 'app-command-bar',

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, SimpleChanges, OnChanges } from '@angular/core';
 
-import { AppRoute } from '../../models/app-route.interface';
+import { AppRoute } from '../../interfaces/app-route.interface';
 import { MatSidenav } from '@angular/material';
 
 @Component({

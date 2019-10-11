@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 // interfaces & services
-import { AdditionalInfo } from './../../models/additional-info.interface';
+import { AdditionalInfo } from '../../interfaces/additional-info.interface';
 
 @Component({
   selector: 'app-additional-info',

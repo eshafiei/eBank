@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using eBank.DataAccess.Models;
 using eBank.DataAccess.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,47 +15,54 @@ namespace eBank.DataAccess.Services.Customer
             _eBankContext = eBankContext;
         }
 
-        public async Task<CustomerViewModel> GetCustomer(string userId)
+        public async Task<CustomerModel> GetCustomer(long customerId)
         {
             return await _eBankContext.Customers
-                           .Join(_eBankContext.Address,
-                              customer => customer.CustomerId,
-                              address => address.CustomerId,
-                              (customer, address) =>
-                              new CustomerViewModel { Customer = customer, Address = address })
-                           .Where(customerAndAddress => customerAndAddress.Customer.UserId == userId)
-                           .FirstOrDefaultAsync();
+                             .Where(customer => customer.CustomerId == customerId)
+                             .FirstOrDefaultAsync();
         }
 
-        public async Task<int> UpdateCustomer(CustomerViewModel model)
+        public async Task<AddressModel> GetAddress(long customerId, long addressId)
         {
-            var customer = _eBankContext.Customers.FirstOrDefault(c => c.UserId == model.Customer.UserId);
-            if (customer != null)
+            var query = _eBankContext.Address
+                                     .Where(address => address.CustomerId == customerId);
+            if (addressId > 0)
             {
-                customer.FirstName = model.Customer.FirstName;
-                customer.LastName = model.Customer.LastName;
-                customer.DateOfBirth = model.Customer.DateOfBirth;
-                customer.LegalStatus = model.Customer.LegalStatus;
-                customer.MaritalStatus = model.Customer.MaritalStatus;
+                query = query.Where(address => address.AddressId == addressId);
+            }
+            return await query.FirstOrDefaultAsync();
+        }
 
-                var address = _eBankContext.Address.FirstOrDefault(a => a.CustomerId == customer.CustomerId);
-                if (address != null)
-                {
-                    address.Address1 = model.Address.Address1;
-                    address.Address2 = model.Address.Address2;
-                    address.City = model.Address.City;
-                    address.State = model.Address.State;
-                    address.Zip = model.Address.Zip;
-                    address.Country = model.Address.Country;
-                }
-            }
-            else
+        public async Task<int> UpdateCustomer(CustomerModel model)
+        {
+            var customer = _eBankContext.Customers.FirstOrDefault(c => c.CustomerId == model.CustomerId);
+            if (customer == null)
             {
-                _eBankContext.Customers.Add(model.Customer);
-                _eBankContext.SaveChanges();
-                model.Address.CustomerId = model.Customer.CustomerId;
-                _eBankContext.Address.Add(model.Address);
+                return 0;
             }
+
+            customer.FirstName = model.FirstName;
+            customer.LastName = model.LastName;
+            customer.DateOfBirth = model.DateOfBirth;
+            customer.LegalStatus = model.LegalStatus;
+            customer.MaritalStatus = model.MaritalStatus;
+            return await _eBankContext.SaveChangesAsync();
+        }
+
+        public async Task<int> UpdateAddress(AddressModel model)
+        {
+            var address = _eBankContext.Address.FirstOrDefault(a => a.CustomerId == model.CustomerId);
+            if (address == null)
+            {
+                return 0;
+            }
+
+            address.Address1 = model.Address1;
+            address.Address2 = model.Address2;
+            address.City = model.City;
+            address.State = model.State;
+            address.Zip = model.Zip;
+            address.Country = model.Country;
             return await _eBankContext.SaveChangesAsync();
         }
     }

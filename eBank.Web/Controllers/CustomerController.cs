@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using eBank.DataAccess.Models;
 using eBank.DataAccess.Services.Customer;
 using eBank.DataAccess.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -18,16 +19,28 @@ namespace eBank.Web.Controllers
             _customerService = customerService;
         }
 
-        [HttpGet("[action]/{userId}")]
-        public async Task<CustomerViewModel> GetCustomer(string userId)
+        [HttpGet("{customerId}")]
+        public async Task<CustomerModel> Customer(long customerId)
         {
-            return await _customerService.GetCustomer(userId);
+            return await _customerService.GetCustomer(customerId);
         }
 
-        [HttpPost("[action]")]
-        public async Task<int> UpdateCustomer(CustomerViewModel model)
+        [HttpGet("{customerId}/address/{addressId}")]
+        public async Task<AddressModel> CustomerAddress(long customerId, long addressId)
+        {
+            return await _customerService.GetAddress(customerId, addressId);
+        }
+
+        [HttpPut("{customerId}")]
+        public async Task<int> Customer(CustomerModel model)
         {
             return await _customerService.UpdateCustomer(model);
+        }
+
+        [HttpPut("{customerId}/address/{addressId}")]
+        public async Task<int> CustomerAddress(AddressModel model)
+        {
+            return await _customerService.UpdateAddress(model);
         }
     }
 }
