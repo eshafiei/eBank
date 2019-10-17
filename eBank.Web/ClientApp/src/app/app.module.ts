@@ -50,7 +50,7 @@ const routes: Routes = [
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { enableTracing: false }),
     CommonModule,
     // 3rd party modules
     NgxSpinnerModule,

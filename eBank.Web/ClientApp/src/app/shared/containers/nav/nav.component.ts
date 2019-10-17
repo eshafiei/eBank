@@ -36,6 +36,10 @@ export class NavComponent implements OnInit {
     });
   }
 
+  onActivate(event) {
+    console.log(event);
+  }
+
   toggleNav() {
     if (!this.userAppRoutes) {
       this.checkUserAccess();
