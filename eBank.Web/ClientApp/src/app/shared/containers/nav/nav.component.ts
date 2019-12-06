@@ -85,11 +85,6 @@ export class NavComponent implements OnInit {
             title: 'Account summary',
             icon: 'money',
             route: '/account'
-          },
-          {
-            title: 'Account settings',
-            icon: 'settings_applications',
-            route: '/accountsettings'
           }
         ]
       },
@@ -100,11 +95,6 @@ export class NavComponent implements OnInit {
             title: 'Transfer money',
             icon: 'trending_flat',
             route: '/transfer/transfer-money'
-          },
-          {
-            title: 'Pay bills',
-            icon: 'payment',
-            route: '/billpay'
           }
         ]
       },
