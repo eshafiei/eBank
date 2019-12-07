@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using eBank.DataAccess.Models;
+using eBank.DataAccess.Models.Transfer;
 using eBank.DataAccess.Services.TransferMoney;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,12 @@ namespace eBank.Web.Controllers
         public async Task<IEnumerable<AccountModel>> GetAccountsDropDown(int customerId)
         {
             return await _transferMoneyService.GetAccountsDropDownAsync(customerId);
+        }
+
+        [HttpPost]
+        public async Task<int> TransferMoney([FromBody] TransferModel transfer)
+        {
+            return await _transferMoneyService.TransferMoneyAsync(transfer);
         }
     }
 }

@@ -3,6 +3,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material';
 import { TransferMoneyService } from '../../services/transfer-money.service';
 import { IAccount } from 'src/app/account/interfaces/account.interface';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { NGXLogger } from 'ngx-logger';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-transfer-money',
@@ -22,7 +26,10 @@ export class TransferMoneyComponent implements OnInit {
   });
   @ViewChild('stepper', null) stepper: MatStepper;
   constructor(private fb: FormBuilder,
-    private transferService: TransferMoneyService) { }
+    private transferService: TransferMoneyService,
+    private router: Router,
+    private toastr: ToastrService,
+    private logger: NGXLogger) { }
 
   ngOnInit() {
     const customerId = 7;
@@ -43,7 +50,14 @@ export class TransferMoneyComponent implements OnInit {
       this.transferForm.value.originAccount = this.transferForm.value.originAccount.accountId;
       this.transferForm.value.destinationAccount = this.transferForm.value.destinationAccount.accountId;
     }
-    console.log(this.transferForm.value);
+    this.transferService.create(this.transferForm.value)
+      .subscribe(response => {
+        this.toastr.success('transfer completed successfuly!', 'Transfer Money');
+        this.router.navigateByUrl('/account');
+      }, (error: HttpErrorResponse) => {
+          this.toastr.error(error.message, 'Transfer Money');
+        this.logger.error(error);
+      });
   }
 
 }

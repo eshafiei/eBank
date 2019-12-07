@@ -16,7 +16,7 @@ export class TransferMoneyService extends ResourceService<ITransferMoney> {
     super(
       httpClient,
       environment.baseUrl,
-      'transfermoney',
+      'transferMoney',
       new TransferMoneySerializer());
   }
 

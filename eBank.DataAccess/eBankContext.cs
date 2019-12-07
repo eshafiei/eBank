@@ -2,6 +2,7 @@
 using eBank.DataAccess.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using eBank.DataAccess.Models.Transfer;
 
 namespace eBank.DataAccess
 {
@@ -19,6 +20,8 @@ namespace eBank.DataAccess
         public DbSet<AddressModel> Address { get; set; }
 
         public DbSet<LogModel> Logs { get; set; }
+
+        public DbSet<TransferModel> Transfers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

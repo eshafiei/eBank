@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using eBank.DataAccess.Models;
+using eBank.DataAccess.Models.Transfer;
 using Microsoft.EntityFrameworkCore;
 
 namespace eBank.DataAccess.Services.TransferMoney
@@ -20,6 +21,12 @@ namespace eBank.DataAccess.Services.TransferMoney
             return await _eBankContext.Accounts
                                       .Where(a => a.CustomerId == customerId)
                                       .ToListAsync();
+        }
+
+        public async Task<int> TransferMoneyAsync(TransferModel transfer)
+        {
+            _eBankContext.Transfers.Add(transfer);
+            return await _eBankContext.SaveChangesAsync();
         }
     }
 }

@@ -89,7 +89,7 @@ export class NavComponent implements OnInit {
         ]
       },
       {
-        routeHeader: 'Transfer & Pay',
+        routeHeader: 'Transfer',
         routeItems: [
           {
             title: 'Transfer money',
@@ -99,12 +99,17 @@ export class NavComponent implements OnInit {
         ]
       },
       {
-        routeHeader: 'New Account Services',
+        routeHeader: 'Account Services',
         routeItems: [
           {
             title: 'Open an Account',
             icon: 'call_to_action',
             route: '/createaccount'
+          },
+          {
+            title: 'Close an Account',
+            icon: 'not_interested',
+            route: '/closeaccount'
           }
         ]
       },

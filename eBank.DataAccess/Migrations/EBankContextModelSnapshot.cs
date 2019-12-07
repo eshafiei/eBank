@@ -293,6 +293,29 @@ namespace eBank.DataAccess.Migrations
                     b.ToTable("Logs");
                 });
 
+            modelBuilder.Entity("eBank.DataAccess.Models.Transfer.TransferModel", b =>
+                {
+                    b.Property<int>("TransferId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("Amount");
+
+                    b.Property<long>("DestinationAccount");
+
+                    b.Property<int>("Frequency");
+
+                    b.Property<string>("Note");
+
+                    b.Property<long>("OriginAccount");
+
+                    b.Property<DateTime>("TransferDate");
+
+                    b.HasKey("TransferId");
+
+                    b.ToTable("Transfers");
+                });
+
             modelBuilder.Entity("eBank.DataAccess.Models.User.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");

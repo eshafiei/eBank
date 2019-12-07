@@ -63,7 +63,9 @@
                  formControlName="amount"
                  placeholder="Amount">
           <mat-error *ngIf="f.amount?.hasError('required')">Amount is required</mat-error>
-          <mat-error *ngIf="f.amount?.hasError('max')">Maximum allowed transfer amount reached</mat-error>
+          <mat-error *ngIf="f.amount?.hasError('max')">
+            Maximum allowed transfer amount is {{ maximumTransferAllowed | currency }}
+          </mat-error>
         </mat-form-field>
       </div>
       <div class="row">
