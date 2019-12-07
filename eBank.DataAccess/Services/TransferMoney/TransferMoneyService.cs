@@ -25,6 +25,22 @@ namespace eBank.DataAccess.Services.TransferMoney
 
         public async Task<int> TransferMoneyAsync(TransferModel transfer)
         {
+            var originAccount = _eBankContext.Accounts
+                                             .Where(a => a.AccountId == transfer.OriginAccount)
+                                             .FirstOrDefault();
+            if (originAccount != null)
+            {
+                originAccount.Balance -= transfer.Amount;
+            }
+
+            var destinationAccount = _eBankContext.Accounts
+                                             .Where(a => a.AccountId == transfer.DestinationAccount)
+                                             .FirstOrDefault();
+            if (destinationAccount != null)
+            {
+                destinationAccount.Balance += transfer.Amount;
+            }
+
             _eBankContext.Transfers.Add(transfer);
             return await _eBankContext.SaveChangesAsync();
         }
