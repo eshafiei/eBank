@@ -11,11 +11,13 @@ export class AccountDetailComponent implements OnInit {
   @Input() form: FormGroup;
   accountType: typeof AccountType = AccountType;
   accountTypeItems: string[] = [];
+  initialBalanceRequired: number;
   constructor() { }
 
   ngOnInit() {
     const accountTypeOptions = Object.keys(AccountType);
     this.accountTypeItems = accountTypeOptions.slice(accountTypeOptions.length / 2);
+    this.initialBalanceRequired = this.form.get('balance').value;
   }
 
   get f() {

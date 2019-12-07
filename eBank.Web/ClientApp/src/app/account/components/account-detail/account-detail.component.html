@@ -32,6 +32,8 @@
                  type="number"
                  placeholder="Initial balance"
                  formControlName="balance">
+          <mat-error *ngIf="f.balance?.hasError('required')">Initial balance is required</mat-error>
+          <mat-error *ngIf="f.balance?.hasError('min')">Initial account balance can not be less than {{ initialBalanceRequired | currency }}</mat-error>
         </mat-form-field>
       </div>
       <div class="row mb-2">
