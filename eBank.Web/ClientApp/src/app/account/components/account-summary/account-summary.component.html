@@ -1,28 +1,21 @@
-<mat-accordion>
-    <mat-expansion-panel [expanded]="isExpanded">
-        <mat-expansion-panel-header class="bg-info">
-            <mat-panel-title class="text-warning">
-                Account Summary
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-            <div class="card shadow p-3 mb-4 mt-4 bg-white rounded" *ngFor="let account of accountsInfo | async">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="container">
-                            <div class="col-xs-1 pull-left">
-                                <span><i class="fa fa-lg fa-money"></i></span>
-                            </div>
-                            <div class="col-xs-5 pull-left">
-                                <span class="account-type">{{ accountType[account.accountType] }}</span> <br />
-                                {{ account.accountNumber }}
-                            </div>
-                            <div class="col-xs-6 pull-right">
-                                <div class="account-balance">{{ account.balance | currency }}</div>
-                                <small>Available balance</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    </mat-expansion-panel>
-</mat-accordion>
+<h4 class="text-primary">
+    Account Summary
+</h4>
+<button mat-raised-button color="primary" routerLink="/createaccount">Open a New Account</button>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 mt-2">
+    <ng-container matColumnDef="accountNumber">
+        <th mat-header-cell *matHeaderCellDef> Account Number </th>
+        <td mat-cell *matCellDef="let account"> {{ account.accountNumber }} </td>
+    </ng-container>
+    <ng-container matColumnDef="accountType">
+        <th mat-header-cell *matHeaderCellDef> Account Type </th>
+        <td mat-cell *matCellDef="let account"> {{ accountType[account.accountType] }} </td>
+    </ng-container>
+    <ng-container matColumnDef="balance">
+        <th mat-header-cell *matHeaderCellDef> Balance </th>
+        <td mat-cell *matCellDef="let account"> {{ account.balance | currency }} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>

@@ -19,7 +19,7 @@ namespace eBank.DataAccess.Services.Account
         {
             var accounts = from a in _eBankContext.Accounts
                         join c in _eBankContext.Customers on a.CustomerId equals c.CustomerId
-                        where c.UserId == userId
+                        where c.UserId == userId && a.AccountStatus == true
                         orderby a.AccountType
                         select a;
 
