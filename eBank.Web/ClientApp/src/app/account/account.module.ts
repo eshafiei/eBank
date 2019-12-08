@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, CanActivate } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // local components
@@ -10,6 +10,7 @@ import { NewAccountComponent } from './containers/new-account/new-account.compon
 import { AccountDashboardComponent } from './containers/account-dashboard/account-dashboard.component';
 import { AccountDetailComponent } from './components/account-detail/account-detail.component';
 import { AccountTermsComponent } from './components/account-terms/account-terms.component';
+import { CloseAccountComponent } from './containers/close-account/close-account.component';
 
 // local services & modules
 import { AccountService } from './services/account.service';
@@ -18,7 +19,8 @@ import { SharedModule } from '../shared/shared.module';
 
 const routes = [
   { path: 'account', component: AccountDashboardComponent, canActivate: [AuthGuard] },
-  { path: 'createaccount', component: NewAccountComponent, canActivate: [AuthGuard] }
+  { path: 'createaccount', component: NewAccountComponent, canActivate: [AuthGuard] },
+  { path: 'closeaccount', component: CloseAccountComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
@@ -27,7 +29,8 @@ const routes = [
     AccountSummaryComponent,
     NewAccountComponent,
     AccountDetailComponent,
-    AccountTermsComponent
+    AccountTermsComponent,
+    CloseAccountComponent
   ],
   imports: [
     CommonModule,

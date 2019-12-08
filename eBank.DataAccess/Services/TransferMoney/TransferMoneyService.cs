@@ -16,13 +16,6 @@ namespace eBank.DataAccess.Services.TransferMoney
             _eBankContext = context;
         }
 
-        public async Task<IEnumerable<AccountModel>> GetAccountsDropDownAsync(int customerId)
-        {
-            return await _eBankContext.Accounts
-                                      .Where(a => a.CustomerId == customerId)
-                                      .ToListAsync();
-        }
-
         public async Task<int> TransferMoneyAsync(TransferModel transfer)
         {
             var originAccount = _eBankContext.Accounts

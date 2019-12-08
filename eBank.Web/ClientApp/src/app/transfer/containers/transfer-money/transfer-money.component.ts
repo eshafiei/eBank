@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NGXLogger } from 'ngx-logger';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AccountService } from 'src/app/account/services/account.service';
 
 @Component({
   selector: 'app-transfer-money',
@@ -27,13 +28,15 @@ export class TransferMoneyComponent implements OnInit {
   @ViewChild('stepper', null) stepper: MatStepper;
   constructor(private fb: FormBuilder,
     private transferService: TransferMoneyService,
+    private accountService: AccountService,
     private router: Router,
     private toastr: ToastrService,
     private logger: NGXLogger) { }
 
   ngOnInit() {
     const customerId = 7;
-    this.transferService.getAccountsDropDown(customerId)
+    this.accountService
+      .getAccountsDropDown(customerId)
       .subscribe((accounts: IAccount[]) => {
         this.customerAccounts = accounts;
       });

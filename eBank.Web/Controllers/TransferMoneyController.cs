@@ -20,12 +20,6 @@ namespace eBank.Web.Controllers
             _transferMoneyService = transferMoneyService;
         }
 
-        [HttpGet("[action]/{customerId}")]
-        public async Task<IEnumerable<AccountModel>> GetAccountsDropDown(int customerId)
-        {
-            return await _transferMoneyService.GetAccountsDropDownAsync(customerId);
-        }
-
         [HttpPost]
         public async Task<int> TransferMoney([FromBody] TransferModel transfer)
         {

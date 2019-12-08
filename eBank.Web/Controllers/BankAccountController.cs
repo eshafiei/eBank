@@ -25,10 +25,22 @@ namespace eBank.Web.Controllers
             return await _accountService.GetAccountsAsync(userId);
         }
 
+        [HttpGet("[action]/{customerId}")]
+        public async Task<IEnumerable<AccountModel>> GetAccountsDropDown(int customerId)
+        {
+            return await _accountService.GetAccountsDropDownAsync(customerId);
+        }
+
         [HttpPost]
         public async Task<int> BankAccount([FromBody] AccountModel account)
         {
             return await _accountService.CreateAccountAsync(account);
+        }
+
+        [HttpDelete("{accountId}")]
+        public async Task<int> BankAccount(long accountId)
+        {
+            return await _accountService.DeleteAccountAsync(accountId);
         }
     }
 }

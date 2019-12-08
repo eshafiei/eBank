@@ -26,9 +26,28 @@ namespace eBank.DataAccess.Services.Account
             return await accounts.ToListAsync();                        
         }
 
+        public async Task<IEnumerable<AccountModel>> GetAccountsDropDownAsync(int customerId)
+        {
+            return await _eBankContext.Accounts
+                                      .Where(a => a.CustomerId == customerId && a.AccountStatus == true)
+                                      .ToListAsync();
+        }
+
         public async Task<int> CreateAccountAsync(AccountModel account)
         {
             _eBankContext.Accounts.Add(account);
+            return await _eBankContext.SaveChangesAsync();
+        }
+
+        public async Task<int> DeleteAccountAsync(long accountId)
+        {
+            var account = _eBankContext.Accounts
+                                       .Where(a => a.AccountId == accountId)
+                                       .FirstOrDefault();
+            if (account != null)
+            {
+                account.AccountStatus = false;
+            }
             return await _eBankContext.SaveChangesAsync();
         }
     }
