@@ -11,3 +11,4 @@ C:\Users\ehsans\Documents\Ehsan\Projects\Angular8\eBank\eBank.Test\obj\Debug\net
 C:\Users\ehsans\Documents\Ehsan\Projects\Angular8\eBank\eBank.Test\obj\Debug\netcoreapp2.2\eBank.Test.AssemblyInfo.cs
 C:\Users\ehsans\Documents\Ehsan\Projects\Angular8\eBank\eBank.Test\obj\Debug\netcoreapp2.2\eBank.Test.dll
 C:\Users\ehsans\Documents\Ehsan\Projects\Angular8\eBank\eBank.Test\obj\Debug\netcoreapp2.2\eBank.Test.pdb
+C:\Users\ehsans\Documents\Ehsan\Projects\Angular8\eBank\eBank.Test\obj\Debug\netcoreapp2.2\eBank.Test.csprojAssemblyReference.cache

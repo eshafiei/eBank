@@ -22,6 +22,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './store/effects/auth.effects';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './store/app.states';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   imports: [
@@ -30,22 +31,18 @@ import { reducers } from './store/app.states';
     FlexLayoutModule,
     RouterModule,
     ReactiveFormsModule,
-    StoreModule.forRoot((reducers) as any, {}),
+    StoreModule.forRoot(reducers as any, {}),
     EffectsModule.forRoot([AuthEffects]),
     CurrencyMaskModule
   ],
   declarations: [
     CommandBarComponent,
     AdditionalInfoComponent,
+    ConfirmationDialogComponent,
     AddressComponent,
     WeatherComponent
   ],
-  providers: [
-    AppBarService,
-    WeatherService,
-    DatePipe,
-    AutoLogoutService
-  ],
+  providers: [AppBarService, WeatherService, DatePipe, AutoLogoutService],
   exports: [
     CommandBarComponent,
     AdditionalInfoComponent,
@@ -54,10 +51,9 @@ import { reducers } from './store/app.states';
     MaterialModule,
     FlexLayoutModule,
     ReactiveFormsModule,
-    CurrencyMaskModule
+    CurrencyMaskModule,
+    ConfirmationDialogComponent
   ],
-  entryComponents: [
-    AdditionalInfoComponent
-  ]
+  entryComponents: [AdditionalInfoComponent, ConfirmationDialogComponent]
 })
-export class SharedModule { }
+export class SharedModule {}

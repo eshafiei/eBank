@@ -25,13 +25,14 @@ import { AuthService } from 'src/app/authentication/services/auth.service';
 export class NewAccountComponent implements OnInit, OnDestroy {
   customerId: number;
   initialBalanceRequired = 100;
+  newAccountNumber: number;
   customerInfoComponent: ComponentRef<AdditionalInfoComponent>;
   newAccountForm = this.fb.group({
+    accountNumber: Math.floor(1000000000 + Math.random() * 9000000000),
     accountType: ['', [Validators.required]],
-    accountNumber: ['', [Validators.required]],
     balance: [this.initialBalanceRequired,
       [Validators.required, Validators.min(this.initialBalanceRequired)]],
-    accountStatus: [null, Validators.requiredTrue],
+    accountStatus: true,
     accountAgreement: [null, Validators.requiredTrue],
     customerId: null
   });

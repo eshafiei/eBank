@@ -42,8 +42,7 @@ namespace eBank.DataAccess.Services.Account
         public async Task<int> DeleteAccountAsync(long accountId)
         {
             var account = _eBankContext.Accounts
-                                       .Where(a => a.AccountId == accountId)
-                                       .FirstOrDefault();
+                                       .FirstOrDefault(a => a.AccountId == accountId);
             if (account != null)
             {
                 account.AccountStatus = false;

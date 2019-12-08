@@ -4,6 +4,12 @@
     <div class="card-body">
       <div class="row">
         <mat-form-field class="col-12" appearance="outline">
+          <mat-label>Account number</mat-label>
+          <input matInput readonly class="text-primary" value="{{f.accountNumber.value}}" />
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-12" appearance="outline">
           <mat-label for="accountType">Account type</mat-label>
           <mat-select formControlName="accountType">
             <mat-option *ngFor="let item of accountTypeItems"
@@ -16,17 +22,6 @@
       </div>
       <div class="row">
         <mat-form-field class="col-12" appearance="outline">
-          <mat-label>Account number</mat-label>
-          <input matInput
-                 type="number"
-                 formControlName="accountNumber"
-                 placeholder="Account number"
-                 [ngClass]="{'is-invalid': f.accountNumber.touched && f.accountNumber.errors}">
-          <mat-error *ngIf="f.accountNumber?.hasError('required')">Account number is required</mat-error>
-        </mat-form-field>
-      </div>
-      <div class="row">
-        <mat-form-field class="col-12" appearance="outline">
           <mat-label for="balance">Initial balance</mat-label>
           <input matInput
                  type="number"
@@ -35,11 +30,6 @@
           <mat-error *ngIf="f.balance?.hasError('required')">Initial balance is required</mat-error>
           <mat-error *ngIf="f.balance?.hasError('min')">Initial account balance can not be less than {{ initialBalanceRequired | currency }}</mat-error>
         </mat-form-field>
-      </div>
-      <div class="row mb-2">
-        <div class="col-12">
-          <mat-checkbox formControlName="accountStatus">Enable account</mat-checkbox>
-        </div>
       </div>
     </div>
   </div>

@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using eBank.DataAccess.Models;
 using eBank.DataAccess.Models.Transfer;
-using Microsoft.EntityFrameworkCore;
 
 namespace eBank.DataAccess.Services.TransferMoney
 {
@@ -19,16 +16,14 @@ namespace eBank.DataAccess.Services.TransferMoney
         public async Task<int> TransferMoneyAsync(TransferModel transfer)
         {
             var originAccount = _eBankContext.Accounts
-                                             .Where(a => a.AccountId == transfer.OriginAccount)
-                                             .FirstOrDefault();
+                                             .FirstOrDefault(a => a.AccountId == transfer.OriginAccount);
             if (originAccount != null)
             {
                 originAccount.Balance -= transfer.Amount;
             }
 
             var destinationAccount = _eBankContext.Accounts
-                                             .Where(a => a.AccountId == transfer.DestinationAccount)
-                                             .FirstOrDefault();
+                                                  .FirstOrDefault(a => a.AccountId == transfer.DestinationAccount);
             if (destinationAccount != null)
             {
                 destinationAccount.Balance += transfer.Amount;

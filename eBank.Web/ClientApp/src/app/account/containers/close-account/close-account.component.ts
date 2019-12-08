@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { AccountType } from 'src/app/shared/enums/account-type.enum';
 import { IAccount } from '../../interfaces/account.interface';
 import { AccountService } from '../../services/account.service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { NGXLogger } from 'ngx-logger';
 import { Router } from '@angular/router';
+import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-close-account',
@@ -17,7 +19,7 @@ export class CloseAccountComponent implements OnInit {
   accountType: typeof AccountType = AccountType;
   bankAccounts: IAccount[];
   closeAccountForm = this.fb.group({
-    accountId: null
+    accountId: [null, [Validators.required]]
   });
   constructor(
     private accountService: AccountService,
@@ -25,6 +27,7 @@ export class CloseAccountComponent implements OnInit {
     private router: Router,
     private toastr: ToastrService,
     private logger: NGXLogger,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -36,14 +39,30 @@ export class CloseAccountComponent implements OnInit {
       });
   }
 
+  get f() {
+    return this.closeAccountForm.controls;
+  }
+
   closeAccount() {
-    this.accountService.delete(this.closeAccountForm.get('accountId').value)
-      .subscribe(response => {
-        this.toastr.success('account closed successfuly!', 'Account');
-        this.router.navigateByUrl('/account');
-      }, (error: HttpErrorResponse) => {
-        this.toastr.error(error.message, 'Account');
-        this.logger.error(error);
-      });
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: 'Are you sure you want to close this account?'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.accountService
+          .delete(this.closeAccountForm.get('accountId').value)
+          .subscribe(
+            response => {
+              this.toastr.success('account closed successfuly!', 'Account');
+              this.router.navigateByUrl('/account');
+            },
+            (error: HttpErrorResponse) => {
+              this.toastr.error(error.message, 'Account');
+              this.logger.error(error);
+            }
+          );
+      }
+    });
   }
 }

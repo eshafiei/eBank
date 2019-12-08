@@ -15,8 +15,8 @@ export class AccountSummaryComponent implements OnInit, OnChanges {
   dataSource: any;
   accountType = AccountType;
   displayedColumns: string[] = [
-    'accountNumber',
     'accountType',
+    'accountNumber',
     'balance'
   ];
 

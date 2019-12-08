@@ -17,7 +17,8 @@
         <button mat-stroked-button color="warn" class="mr-3 col-3" routerLink="/account">
           Cancel
         </button>
-        <button mat-raised-button color="primary" class="col-3" type="button" (click)="closeAccount();">
+        <button mat-raised-button color="primary" class="col-3" type="button" 
+          (click)="closeAccount();" [disabled]="closeAccountForm.invalid">
           Close Account
         </button>
       </div>
