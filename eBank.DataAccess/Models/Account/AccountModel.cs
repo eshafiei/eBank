@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace eBank.DataAccess.Models
+namespace eBank.DataAccess.Models.Account
 {
     public class AccountModel : BaseModel
     {

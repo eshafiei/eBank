@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using eBank.DataAccess.Models;
+using eBank.DataAccess.Models.Address;
 
 namespace eBank.DataAccess.Services.Customer
 {

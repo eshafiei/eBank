@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using eBank.DataAccess.Models;
+using eBank.DataAccess.Models.Address;
 using eBank.DataAccess.Services.Customer;
-using eBank.DataAccess.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using eBank.DataAccess.Models.Base;
 
-namespace eBank.DataAccess.Models
+namespace eBank.DataAccess.Models.Address
 {
     public class AddressModel : BaseModel
     {

@@ -9,9 +9,9 @@ namespace eBank.DataAccess.Models.Transfer
         [Key]
         public int TransferId { get; set; }
 
-        public long OriginAccount { get; set; }
+        public int OriginAccount { get; set; }
 
-        public long DestinationAccount { get; set; }
+        public int DestinationAccount { get; set; }
 
         public int Frequency { get; set; }
 

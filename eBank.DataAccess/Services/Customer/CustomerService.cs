@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using eBank.DataAccess.Models;
+using eBank.DataAccess.Models.Address;
 using Microsoft.EntityFrameworkCore;
 
 namespace eBank.DataAccess.Services.Customer

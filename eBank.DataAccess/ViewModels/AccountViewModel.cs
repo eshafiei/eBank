@@ -1,4 +1,5 @@
 ﻿using eBank.DataAccess.Models;
+using eBank.DataAccess.Models.Account;
 
 namespace eBank.DataAccess.ViewModels
 {
