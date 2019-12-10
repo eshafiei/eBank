@@ -13,7 +13,7 @@ namespace eBank.DataAccess.Services.Account
 
         Task<int> CreateAccountAsync(AccountModel accountModel);
 
-        Task<int> DeleteAccountAsync(long accountId);
+        Task<TransactionResult> DeleteAccountAsync(long accountId);
 
         Task<TransactionResult> DepositAsync(DepositModel deposit);
 

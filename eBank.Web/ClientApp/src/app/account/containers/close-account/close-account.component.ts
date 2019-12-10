@@ -9,6 +9,7 @@ import { NGXLogger } from 'ngx-logger';
 import { Router } from '@angular/router';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { MatDialog } from '@angular/material';
+import { IHttpResponse } from '../../../../app/shared/interfaces/http-response.interface';
 
 @Component({
   selector: 'app-close-account',
@@ -53,12 +54,12 @@ export class CloseAccountComponent implements OnInit {
         this.accountService
           .delete(this.closeAccountForm.get('accountId').value)
           .subscribe(
-            response => {
-              this.toastr.success('account closed successfuly!', 'Account');
+            (response: IHttpResponse) => {
+              this.toastr.success(response.result, 'Account');
               this.router.navigateByUrl('/account');
             },
             (error: HttpErrorResponse) => {
-              this.toastr.error(error.message, 'Account');
+              this.toastr.error(error.error, 'Account');
               this.logger.error(error);
             }
           );

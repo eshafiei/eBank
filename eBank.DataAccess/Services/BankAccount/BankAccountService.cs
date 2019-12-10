@@ -44,15 +44,45 @@ namespace eBank.DataAccess.Services.Account
             return await _eBankContext.SaveChangesAsync();
         }
 
-        public async Task<int> DeleteAccountAsync(long accountId)
+        public async Task<TransactionResult> DeleteAccountAsync(long accountId)
         {
             var account = _eBankContext.Accounts
                                        .FirstOrDefault(a => a.AccountId == accountId);
-            if (account != null)
+            if (account == null)
             {
-                account.AccountStatus = false;
+                return new TransactionResult
+                {
+                    Result = "Account not found.",
+                    Status = TransactionStatus.ValidationError
+                };
             }
-            return await _eBankContext.SaveChangesAsync();
+
+            if (account.Balance > 0)
+            {
+                return new TransactionResult
+                {
+                    Result = $"Accounts has ${account.Balance}. Please transfer or withdraw the account balance first.",
+                    Status = TransactionStatus.ValidationError
+                };
+            }
+
+            account.AccountStatus = false;
+            var response = await _eBankContext.SaveChangesAsync();
+
+            if (response > 0)
+            {
+                return new TransactionResult
+                {
+                    Result = "account closed successfully.",
+                    Status = TransactionStatus.Success
+                };
+            }
+
+            return new TransactionResult
+            {
+                Result = "Internal server error.",
+                Status = TransactionStatus.Error
+            };
         }
 
         public async Task<TransactionResult> DepositAsync(DepositModel deposit)
@@ -113,7 +143,7 @@ namespace eBank.DataAccess.Services.Account
             {
                 return new TransactionResult
                 {
-                    Result = $"Withdraw failed. Maximum withdraw Allowance reached.",
+                    Result = "Withdraw failed. Maximum withdraw allowance reached.",
                     Status = TransactionStatus.ValidationError
                 };
             }
