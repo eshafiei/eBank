@@ -35,9 +35,26 @@ namespace eBank.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<int> BankAccount([FromBody] AccountModel account)
+        public async Task<IActionResult> BankAccount([FromBody] AccountModel account)
         {
-            return await _accountService.CreateAccountAsync(account);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ApiBadRequestResponse(ModelState));
+            }
+
+            var response = await _accountService.CreateAccountAsync(account);
+
+            switch (response.Status)
+            {
+                case TransactionStatus.Success:
+                    return Ok(new ApiOkResponse(response.Result));
+                case TransactionStatus.Error:
+                    return StatusCode(StatusCodes.Status500InternalServerError);
+                case TransactionStatus.ValidationError:
+                    return StatusCode(StatusCodes.Status403Forbidden, response.Result);
+                default:
+                    return StatusCode(StatusCodes.Status503ServiceUnavailable);
+            }
         }
 
         [HttpDelete("{accountId}")]

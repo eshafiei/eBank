@@ -11,7 +11,7 @@ namespace eBank.DataAccess.Services.Account
 
         Task<IEnumerable<AccountModel>> GetAccountsDropDownAsync(int customerId);
 
-        Task<int> CreateAccountAsync(AccountModel accountModel);
+        Task<TransactionResult> CreateAccountAsync(AccountModel accountModel);
 
         Task<TransactionResult> DeleteAccountAsync(long accountId);
 

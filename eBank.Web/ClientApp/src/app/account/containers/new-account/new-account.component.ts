@@ -16,6 +16,7 @@ import { LegalStatus } from 'src/app/shared/enums/legal-status.enum';
 import { AdditionalInfoItem } from 'src/app/shared/interfaces/additional-info-item.interface';
 import { ICustomer } from 'src/app/customer/interfaces/customer.interface';
 import { AuthService } from 'src/app/authentication/services/auth.service';
+import { IHttpResponse } from 'src/app/shared/interfaces/http-response.interface';
 
 @Component({
   selector: 'app-new-account',
@@ -67,13 +68,14 @@ export class NewAccountComponent implements OnInit, OnDestroy {
     this.stepper.steps.forEach(step => step.editable = false);
     this.newAccountForm.value.customerId = this.customerId;
     this.accountService.create(this.newAccountForm.value)
-      .subscribe(response => {
-        this.toastr.success('account created successfuly!', 'Account');
-        this.router.navigateByUrl('/account');
-      }, (error: HttpErrorResponse) => {
-        this.toastr.error(error.message, 'Account');
-        this.logger.error(error);
-      });
+      .subscribe(
+        (response) => {
+          this.toastr.success('account created successfully.', 'Account');
+          this.router.navigateByUrl('/account');
+        }, (error: HttpErrorResponse) => {
+          this.toastr.error(error.error, 'Account');
+          this.logger.error(error);
+        });
   }
 
   getCustomerBasicInfo(userId: string) {

@@ -38,10 +38,25 @@ namespace eBank.DataAccess.Services.Account
                                       .ToListAsync();
         }
 
-        public async Task<int> CreateAccountAsync(AccountModel account)
+        public async Task<TransactionResult> CreateAccountAsync(AccountModel account)
         {
             _eBankContext.Accounts.Add(account);
-            return await _eBankContext.SaveChangesAsync();
+            var response = await _eBankContext.SaveChangesAsync();
+
+            if (response > 0)
+            {
+                return new TransactionResult
+                {
+                    Result = "account created successfully.",
+                    Status = TransactionStatus.Success
+                };
+            }
+
+            return new TransactionResult
+            {
+                Result = "Internal server error.",
+                Status = TransactionStatus.Error
+            };
         }
 
         public async Task<TransactionResult> DeleteAccountAsync(long accountId)
