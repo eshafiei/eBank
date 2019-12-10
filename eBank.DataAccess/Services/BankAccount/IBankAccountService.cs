@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using eBank.DataAccess.Models.Account;
+using eBank.DataAccess.Models.Base;
 
 namespace eBank.DataAccess.Services.Account
 {
@@ -14,8 +15,8 @@ namespace eBank.DataAccess.Services.Account
 
         Task<int> DeleteAccountAsync(long accountId);
 
-        Task<int> DepositAsync(DepositModel deposit);
+        Task<TransactionResult> DepositAsync(DepositModel deposit);
 
-        Task<int> WithdrawAsync(WithdrawModel withdraw);
+        Task<TransactionResult> WithdrawAsync(WithdrawModel withdraw);
     }
 }

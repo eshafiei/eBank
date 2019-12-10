@@ -5,8 +5,9 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NGXLogger } from 'ngx-logger';
 import { IAccount } from '../../interfaces/account.interface';
-import { AccountType } from 'src/app/shared/enums/account-type.enum';
-import { HttpErrorResponse } from '@angular/common/http';
+import { AccountType } from '../../../../app/shared/enums/account-type.enum';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { IHttpResponse } from '../../../../app/shared/interfaces/http-response.interface';
 
 @Component({
   selector: 'app-deposit',
@@ -47,12 +48,12 @@ export class DepositComponent implements OnInit {
     this.accountService
           .deposit(this.depositForm.value)
           .subscribe(
-            response => {
-              this.toastr.success('deposit completed successfuly!', 'Deposit');
+            (response: IHttpResponse) => {
+              this.toastr.success(response.result, 'Deposit');
               this.router.navigateByUrl('/account');
             },
             (error: HttpErrorResponse) => {
-              this.toastr.error(error.message, 'Deposit');
+              this.toastr.error(error.error, 'Deposit');
               this.logger.error(error);
             }
           );

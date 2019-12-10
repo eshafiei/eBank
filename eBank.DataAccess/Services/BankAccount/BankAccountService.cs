@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using eBank.DataAccess.Enums;
 using eBank.DataAccess.Models.Account;
+using eBank.DataAccess.Models.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace eBank.DataAccess.Services.Account
@@ -20,12 +23,12 @@ namespace eBank.DataAccess.Services.Account
         public async Task<IEnumerable<AccountModel>> GetAccountsAsync(string userId)
         {
             var accounts = from a in _eBankContext.Accounts
-                        join c in _eBankContext.Customers on a.CustomerId equals c.CustomerId
-                        where c.UserId == userId && a.AccountStatus == true
-                        orderby a.AccountType
-                        select a;
+                           join c in _eBankContext.Customers on a.CustomerId equals c.CustomerId
+                           where c.UserId == userId && a.AccountStatus == true
+                           orderby a.AccountType
+                           select a;
 
-            return await accounts.ToListAsync();                        
+            return await accounts.ToListAsync();
         }
 
         public async Task<IEnumerable<AccountModel>> GetAccountsDropDownAsync(int customerId)
@@ -52,40 +55,87 @@ namespace eBank.DataAccess.Services.Account
             return await _eBankContext.SaveChangesAsync();
         }
 
-        public async Task<int> DepositAsync(DepositModel deposit)
+        public async Task<TransactionResult> DepositAsync(DepositModel deposit)
         {
             var account = _eBankContext.Accounts.FirstOrDefault(a => a.AccountId == deposit.AccountId);
-            if (account != null)
+
+            if (account == null)
             {
-                if (deposit.Amount > MaximumDepositAllowed)
-                {
-                    return 0;
-                }
-                account.Balance += deposit.Amount;
-                _eBankContext.Deposits.Add(deposit);
+                return null;
             }
-            return await _eBankContext.SaveChangesAsync();
+
+            if (deposit.Amount > MaximumDepositAllowed)
+            {
+                return new TransactionResult
+                {
+                    Result = "Amount reached maximum deposit amount allowed.",
+                    Status = TransactionStatus.ValidationError
+                };
+            }
+
+            account.Balance += deposit.Amount;
+            _eBankContext.Deposits.Add(deposit);
+            var response = await _eBankContext.SaveChangesAsync();
+
+            if (response > 0)
+            {
+                return new TransactionResult
+                {
+                    Result = "Deposit completed successfully.",
+                    Status = TransactionStatus.Success
+                };
+            }
+
+            return new TransactionResult
+            {
+                Result = "Internal server error.",
+                Status = TransactionStatus.Error
+            };
         }
 
-        public async Task<int> WithdrawAsync(WithdrawModel withdraw)
+        public async Task<TransactionResult> WithdrawAsync(WithdrawModel withdraw)
         {
             var account = _eBankContext.Accounts.FirstOrDefault(a => a.AccountId == withdraw.AccountId);
-            if (account != null)
+            if (account == null)
             {
-                if (CheckMinimumBalance(account.Balance, withdraw.Amount))
-                {
-                    return 0;
-                }
-
-                if (CheckMaximumWithdrawAllowed(account.Balance, withdraw.Amount))
-                {
-                    return 0;
-                }
-
-                account.Balance -= withdraw.Amount;
-                _eBankContext.Withdraws.Add(withdraw);
+                return null;
             }
-            return await _eBankContext.SaveChangesAsync();
+            if (CheckMinimumBalance(account.Balance, withdraw.Amount))
+            {
+                return new TransactionResult
+                {
+                    Result = $"Withdraw failed. Account balance cannot go below ${MinimumBalanceAllowed}.",
+                    Status = TransactionStatus.ValidationError
+                };
+            }
+
+            if (CheckMaximumWithdrawAllowed(account.Balance, withdraw.Amount))
+            {
+                return new TransactionResult
+                {
+                    Result = $"Withdraw failed. Maximum withdraw Allowance reached.",
+                    Status = TransactionStatus.ValidationError
+                };
+            }
+
+            account.Balance -= withdraw.Amount;
+            _eBankContext.Withdraws.Add(withdraw);
+            var response = await _eBankContext.SaveChangesAsync();
+
+            if (response > 0)
+            {
+                return new TransactionResult
+                {
+                    Result = "Withdraw completed successfully.",
+                    Status = TransactionStatus.Success
+                };
+            }
+
+            return new TransactionResult
+            {
+                Result = "Internal server error.",
+                Status = TransactionStatus.Error
+            };
         }
 
         private bool CheckMinimumBalance(double accountBalance, double withdrawAmount)

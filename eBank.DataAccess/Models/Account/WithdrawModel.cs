@@ -13,7 +13,7 @@ namespace eBank.DataAccess.Models.Account
 
         public double Amount { get; set; }
 
-        public DateTime DepositDate { get; set; }
+        public DateTime WithdrawDate { get; set; }
 
         public string Note { get; set; }
     }

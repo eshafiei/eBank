@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NGXLogger } from 'ngx-logger';
 import { HttpErrorResponse } from '@angular/common/http';
+import { IHttpResponse } from 'src/app/shared/interfaces/http-response.interface';
 
 @Component({
   selector: 'app-withdraw',
@@ -48,12 +49,12 @@ export class WithdrawComponent implements OnInit {
     this.accountService
           .withdraw(this.withdrawForm.value)
           .subscribe(
-            response => {
-              this.toastr.success('withdraw completed successfuly!', 'Withdraw');
+            (response: IHttpResponse) => {
+              this.toastr.success(response.result, 'Withdraw');
               this.router.navigateByUrl('/account');
             },
             (error: HttpErrorResponse) => {
-              this.toastr.error(error.message, 'Withdraw');
+              this.toastr.error(error.error, 'Withdraw');
               this.logger.error(error);
             }
           );

@@ -1,7 +1,9 @@
-﻿using eBank.DataAccess.Models;
+﻿using eBank.DataAccess.Enums;
 using eBank.DataAccess.Models.Account;
+using eBank.DataAccess.Models.Base;
 using eBank.DataAccess.Services.Account;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -45,15 +47,49 @@ namespace eBank.Web.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<int> Deposit([FromBody] DepositModel deposit)
+        public async Task<IActionResult> Deposit([FromBody] DepositModel deposit)
         {
-            return await _accountService.DepositAsync(deposit);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ApiBadRequestResponse(ModelState));
+            }
+
+            var response = await _accountService.DepositAsync(deposit);
+
+            switch (response.Status)
+            {
+                case TransactionStatus.Success:
+                    return Ok(new ApiOkResponse(response.Result));
+                case TransactionStatus.Error:
+                    return StatusCode(StatusCodes.Status500InternalServerError);
+                case TransactionStatus.ValidationError:
+                    return StatusCode(StatusCodes.Status403Forbidden, response.Result);
+                default:
+                    return StatusCode(StatusCodes.Status503ServiceUnavailable);
+            }
         }
 
         [HttpPost("[action]")]
-        public async Task<int> Withdraw([FromBody] WithdrawModel withdraw)
+        public async Task<IActionResult> Withdraw([FromBody] WithdrawModel withdraw)
         {
-            return await _accountService.WithdrawAsync(withdraw);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ApiBadRequestResponse(ModelState));
+            }
+
+            var response = await _accountService.WithdrawAsync(withdraw);
+
+            switch (response.Status)
+            {
+                case TransactionStatus.Success:
+                    return Ok(new ApiOkResponse(response.Result));
+                case TransactionStatus.Error:
+                    return StatusCode(StatusCodes.Status500InternalServerError);
+                case TransactionStatus.ValidationError:
+                    return StatusCode(StatusCodes.Status403Forbidden, response.Result);
+                default:
+                    return StatusCode(StatusCodes.Status503ServiceUnavailable);
+            }
         }
     }
 }
