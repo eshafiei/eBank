@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eBank.DataAccess;
 
 namespace eBank.DataAccess.Migrations
 {
     [DbContext(typeof(EBankContext))]
-    partial class EBankContextModelSnapshot : ModelSnapshot
+    [Migration("20191209202412_add-deposits-withdraws-tables")]
+    partial class adddepositswithdrawstables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -197,9 +199,9 @@ namespace eBank.DataAccess.Migrations
 
                     b.Property<int>("AccountType");
 
-                    b.Property<double>("Balance")
+                    b.Property<decimal?>("Balance")
                         .ValueGeneratedOnAdd()
-                        .HasDefaultValue(0.0);
+                        .HasDefaultValue(0m);
 
                     b.Property<int>("CustomerId");
 
@@ -218,7 +220,7 @@ namespace eBank.DataAccess.Migrations
 
                     b.Property<int>("AccountId");
 
-                    b.Property<double>("Amount");
+                    b.Property<decimal>("Amount");
 
                     b.Property<DateTime>("DepositDate");
 
@@ -237,7 +239,7 @@ namespace eBank.DataAccess.Migrations
 
                     b.Property<int>("AccountId");
 
-                    b.Property<double>("Amount");
+                    b.Property<decimal>("Amount");
 
                     b.Property<DateTime>("DepositDate");
 
@@ -337,7 +339,7 @@ namespace eBank.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("Amount");
+                    b.Property<decimal>("Amount");
 
                     b.Property<int>("DestinationAccount");
 

@@ -13,7 +13,7 @@ namespace eBank.DataAccess.Models.Account
 
         public int AccountType { get; set; }
 
-        public decimal? Balance { get; set; }
+        public double Balance { get; set; }
 
         public bool AccountStatus { get; set; }
 

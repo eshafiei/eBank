@@ -85,6 +85,16 @@ export class NavComponent implements OnInit {
             title: 'Account summary',
             icon: 'money',
             route: '/account'
+          },
+          {
+            title: 'Deposit',
+            icon: 'call_made',
+            route: '/deposit'
+          },
+          {
+            title: 'Withdraw',
+            icon: 'call_received',
+            route: '/withdraw'
           }
         ]
       },

@@ -4,7 +4,7 @@
     <div class="card-body">
       <div class="row">
         <mat-form-field class="col-12" appearance="outline">
-          <mat-label>Account number</mat-label>
+          <mat-label>Account</mat-label>
           <mat-select formControlName="accountId">
             <mat-option *ngFor="let account of bankAccounts" [value]="account.accountId">
               <span>{{ accountType[account.accountType] }} (account number: {{ account.accountNumber }})</span>

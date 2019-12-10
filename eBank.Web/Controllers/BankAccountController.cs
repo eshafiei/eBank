@@ -1,4 +1,5 @@
 ﻿using eBank.DataAccess.Models;
+using eBank.DataAccess.Models.Account;
 using eBank.DataAccess.Services.Account;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -41,6 +42,18 @@ namespace eBank.Web.Controllers
         public async Task<int> BankAccount(long accountId)
         {
             return await _accountService.DeleteAccountAsync(accountId);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<int> Deposit([FromBody] DepositModel deposit)
+        {
+            return await _accountService.DepositAsync(deposit);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<int> Withdraw([FromBody] WithdrawModel withdraw)
+        {
+            return await _accountService.WithdrawAsync(withdraw);
         }
     }
 }

@@ -11,6 +11,8 @@ import { AccountDashboardComponent } from './containers/account-dashboard/accoun
 import { AccountDetailComponent } from './components/account-detail/account-detail.component';
 import { AccountTermsComponent } from './components/account-terms/account-terms.component';
 import { CloseAccountComponent } from './containers/close-account/close-account.component';
+import { DepositComponent } from './containers/deposit/deposit.component';
+import { WithdrawComponent } from './containers/withdraw/withdraw.component';
 
 // local services & modules
 import { AccountService } from './services/account.service';
@@ -20,7 +22,9 @@ import { SharedModule } from '../shared/shared.module';
 const routes = [
   { path: 'account', component: AccountDashboardComponent, canActivate: [AuthGuard] },
   { path: 'createaccount', component: NewAccountComponent, canActivate: [AuthGuard] },
-  { path: 'closeaccount', component: CloseAccountComponent, canActivate: [AuthGuard] }
+  { path: 'closeaccount', component: CloseAccountComponent, canActivate: [AuthGuard] },
+  { path: 'deposit', component: DepositComponent, canActivate: [AuthGuard] },
+  { path: 'withdraw', component: WithdrawComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
@@ -30,7 +34,9 @@ const routes = [
     NewAccountComponent,
     AccountDetailComponent,
     AccountTermsComponent,
-    CloseAccountComponent
+    CloseAccountComponent,
+    DepositComponent,
+    WithdrawComponent
   ],
   imports: [
     CommonModule,
