@@ -44,6 +44,11 @@ namespace eBank.Web.Controllers
 
             var response = await _accountService.CreateAccountAsync(account);
 
+            if (response == null)
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable);
+            }
+
             switch (response.Status)
             {
                 case TransactionStatus.Success:
@@ -61,6 +66,11 @@ namespace eBank.Web.Controllers
         public async Task<IActionResult> BankAccount(long accountId)
         {
             var response = await _accountService.DeleteAccountAsync(accountId);
+
+            if (response == null)
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable);
+            }
 
             switch (response.Status)
             {
@@ -85,6 +95,11 @@ namespace eBank.Web.Controllers
 
             var response = await _accountService.DepositAsync(deposit);
 
+            if (response == null)
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable);
+            }
+
             switch (response.Status)
             {
                 case TransactionStatus.Success:
@@ -107,6 +122,11 @@ namespace eBank.Web.Controllers
             }
 
             var response = await _accountService.WithdrawAsync(withdraw);
+
+            if (response == null)
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable);
+            }
 
             switch (response.Status)
             {

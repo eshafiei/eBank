@@ -17,6 +17,7 @@ import { AccountService } from 'src/app/account/services/account.service';
 export class TransferMoneyComponent implements OnInit {
   customerId: number;
   customerAccounts: IAccount[];
+  transferResult: string;
   transferForm = this.fb.group({
     originAccount: [null, Validators.required],
     destinationAccount: [null, Validators.required],
@@ -54,13 +55,15 @@ export class TransferMoneyComponent implements OnInit {
       this.transferForm.value.destinationAccount = this.transferForm.value.destinationAccount.accountId;
     }
     this.transferService.create(this.transferForm.value)
-      .subscribe(response => {
-        this.toastr.success('transfer completed successfuly!', 'Transfer Money');
-        this.router.navigateByUrl('/account');
-      }, (error: HttpErrorResponse) => {
-          this.toastr.error(error.message, 'Transfer Money');
-        this.logger.error(error);
-      });
+      .subscribe(
+        response => {
+          this.transferResult = 'Transfer completed. Founds will be available shortly.';
+          this.toastr.success('transfer completed successfuly!', 'Transfer Money');
+        }, (error: HttpErrorResponse) => {
+            this.transferResult = error.error;
+            this.toastr.error(error.error, 'Transfer Money');
+          this.logger.error(error);
+        });
   }
 
 }

@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using eBank.DataAccess.Enums;
+using eBank.DataAccess.Models.Base;
 using eBank.DataAccess.Models.Transfer;
 
 namespace eBank.DataAccess.Services.TransferMoney
@@ -13,24 +15,46 @@ namespace eBank.DataAccess.Services.TransferMoney
             _eBankContext = context;
         }
 
-        public async Task<int> TransferMoneyAsync(TransferModel transfer)
+        public async Task<TransactionResult> TransferMoneyAsync(TransferModel transfer)
         {
             var originAccount = _eBankContext.Accounts
                                              .FirstOrDefault(a => a.AccountId == transfer.OriginAccount);
-            if (originAccount != null)
-            {
-                originAccount.Balance -= transfer.Amount;
-            }
-
             var destinationAccount = _eBankContext.Accounts
                                                   .FirstOrDefault(a => a.AccountId == transfer.DestinationAccount);
-            if (destinationAccount != null)
+            if (originAccount == null || destinationAccount == null)
             {
-                destinationAccount.Balance += transfer.Amount;
+                return null;
             }
 
+            if (transfer.Amount > originAccount.Balance)
+            {
+                return new TransactionResult
+                {
+                    Result = "Insufficient funds! Please adjust the amount and try again.",
+                    Status = TransactionStatus.ValidationError
+                };
+            }
+
+            originAccount.Balance -= transfer.Amount;
+            destinationAccount.Balance += transfer.Amount;
             _eBankContext.Transfers.Add(transfer);
-            return await _eBankContext.SaveChangesAsync();
+
+            var response = await _eBankContext.SaveChangesAsync();
+
+            if (response > 0)
+            {
+                return new TransactionResult
+                {
+                    Result = "Transfer completed successfully.",
+                    Status = TransactionStatus.Success
+                };
+            }
+
+            return new TransactionResult
+            {
+                Result = "Internal server error.",
+                Status = TransactionStatus.Error
+            };
         }
     }
 }
