@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
+﻿
 using System.Threading.Tasks;
 using eBank.DataAccess.Enums;
-using eBank.DataAccess.Models;
 using eBank.DataAccess.Models.Base;
 using eBank.DataAccess.Models.Transfer;
 using eBank.DataAccess.Services.TransferMoney;
@@ -33,6 +32,11 @@ namespace eBank.Web.Controllers
 
             var response = await _transferMoneyService.TransferMoneyAsync(transfer);
 
+            return HandleResponse(response);
+        }
+
+        private IActionResult HandleResponse(TransactionResult response)
+        {
             if (response == null)
             {
                 return StatusCode(StatusCodes.Status503ServiceUnavailable);

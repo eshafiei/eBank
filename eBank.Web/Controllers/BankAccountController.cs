@@ -44,22 +44,7 @@ namespace eBank.Web.Controllers
 
             var response = await _accountService.CreateAccountAsync(account);
 
-            if (response == null)
-            {
-                return StatusCode(StatusCodes.Status503ServiceUnavailable);
-            }
-
-            switch (response.Status)
-            {
-                case TransactionStatus.Success:
-                    return Ok(new ApiOkResponse(response.Result));
-                case TransactionStatus.Error:
-                    return StatusCode(StatusCodes.Status500InternalServerError);
-                case TransactionStatus.ValidationError:
-                    return StatusCode(StatusCodes.Status403Forbidden, response.Result);
-                default:
-                    return StatusCode(StatusCodes.Status503ServiceUnavailable);
-            }
+            return HandleResponse(response);
         }
 
         [HttpDelete("{accountId}")]
@@ -67,22 +52,7 @@ namespace eBank.Web.Controllers
         {
             var response = await _accountService.DeleteAccountAsync(accountId);
 
-            if (response == null)
-            {
-                return StatusCode(StatusCodes.Status503ServiceUnavailable);
-            }
-
-            switch (response.Status)
-            {
-                case TransactionStatus.Success:
-                    return Ok(new ApiOkResponse(response.Result));
-                case TransactionStatus.Error:
-                    return StatusCode(StatusCodes.Status500InternalServerError);
-                case TransactionStatus.ValidationError:
-                    return StatusCode(StatusCodes.Status403Forbidden, response.Result);
-                default:
-                    return StatusCode(StatusCodes.Status503ServiceUnavailable);
-            }
+            return HandleResponse(response);
         }
 
         [HttpPost("[action]")]
@@ -95,22 +65,7 @@ namespace eBank.Web.Controllers
 
             var response = await _accountService.DepositAsync(deposit);
 
-            if (response == null)
-            {
-                return StatusCode(StatusCodes.Status503ServiceUnavailable);
-            }
-
-            switch (response.Status)
-            {
-                case TransactionStatus.Success:
-                    return Ok(new ApiOkResponse(response.Result));
-                case TransactionStatus.Error:
-                    return StatusCode(StatusCodes.Status500InternalServerError);
-                case TransactionStatus.ValidationError:
-                    return StatusCode(StatusCodes.Status403Forbidden, response.Result);
-                default:
-                    return StatusCode(StatusCodes.Status503ServiceUnavailable);
-            }
+            return HandleResponse(response);
         }
 
         [HttpPost("[action]")]
@@ -123,6 +78,11 @@ namespace eBank.Web.Controllers
 
             var response = await _accountService.WithdrawAsync(withdraw);
 
+            return HandleResponse(response);
+        }
+
+        private IActionResult HandleResponse(TransactionResult response)
+        {
             if (response == null)
             {
                 return StatusCode(StatusCodes.Status503ServiceUnavailable);
