@@ -85,7 +85,7 @@ namespace eBank.Web.Controllers
         {
             if (response == null)
             {
-                return StatusCode(StatusCodes.Status503ServiceUnavailable);
+                return StatusCode(StatusCodes.Status404NotFound);
             }
 
             switch (response.Status)

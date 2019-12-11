@@ -112,7 +112,11 @@ namespace eBank.DataAccess.Services.Account
 
             if (account == null)
             {
-                return null;
+                return new TransactionResult
+                {
+                    Result = "Account not found.",
+                    Status = TransactionStatus.ValidationError
+                };
             }
 
             if (deposit.Amount > MaximumDepositAllowed)
@@ -149,8 +153,13 @@ namespace eBank.DataAccess.Services.Account
             var account = _eBankContext.Accounts.FirstOrDefault(a => a.AccountId == withdraw.AccountId);
             if (account == null)
             {
-                return null;
+                return new TransactionResult
+                {
+                    Result = "Account not found.",
+                    Status = TransactionStatus.ValidationError
+                };
             }
+
             if (CheckMinimumBalance(account.Balance, withdraw.Amount))
             {
                 return new TransactionResult
