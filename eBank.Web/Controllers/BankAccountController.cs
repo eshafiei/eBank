@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace eBank.Web.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
+    //[Authorize]
     [ApiController]
     public class BankAccountController : ControllerBase
     {
