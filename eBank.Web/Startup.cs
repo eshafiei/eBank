@@ -4,6 +4,7 @@ using eBank.DataAccess.Services.Account;
 using eBank.DataAccess.Services.Customer;
 using eBank.DataAccess.Services.Log;
 using eBank.DataAccess.Services.TransferMoney;
+using eBank.Web.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -91,7 +92,7 @@ namespace eBank.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            app.ConfigureExceptionHandler();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
