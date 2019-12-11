@@ -9,7 +9,7 @@ namespace eBank.DataAccess.Services.Account
     {
         Task<IEnumerable<AccountModel>> GetAccountsAsync(string userId);
 
-        Task<IEnumerable<AccountModel>> GetAccountsDropDownAsync(int customerId);
+        Task<IEnumerable<AccountModel>> GetAccountsDropDownAsync(string userId);
 
         Task<TransactionResult> CreateAccountAsync(AccountModel accountModel);
 

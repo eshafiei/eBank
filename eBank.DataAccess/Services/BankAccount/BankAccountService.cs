@@ -31,10 +31,16 @@ namespace eBank.DataAccess.Services.Account
             return await accounts.ToListAsync();
         }
 
-        public async Task<IEnumerable<AccountModel>> GetAccountsDropDownAsync(int customerId)
+        public async Task<IEnumerable<AccountModel>> GetAccountsDropDownAsync(string userId)
         {
+            var customer = _eBankContext.Customers.FirstOrDefault(c => c.UserId == userId);
+            if (customer == null)
+            {
+                return null;
+            }
+
             return await _eBankContext.Accounts
-                                      .Where(a => a.CustomerId == customerId && a.AccountStatus == true)
+                                      .Where(a => a.CustomerId == customer.CustomerId && a.AccountStatus == true)
                                       .ToListAsync();
         }
 
@@ -76,7 +82,7 @@ namespace eBank.DataAccess.Services.Account
             {
                 return new TransactionResult
                 {
-                    Result = $"Accounts has ${account.Balance}. Please transfer or withdraw the account balance first.",
+                    Result = $"Accounts has ${account.Balance}. Please transfer the account balance first.",
                     Status = TransactionStatus.ValidationError
                 };
             }

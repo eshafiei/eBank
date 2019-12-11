@@ -17,7 +17,6 @@ export class TransferBasicComponent implements OnInit, OnChanges {
   accountType: typeof AccountType = AccountType;
   frequency: typeof Frequency = Frequency;
   frequencyItems: string[] = [];
-  maximumTransferAllowed = 10000;
   constructor() {
   }
 

@@ -33,9 +33,9 @@ export class WithdrawComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const customerId = 7;
+    const userId = localStorage.getItem('userId');
     this.accountService
-      .getAccountsDropDown(customerId)
+      .getAccountsDropDown(userId)
       .subscribe((accounts: IAccount[]) => {
         this.bankAccounts = accounts;
       });

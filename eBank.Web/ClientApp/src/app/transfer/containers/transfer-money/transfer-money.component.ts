@@ -23,21 +23,20 @@ export class TransferMoneyComponent implements OnInit {
     destinationAccount: [null, Validators.required],
     frequency: [0, Validators.required],
     transferDate: [new Date(), Validators.required],
-    amount: [0, [Validators.required, Validators.max, Validators.min]],
+    amount: [0, [Validators.required, Validators.min]],
     note: [null]
   });
   @ViewChild('stepper', null) stepper: MatStepper;
   constructor(private fb: FormBuilder,
     private transferService: TransferMoneyService,
     private accountService: AccountService,
-    private router: Router,
     private toastr: ToastrService,
     private logger: NGXLogger) { }
 
   ngOnInit() {
-    const customerId = 7;
+    const userId = localStorage.getItem('userId');
     this.accountService
-      .getAccountsDropDown(customerId)
+      .getAccountsDropDown(userId)
       .subscribe((accounts: IAccount[]) => {
         this.customerAccounts = accounts;
       });
