@@ -13,6 +13,8 @@ import { AccountTermsComponent } from './components/account-terms/account-terms.
 import { CloseAccountComponent } from './containers/close-account/close-account.component';
 import { DepositComponent } from './containers/deposit/deposit.component';
 import { WithdrawComponent } from './containers/withdraw/withdraw.component';
+import { AccountDetailsComponent } from './containers/account-details/account-details.component';
+import { AccountTransactionsComponent } from './components/account-transactions/account-transactions.component';
 
 // local services & modules
 import { AccountService } from './services/account.service';
@@ -24,7 +26,8 @@ const routes = [
   { path: 'createaccount', component: NewAccountComponent, canActivate: [AuthGuard] },
   { path: 'closeaccount', component: CloseAccountComponent, canActivate: [AuthGuard] },
   { path: 'deposit', component: DepositComponent, canActivate: [AuthGuard] },
-  { path: 'withdraw', component: WithdrawComponent, canActivate: [AuthGuard] }
+  { path: 'withdraw', component: WithdrawComponent, canActivate: [AuthGuard] },
+  { path: 'account/:id', component: AccountDetailsComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
@@ -36,7 +39,9 @@ const routes = [
     AccountTermsComponent,
     CloseAccountComponent,
     DepositComponent,
-    WithdrawComponent
+    WithdrawComponent,
+    AccountDetailsComponent,
+    AccountTransactionsComponent
   ],
   imports: [
     CommonModule,
@@ -45,11 +50,7 @@ const routes = [
     RouterModule.forChild(routes),
     SharedModule
   ],
-  providers: [
-    AccountService,
-    AuthGuard
-  ],
+  providers: [AccountService, AuthGuard],
   exports: []
 })
-export class AccountModule {
-}
+export class AccountModule {}

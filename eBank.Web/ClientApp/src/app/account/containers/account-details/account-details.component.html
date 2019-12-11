@@ -1,0 +1,31 @@
+<div class="card">
+  <div class="card-header bg-info text-warning">Account Details</div>
+  <div class="card-body">
+    <mat-tab-group>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="tab-icon">list</mat-icon>
+          All Transactions
+        </ng-template>
+        <app-account-transactions [accountTransactions]="accountTransactions"></app-account-transactions>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="tab-icon">call_made</mat-icon>
+          Deposits
+        </ng-template>
+        Content 2
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="tab-icon">call_received</mat-icon>
+          Withdrawals
+        </ng-template>
+
+        Content 3
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
