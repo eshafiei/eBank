@@ -3,11 +3,11 @@ import { FormGroup } from '@angular/forms';
 import { AccountType } from '../../../shared/enums/account-type.enum';
 
 @Component({
-  selector: 'app-account-detail',
-  templateUrl: './account-detail.component.html',
-  styleUrls: ['./account-detail.component.scss']
+  selector: 'app-new-account-details',
+  templateUrl: './new-account-details.component.html',
+  styleUrls: ['./new-account-details.component.scss']
 })
-export class AccountDetailComponent implements OnInit {
+export class NewAccountDetailsComponent implements OnInit {
   @Input() form: FormGroup;
   accountType: typeof AccountType = AccountType;
   accountTypeItems: string[] = [];

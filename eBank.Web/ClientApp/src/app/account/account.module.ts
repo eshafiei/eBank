@@ -8,7 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccountSummaryComponent } from './components/account-summary/account-summary.component';
 import { NewAccountComponent } from './containers/new-account/new-account.component';
 import { AccountDashboardComponent } from './containers/account-dashboard/account-dashboard.component';
-import { AccountDetailComponent } from './components/account-detail/account-detail.component';
+import { NewAccountDetailsComponent } from './components/new-account-details/new-account-details.component';
 import { AccountTermsComponent } from './components/account-terms/account-terms.component';
 import { CloseAccountComponent } from './containers/close-account/close-account.component';
 import { DepositComponent } from './containers/deposit/deposit.component';
@@ -32,7 +32,7 @@ const routes = [
     AccountDashboardComponent,
     AccountSummaryComponent,
     NewAccountComponent,
-    AccountDetailComponent,
+    NewAccountDetailsComponent,
     AccountTermsComponent,
     CloseAccountComponent,
     DepositComponent,
