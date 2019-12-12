@@ -1,0 +1,28 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 mt-2">
+  <ng-container matColumnDef="transactionType">
+    <th mat-header-cell *matHeaderCellDef> Category </th>
+    <td mat-cell *matCellDef="let transaction">
+      {{ transactionType[transaction.transactionType] }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="transactionDate">
+    <th mat-header-cell *matHeaderCellDef> Date </th>
+    <td mat-cell *matCellDef="let transaction">
+      {{ transaction.transactionDate | date:'short' }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="amount">
+    <th mat-header-cell *matHeaderCellDef> Amount </th>
+    <td mat-cell *matCellDef="let transaction" 
+      [ngClass]="{'text-success': transaction.transactionType == transactionType.Deposit}"> 
+      <span *ngIf="transaction.transactionType == transactionType.Deposit">+</span>
+      {{ transaction.amount | currency }} 
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="note">
+    <th mat-header-cell *matHeaderCellDef> Note </th>
+    <td mat-cell *matCellDef="let transaction"> {{ transaction.note }} </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

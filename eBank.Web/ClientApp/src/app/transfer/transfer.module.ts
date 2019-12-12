@@ -13,7 +13,7 @@ import { SharedModule } from '../shared/shared.module';
 import { TransferMoneyService } from './services/transfer-money.service';
 
 const routes: Routes = [
-  { path: 'transfer/transfer-money', component: TransferMoneyComponent, canActivate: [AuthGuard] }
+  { path: 'transfer', component: TransferMoneyComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

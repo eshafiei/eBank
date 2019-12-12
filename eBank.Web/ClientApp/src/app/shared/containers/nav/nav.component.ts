@@ -84,12 +84,12 @@ export class NavComponent implements OnInit {
           },
           {
             title: 'Deposit',
-            icon: 'call_made',
+            icon: 'call_received',
             route: '/deposit'
           },
           {
             title: 'Withdraw',
-            icon: 'call_received',
+            icon: 'call_made',
             route: '/withdraw'
           }
         ]
@@ -100,7 +100,7 @@ export class NavComponent implements OnInit {
           {
             title: 'Transfer money',
             icon: 'trending_flat',
-            route: '/transfer/transfer-money'
+            route: '/transfer'
           }
         ]
       },

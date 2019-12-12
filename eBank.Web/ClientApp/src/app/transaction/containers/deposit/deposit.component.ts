@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountService } from '../../services/account.service';
+import { AccountService } from '../../../account/services/account.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NGXLogger } from 'ngx-logger';
-import { IAccount } from '../../interfaces/account.interface';
-import { AccountType } from '../../../../app/shared/enums/account-type.enum';
+import { IAccount } from '../../../account/interfaces/account.interface';
+import { AccountType } from '../../../shared/enums/account-type.enum';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { IHttpResponse } from '../../../../app/shared/interfaces/http-response.interface';
+import { IHttpResponse } from '../../../shared/interfaces/http-response.interface';
+import { TransactionsService } from '../../services/transactions.service';
+import { TransactionType } from 'src/app/account/enums/transaction-type.enum';
 
 @Component({
   selector: 'app-deposit',
@@ -19,13 +21,15 @@ export class DepositComponent implements OnInit {
   bankAccounts: IAccount[];
   maximumDepositAllowed = 10000;
   depositForm = this.fb.group({
+    transactionType: TransactionType.Deposit,
     accountId: [null, [Validators.required]],
     amount: [0, [Validators.required, Validators.max, Validators.min]],
-    depositDate: [new Date(), [Validators.required]],
+    transactionDate: [new Date(), [Validators.required]],
     note: [null]
   });
   constructor(
     private accountService: AccountService,
+    private transactionsService: TransactionsService,
     private fb: FormBuilder,
     private router: Router,
     private toastr: ToastrService,
@@ -45,8 +49,8 @@ export class DepositComponent implements OnInit {
   }
 
   deposit() {
-    this.accountService
-          .deposit(this.depositForm.value)
+    this.transactionsService
+          .createTransaction(this.depositForm.value)
           .subscribe(
             (response: IHttpResponse) => {
               this.toastr.success(response.result, 'Deposit');

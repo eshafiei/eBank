@@ -1,56 +1,42 @@
-﻿using eBank.DataAccess.Enums;
-using eBank.DataAccess.Models.Account;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using eBank.DataAccess.Enums;
 using eBank.DataAccess.Models.Base;
-using eBank.DataAccess.Services.Account;
+using eBank.DataAccess.Models.Transaction;
+using eBank.DataAccess.Services.Transactions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace eBank.Web.Controllers
 {
     [Route("api/[controller]")]
     //[Authorize]
     [ApiController]
-    public class BankAccountController : ControllerBase
+    public class TransactionsController : ControllerBase
     {
-        private IBankAccountService _accountService;
+        private ITransactionsService _transactionsService;
 
-        public BankAccountController(IBankAccountService accountService)
+        public TransactionsController(ITransactionsService transactionsService)
         {
-            _accountService = accountService;
+            _transactionsService = transactionsService;
         }
 
-        [HttpGet("{userId}")]
-        public async Task<IEnumerable<AccountModel>> BankAccount(string userId)
+        [HttpGet("{accountId}")]
+        public async Task<IEnumerable<TransactionModel>> Transactions(int accountId)
         {
-            return await _accountService.GetAccountsAsync(userId);
-        }
-
-        [HttpGet("[action]/{userId}")]
-        public async Task<IEnumerable<AccountModel>> GetAccountsDropDown(string userId)
-        {
-            return await _accountService.GetAccountsDropDownAsync(userId);
+            return await _transactionsService.GetTransactionsAsync(accountId);
         }
 
         [HttpPost]
-        public async Task<IActionResult> BankAccount([FromBody] AccountModel account)
+        public async Task<IActionResult> Transactions([FromBody] TransactionModel transaction)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(new ApiBadRequestResponse(ModelState));
             }
 
-            var response = await _accountService.CreateAccountAsync(account);
-
-            return HandleResponse(response);
-        }
-
-        [HttpDelete("{accountId}")]
-        public async Task<IActionResult> BankAccount(long accountId)
-        {
-            var response = await _accountService.DeleteAccountAsync(accountId);
+            var response = await _transactionsService.CreateTransactionAsync(transaction);
 
             return HandleResponse(response);
         }

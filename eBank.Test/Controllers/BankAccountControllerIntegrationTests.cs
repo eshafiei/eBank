@@ -1,5 +1,6 @@
 ﻿using eBank.DataAccess.Models.Account;
 using eBank.DataAccess.Models.Base;
+using eBank.DataAccess.Models.Transaction;
 using eBank.Web;
 using Newtonsoft.Json;
 using System;
@@ -61,15 +62,16 @@ namespace eBank.Test.Controllers
         public async Task Can_Deposit_Money()
         {
             // The endpoint or route of the controller action.
-            var withdrawRequest = new DepositModel
+            var transactionRequest = new TransactionModel
             {
+                TransactionType = DataAccess.Enums.TransactionType.Deposit,
                 AccountId = 2,
                 Amount = 2000,
-                DepositDate = DateTime.Now.Date,
+                TransactionDate = DateTime.Now.Date,
                 Note = "Test deposit money"
             };
-            var httpResponse = await _client.PostAsync("/api/BankAccount/Deposit",
-                withdrawRequest,
+            var httpResponse = await _client.PostAsync("/api/transactions",
+                transactionRequest,
                 _jsonMediaTypeFormatter);
 
             // Must be successful.
@@ -87,15 +89,16 @@ namespace eBank.Test.Controllers
         public async Task CanNot_Deposit_MoreThan_10000()
         {
             // The endpoint or route of the controller action.
-            var withdrawRequest = new DepositModel
+            var transactionRequest = new TransactionModel
             {
+                TransactionType = DataAccess.Enums.TransactionType.Deposit,
                 AccountId = 2,
                 Amount = 12000,
-                DepositDate = DateTime.Now.Date,
+                TransactionDate = DateTime.Now.Date,
                 Note = "Test deposit more than 10000 dollars."
             };
-            var httpResponse = await _client.PostAsync("/api/BankAccount/Deposit",
-                withdrawRequest,
+            var httpResponse = await _client.PostAsync("/api/transactions",
+                transactionRequest,
                 _jsonMediaTypeFormatter);
 
             // Deserialize and examine results.
@@ -111,15 +114,16 @@ namespace eBank.Test.Controllers
         public async Task Can_Withdraw_Money()
         {
             // The endpoint or route of the controller action.
-            var withdrawRequest = new WithdrawModel
+            var transactionRequest = new TransactionModel
             {
+                TransactionType = DataAccess.Enums.TransactionType.Withdraw,
                 AccountId = 1,
                 Amount = 4000,
-                WithdrawDate = DateTime.Now.Date,
+                TransactionDate = DateTime.Now.Date,
                 Note = "Test withdraw money."
             };
-            var httpResponse = await _client.PostAsync("/api/BankAccount/Withdraw",
-                withdrawRequest,
+            var httpResponse = await _client.PostAsync("/api/transactions",
+                transactionRequest,
                 _jsonMediaTypeFormatter);
 
             // Must be successful.
@@ -137,15 +141,16 @@ namespace eBank.Test.Controllers
         public async Task Withdraw_MinimumBalance_OneHundred()
         {
             // The endpoint or route of the controller action.
-            var withdrawRequest = new WithdrawModel
+            var transactionRequest = new TransactionModel
             {
+                TransactionType = DataAccess.Enums.TransactionType.Withdraw,
                 AccountId = 1,
                 Amount = 9950,
-                WithdrawDate = DateTime.Now.Date,
+                TransactionDate = DateTime.Now.Date,
                 Note = "Test withdraw fail if remaining balance will be less than 100 dollars"
             };
-            var httpResponse = await _client.PostAsync("/api/BankAccount/Withdraw", 
-                withdrawRequest,
+            var httpResponse = await _client.PostAsync("/api/transactions",
+                transactionRequest,
                 _jsonMediaTypeFormatter);
 
             // Deserialize and examine results.
@@ -161,15 +166,16 @@ namespace eBank.Test.Controllers
         public async Task Withdraw_MoreThan90Percent_Balance()
         {
             // The endpoint or route of the controller action.
-            var withdrawRequest = new WithdrawModel
+            var transactionRequest = new TransactionModel
             {
+                TransactionType = DataAccess.Enums.TransactionType.Withdraw,
                 AccountId = 1,
                 Amount = 9200,
-                WithdrawDate = DateTime.Now.Date,
+                TransactionDate = DateTime.Now.Date,
                 Note = "Test withdraw more than 90% of total balance."
             };
-            var httpResponse = await _client.PostAsync("/api/BankAccount/Withdraw",
-                withdrawRequest,
+            var httpResponse = await _client.PostAsync("/api/transactions",
+                transactionRequest,
                 _jsonMediaTypeFormatter);
 
             // Deserialize and examine results.

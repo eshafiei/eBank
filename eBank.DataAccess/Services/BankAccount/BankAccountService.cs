@@ -11,8 +11,6 @@ namespace eBank.DataAccess.Services.Account
 {
     public class BankAccountService : IBankAccountService
     {
-        private const int MinimumBalanceAllowed = 100;
-        private const int MaximumDepositAllowed = 10000;
         readonly EBankContext _eBankContext;
 
         public BankAccountService(EBankContext context)
@@ -104,108 +102,6 @@ namespace eBank.DataAccess.Services.Account
                 Result = "Internal server error.",
                 Status = TransactionStatus.Error
             };
-        }
-
-        public async Task<TransactionResult> DepositAsync(DepositModel deposit)
-        {
-            var account = _eBankContext.Accounts.FirstOrDefault(a => a.AccountId == deposit.AccountId);
-
-            if (account == null)
-            {
-                return new TransactionResult
-                {
-                    Result = "Account not found.",
-                    Status = TransactionStatus.ValidationError
-                };
-            }
-
-            if (deposit.Amount > MaximumDepositAllowed)
-            {
-                return new TransactionResult
-                {
-                    Result = "Amount reached maximum deposit amount allowed.",
-                    Status = TransactionStatus.ValidationError
-                };
-            }
-
-            account.Balance += deposit.Amount;
-            _eBankContext.Deposits.Add(deposit);
-            var response = await _eBankContext.SaveChangesAsync();
-
-            if (response > 0)
-            {
-                return new TransactionResult
-                {
-                    Result = "Deposit completed successfully.",
-                    Status = TransactionStatus.Success
-                };
-            }
-
-            return new TransactionResult
-            {
-                Result = "Internal server error.",
-                Status = TransactionStatus.Error
-            };
-        }
-
-        public async Task<TransactionResult> WithdrawAsync(WithdrawModel withdraw)
-        {
-            var account = _eBankContext.Accounts.FirstOrDefault(a => a.AccountId == withdraw.AccountId);
-            if (account == null)
-            {
-                return new TransactionResult
-                {
-                    Result = "Account not found.",
-                    Status = TransactionStatus.ValidationError
-                };
-            }
-
-            if (CheckMinimumBalance(account.Balance, withdraw.Amount))
-            {
-                return new TransactionResult
-                {
-                    Result = $"Withdraw failed. Account balance cannot go below ${MinimumBalanceAllowed}.",
-                    Status = TransactionStatus.ValidationError
-                };
-            }
-
-            if (CheckMaximumWithdrawAllowed(account.Balance, withdraw.Amount))
-            {
-                return new TransactionResult
-                {
-                    Result = "Withdraw failed. Maximum withdraw allowance reached.",
-                    Status = TransactionStatus.ValidationError
-                };
-            }
-
-            account.Balance -= withdraw.Amount;
-            _eBankContext.Withdraws.Add(withdraw);
-            var response = await _eBankContext.SaveChangesAsync();
-
-            if (response > 0)
-            {
-                return new TransactionResult
-                {
-                    Result = "Withdraw completed successfully.",
-                    Status = TransactionStatus.Success
-                };
-            }
-
-            return new TransactionResult
-            {
-                Result = "Internal server error.",
-                Status = TransactionStatus.Error
-            };
-        }
-
-        private bool CheckMinimumBalance(double accountBalance, double withdrawAmount)
-        {
-            return accountBalance - withdrawAmount < MinimumBalanceAllowed;
-        }
-
-        private bool CheckMaximumWithdrawAllowed(double accountBalance, double withdrawAmount)
-        {
-            return withdrawAmount > (accountBalance * 0.9);
         }
     }
 }
