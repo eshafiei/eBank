@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ITransaction } from '../../interfaces/transaction.interface';
 import { ActivatedRoute } from '@angular/router';
 import { TransactionsService } from './../../services/transactions.service';
+import { TransactionType } from 'src/app/account/enums/transaction-type.enum';
 
 @Component({
   selector: 'app-transactions-dashboard',
@@ -9,7 +10,9 @@ import { TransactionsService } from './../../services/transactions.service';
   styleUrls: ['./transactions-dashboard.component.scss']
 })
 export class TransactionsDashboardComponent implements OnInit {
-  accountTransactions: ITransaction[];
+  allAccountTransactions: ITransaction[];
+  depositAccountTransactions: ITransaction[];
+  withdrawAccountTransactions: ITransaction[];
   accountId: number;
   constructor(private transactionsService: TransactionsService,
     private activatedRoute: ActivatedRoute) { }
@@ -17,7 +20,13 @@ export class TransactionsDashboardComponent implements OnInit {
   ngOnInit() {
     this.accountId = this.activatedRoute.snapshot.params.id;
     this.transactionsService.list(this.accountId)
-      .subscribe(data => this.accountTransactions = data);
+      .subscribe(data => {
+        this.allAccountTransactions = data;
+        this.depositAccountTransactions = this.allAccountTransactions
+          .filter(t => t.transactionType === TransactionType.Deposit);
+        this.withdrawAccountTransactions = this.allAccountTransactions
+          .filter(t => t.transactionType === TransactionType.Withdraw);
+      });
   }
 
 }
