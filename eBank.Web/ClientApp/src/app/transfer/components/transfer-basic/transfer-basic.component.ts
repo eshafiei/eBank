@@ -11,7 +11,7 @@ import { IAccount } from '../../../account/interfaces/account.interface';
 })
 export class TransferBasicComponent implements OnInit, OnChanges {
   @Input() form: FormGroup;
-  @Input() customerAccounts: IAccount[];
+  @Input() userAccounts: IAccount[];
   transferOriginAccounts: IAccount[];
   transferDestinationAccounts: IAccount[];
   accountType: typeof AccountType = AccountType;
@@ -26,9 +26,9 @@ export class TransferBasicComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['customerAccounts']) {
-      this.transferOriginAccounts = this.customerAccounts;
-      this.transferDestinationAccounts = this.customerAccounts;
+    if (changes['userAccounts']) {
+      this.transferOriginAccounts = this.userAccounts;
+      this.transferDestinationAccounts = this.userAccounts;
     }
   }
 
@@ -38,7 +38,7 @@ export class TransferBasicComponent implements OnInit, OnChanges {
 
   accountChanged(selectedAccount: IAccount) {
     this.transferDestinationAccounts =
-      this.customerAccounts.filter(a => a.accountId !== selectedAccount.accountId);
+      this.userAccounts.filter(a => a.accountId !== selectedAccount.accountId);
   }
 
 }

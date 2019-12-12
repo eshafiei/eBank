@@ -118,17 +118,6 @@ export class NavComponent implements OnInit {
             route: '/closeaccount'
           }
         ]
-      },
-      {
-        routeHeader: 'Customer management',
-        adminAccess: true,
-        routeItems: [
-          {
-            title: 'Manage Customers',
-            icon: 'assignment_turned_in',
-            route: '/customer/managecustomers'
-          }
-        ]
       }
     ];
   }

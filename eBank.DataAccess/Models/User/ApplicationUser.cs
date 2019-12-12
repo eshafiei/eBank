@@ -7,7 +7,5 @@ namespace eBank.DataAccess.Models.User
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
-
-        public virtual CustomerModel Customer { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace eBank.Test.Controllers
         }
 
         [Fact]
-        public async Task CanGetCustomerBankAccounts()
+        public async Task CanGetUserBankAccounts()
         {
             // The endpoint or route of the controller action.
             var httpResponse = await _client.GetAsync("/api/BankAccount/ec9426bc-fb05-4a38-b63b-f265cbdfb816");

@@ -5,7 +5,7 @@ import { AppState, selectAuthState } from '../store/app.states';
 import { LogOut, IdleTime } from '../store/actions/auth.actions';
 import { Observable } from 'rxjs';
 
-const MINUTES_UNITL_AUTO_LOGOUT = 20; // in Minutes
+const MINUTES_UNITL_AUTO_LOGOUT = 60; // in Minutes
 const CHECK_INTERVALL = 60000; // in ms
 
 @Injectable()

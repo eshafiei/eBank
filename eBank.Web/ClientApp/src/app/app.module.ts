@@ -25,7 +25,6 @@ import { SideNavComponent } from './shared/components/side-nav/side-nav.componen
 import { NavigationBarComponent } from './shared/components/navigation-bar/navigation-bar.component';
 import { NavComponent } from './shared/containers/nav/nav.component';
 import { SharedModule } from './shared/shared.module';
-import { CustomerModule } from './customer/customer.module';
 import { TransferModule } from './transfer/transfer.module';
 import { TransactionModule } from './transaction/transaction.module';
 
@@ -60,7 +59,6 @@ const routes: Routes = [
     // local modules
     AuthenticationModule,
     AccountModule,
-    CustomerModule,
     TransferModule,
     TransactionModule,
     LayoutModule,

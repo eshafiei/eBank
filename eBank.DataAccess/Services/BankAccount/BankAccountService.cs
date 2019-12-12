@@ -20,25 +20,16 @@ namespace eBank.DataAccess.Services.Account
 
         public async Task<IEnumerable<AccountModel>> GetAccountsAsync(string userId)
         {
-            var accounts = from a in _eBankContext.Accounts
-                           join c in _eBankContext.Customers on a.CustomerId equals c.CustomerId
-                           where c.UserId == userId && a.AccountStatus == true
-                           orderby a.AccountType
-                           select a;
-
-            return await accounts.ToListAsync();
+            return await _eBankContext.Accounts
+                                        .Where(a => a.Id == userId && a.AccountStatus == true)
+                                        .OrderBy(a => a.AccountType)
+                                        .ToListAsync();
         }
 
         public async Task<IEnumerable<AccountModel>> GetAccountsDropDownAsync(string userId)
         {
-            var customer = _eBankContext.Customers.FirstOrDefault(c => c.UserId == userId);
-            if (customer == null)
-            {
-                return null;
-            }
-
             return await _eBankContext.Accounts
-                                      .Where(a => a.CustomerId == customer.CustomerId && a.AccountStatus == true)
+                                      .Where(a => a.Id == userId && a.AccountStatus == true)
                                       .ToListAsync();
         }
 

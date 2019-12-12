@@ -15,8 +15,7 @@ import { AccountService } from 'src/app/account/services/account.service';
   styleUrls: ['./transfer-money.component.scss']
 })
 export class TransferMoneyComponent implements OnInit {
-  customerId: number;
-  customerAccounts: IAccount[];
+  userAccounts: IAccount[];
   transferResult: string;
   transferForm = this.fb.group({
     originAccount: [null, Validators.required],
@@ -38,7 +37,7 @@ export class TransferMoneyComponent implements OnInit {
     this.accountService
       .getAccountsDropDown(userId)
       .subscribe((accounts: IAccount[]) => {
-        this.customerAccounts = accounts;
+        this.userAccounts = accounts;
       });
   }
 

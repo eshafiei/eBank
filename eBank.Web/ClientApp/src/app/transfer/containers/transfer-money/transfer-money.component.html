@@ -6,17 +6,17 @@
           <mat-step [stepControl]="account" completed="false">
             <ng-template matStepLabel>Transfer detail</ng-template>
             <div class="mt-3 mb-3">
-              <app-transfer-basic [form]="transferForm" [customerAccounts]="customerAccounts"></app-transfer-basic>
+              <app-transfer-basic [form]="transferForm" [userAccounts]="userAccounts"></app-transfer-basic>
             </div>
             <div class="mt-3">
-              <button mat-stroked-button color="primary" class="col-3 pull-right" 
+              <button mat-stroked-button color="primary" class="col-3 pull-right"
                 [disabled]="transferForm.invalid" (click)="stepperNext()">
                 Next
               </button>
               <button mat-stroked-button color="warn" class="mr-3 col-3 pull-right" [routerLink]="['/account']">
                 Cancel
               </button>
-            </div>        
+            </div>
           </mat-step>
             <mat-step [completed]="stepperCompleted">
               <ng-template matStepLabel>Transfer Review</ng-template>
@@ -35,13 +35,13 @@
                 <button mat-stroked-button color="warn" class="mr-3 col-3 pull-right" matStepperPrevious>
                   Back
                 </button>
-              </div>        
+              </div>
             </mat-step>
             <mat-step>
               <ng-template matStepLabel>Done</ng-template>
               <div class="mt-3 mb-3">
                 <h5>{{ transferResult }}</h5>
-              </div>        
+              </div>
               <div>
                 <button mat-stroked-button
                         color="accent"
@@ -52,4 +52,4 @@
           </mat-horizontal-stepper>
       </div>
     </div>
-  </div>  
+  </div>

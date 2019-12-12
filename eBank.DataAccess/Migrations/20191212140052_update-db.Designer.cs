@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eBank.DataAccess;
 
 namespace eBank.DataAccess.Migrations
 {
     [DbContext(typeof(EBankContext))]
-    partial class EBankContextModelSnapshot : ModelSnapshot
+    [Migration("20191212140052_update-db")]
+    partial class updatedb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -201,13 +203,67 @@ namespace eBank.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(0.0);
 
-                    b.Property<string>("Id");
+                    b.Property<int>("CustomerId");
 
                     b.HasKey("AccountId");
 
-                    b.HasIndex("Id");
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Accounts");
+                });
+
+            modelBuilder.Entity("eBank.DataAccess.Models.Address.AddressModel", b =>
+                {
+                    b.Property<int>("AddressId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address1");
+
+                    b.Property<string>("Address2");
+
+                    b.Property<string>("City");
+
+                    b.Property<string>("Country");
+
+                    b.Property<int>("CustomerId");
+
+                    b.Property<string>("State");
+
+                    b.Property<int>("Zip");
+
+                    b.HasKey("AddressId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Address");
+                });
+
+            modelBuilder.Entity("eBank.DataAccess.Models.CustomerModel", b =>
+                {
+                    b.Property<int>("CustomerId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateOfBirth");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<int>("LegalStatus");
+
+                    b.Property<int>("MaritalStatus");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("CustomerId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
+
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("eBank.DataAccess.Models.LogModel", b =>
@@ -341,9 +397,25 @@ namespace eBank.DataAccess.Migrations
 
             modelBuilder.Entity("eBank.DataAccess.Models.Account.AccountModel", b =>
                 {
-                    b.HasOne("eBank.DataAccess.Models.User.ApplicationUser", "User")
+                    b.HasOne("eBank.DataAccess.Models.CustomerModel", "Customer")
                         .WithMany()
-                        .HasForeignKey("Id");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("eBank.DataAccess.Models.Address.AddressModel", b =>
+                {
+                    b.HasOne("eBank.DataAccess.Models.CustomerModel", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("eBank.DataAccess.Models.CustomerModel", b =>
+                {
+                    b.HasOne("eBank.DataAccess.Models.User.ApplicationUser", "ApplicationUser")
+                        .WithOne("Customer")
+                        .HasForeignKey("eBank.DataAccess.Models.CustomerModel", "UserId");
                 });
 #pragma warning restore 612, 618
         }

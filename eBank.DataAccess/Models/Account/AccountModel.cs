@@ -1,4 +1,5 @@
 ﻿using eBank.DataAccess.Models.Base;
+using eBank.DataAccess.Models.User;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,9 +18,9 @@ namespace eBank.DataAccess.Models.Account
 
         public bool AccountStatus { get; set; }
 
-        public int CustomerId { get; set; }
+        public string Id { get; set; }
 
-        [ForeignKey("CustomerId")]
-        public CustomerModel Customer { get; set; }
+        [ForeignKey("Id")]
+        public ApplicationUser User { get; set; }
     }
 }

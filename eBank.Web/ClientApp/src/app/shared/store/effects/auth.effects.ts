@@ -75,6 +75,7 @@ export class AuthEffects {
         tap((response: any) => {
             localStorage.setItem('token', response.tokenInfo.access_token);
             localStorage.setItem('username', response.username);
+            localStorage.setItem('userId', response.userId);
             this.router.navigate(['account']);
         })
     );
@@ -117,7 +118,6 @@ export class AuthEffects {
             localStorage.removeItem('token');
             localStorage.removeItem('username');
             localStorage.removeItem('userId');
-            localStorage.removeItem('customerId');
             this.auth.authStateChanged();
             this.router.navigate(['login']);
         })

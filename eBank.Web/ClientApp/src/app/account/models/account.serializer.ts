@@ -12,7 +12,6 @@ export class AccountSerializer implements Serializer<IAccount> {
         account.accountType = json.accountType;
         account.balance = json.balance;
         account.accountStatus = json.accountStatus;
-        account.customerId = json.customerId;
         return account;
     }
 
@@ -23,8 +22,7 @@ export class AccountSerializer implements Serializer<IAccount> {
             accountNumber: account.accountNumber,
             accountType: account.accountType,
             balance: account.balance,
-            accountStatus: account.accountStatus,
-            customerId: account.customerId
+            accountStatus: account.accountStatus
         };
     }
 }

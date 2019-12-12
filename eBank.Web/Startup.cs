@@ -1,7 +1,6 @@
 using eBank.DataAccess;
 using eBank.DataAccess.Models.User;
 using eBank.DataAccess.Services.Account;
-using eBank.DataAccess.Services.Customer;
 using eBank.DataAccess.Services.Log;
 using eBank.DataAccess.Services.Transactions;
 using eBank.DataAccess.Services.TransferMoney;
@@ -44,7 +43,6 @@ namespace eBank.Web
 
             // Inject Services
             services.AddScoped<IBankAccountService, BankAccountService>();
-            services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<ITransferMoneyService, TransferMoneyService>();
             services.AddScoped<ITransactionsService, TransactionsService>();
             services.AddScoped<ILogService, LogService>();

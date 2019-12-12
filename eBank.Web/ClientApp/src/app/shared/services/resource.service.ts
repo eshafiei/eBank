@@ -1,10 +1,9 @@
-import { Resource } from '../interfaces/resource.interface';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Serializer } from '../interfaces/serializer.interface';
 import { map } from 'rxjs/operators';
 
-export class ResourceService<T extends Resource> {
+export class ResourceService<T> {
          constructor(
            private httpClient: HttpClient,
            private url: string,
@@ -24,7 +23,7 @@ export class ResourceService<T extends Resource> {
          public update(item: T): Observable<T> {
            return this.httpClient
              .put<T>(
-               `${this.url}/${this.endpoint}/${item.id}`,
+               `${this.url}/${this.endpoint}`,
                this.serializer.toJson(item)
              )
              .pipe(map(data => this.serializer.fromJson(data) as T));

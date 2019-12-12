@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using eBank.DataAccess.Models.Transfer;
 using eBank.DataAccess.Models.Account;
-using eBank.DataAccess.Models.Address;
 using eBank.DataAccess.Models.Transaction;
 
 namespace eBank.DataAccess
@@ -17,10 +16,6 @@ namespace eBank.DataAccess
         }
 
         public DbSet<AccountModel> Accounts { get; set; }
-
-        public DbSet<CustomerModel> Customers { get; set; }
-
-        public DbSet<AddressModel> Address { get; set; }
 
         public DbSet<LogModel> Logs { get; set; }
 

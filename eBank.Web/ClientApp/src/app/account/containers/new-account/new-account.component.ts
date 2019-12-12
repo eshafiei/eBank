@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, OnDestroy, ComponentRef } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import { Component, OnInit, ViewChild, ComponentRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -10,24 +9,17 @@ import { MatStepper } from '@angular/material';
 // dynamic component
 import { AdditionalInfoComponent } from './../../../shared/components/additional-info/additional-info.component';
 import { AccountService } from '../../services/account.service';
-import { CustomerService } from 'src/app/customer/services/customer.service';
-import { AdditionalInfo } from '../../../shared/interfaces/additional-info.interface';
-import { LegalStatus } from 'src/app/shared/enums/legal-status.enum';
-import { AdditionalInfoItem } from 'src/app/shared/interfaces/additional-info-item.interface';
-import { ICustomer } from 'src/app/customer/interfaces/customer.interface';
-import { AuthService } from 'src/app/authentication/services/auth.service';
-import { IHttpResponse } from 'src/app/shared/interfaces/http-response.interface';
 
 @Component({
   selector: 'app-new-account',
   styleUrls: ['./new-account.component.scss'],
   templateUrl: './new-account.component.html'
 })
-export class NewAccountComponent implements OnInit, OnDestroy {
-  customerId: number;
+export class NewAccountComponent implements OnInit {
+  userId: string;
   initialBalanceRequired = 100;
   newAccountNumber: number;
-  customerInfoComponent: ComponentRef<AdditionalInfoComponent>;
+  userInfoComponent: ComponentRef<AdditionalInfoComponent>;
   newAccountForm = this.fb.group({
     accountNumber: Math.floor(1000000000 + Math.random() * 9000000000),
     accountType: ['', [Validators.required]],
@@ -35,27 +27,17 @@ export class NewAccountComponent implements OnInit, OnDestroy {
       [Validators.required, Validators.min(this.initialBalanceRequired)]],
     accountStatus: true,
     accountAgreement: [null, Validators.requiredTrue],
-    customerId: null
+    id: null
   });
   @ViewChild('stepper', null) stepper: MatStepper;
-  @ViewChild('customerBasicInfoEntry', { read: ViewContainerRef, static: true }) customerBasicInfoEntry: ViewContainerRef;
   constructor(private accountService: AccountService,
-              private customerService: CustomerService,
-              private authService: AuthService,
               private router: Router,
               private toastr: ToastrService,
               private logger: NGXLogger,
-              private fb: FormBuilder,
-              private datepipe: DatePipe,
-              private resolver: ComponentFactoryResolver) {}
+              private fb: FormBuilder) {}
 
   ngOnInit() {
-    const userId = this.authService.getLoggedInUserId();
-    this.getCustomerBasicInfo(userId);
-  }
-
-  ngOnDestroy() {
-    this.customerInfoComponent.destroy();
+    this.userId = localStorage.getItem('userId');
   }
 
   stepperNext() {
@@ -66,7 +48,7 @@ export class NewAccountComponent implements OnInit, OnDestroy {
 
   createAccount() {
     this.stepper.steps.forEach(step => step.editable = false);
-    this.newAccountForm.value.customerId = this.customerId;
+    this.newAccountForm.value.id = this.userId;
     this.accountService.create(this.newAccountForm.value)
       .subscribe(
         (response) => {
@@ -76,25 +58,5 @@ export class NewAccountComponent implements OnInit, OnDestroy {
           this.toastr.error(error.error, 'Account');
           this.logger.error(error);
         });
-  }
-
-  getCustomerBasicInfo(userId: string) {
-    const customerAdditionalInfo: AdditionalInfoItem[] = [];
-    this.customerService.read(userId)
-      .subscribe((customer: ICustomer) => {
-        this.customerId = customer.customerId;
-        customerAdditionalInfo.push({ text: 'First name', value: customer.firstName });
-        customerAdditionalInfo.push({ text: 'Last name', value: customer.lastName });
-        customerAdditionalInfo.push({ text: 'Date of birth',
-          value: this.datepipe.transform(customer.dateOfBirth, 'MM/dd/yyyy') });
-        customerAdditionalInfo.push({ text: 'Legal status', value: LegalStatus[customer.legalStatus] });
-        const customerInformation: AdditionalInfo = {
-          title: 'Customer information',
-          items: customerAdditionalInfo
-        };
-        const additionalInfoFactory = this.resolver.resolveComponentFactory(AdditionalInfoComponent);
-        this.customerInfoComponent = this.customerBasicInfoEntry.createComponent(additionalInfoFactory);
-        this.customerInfoComponent.instance.additionalInfo = customerInformation;
-      });
   }
 }

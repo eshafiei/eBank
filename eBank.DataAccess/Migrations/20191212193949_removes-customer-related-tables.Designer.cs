@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eBank.DataAccess;
 
 namespace eBank.DataAccess.Migrations
 {
     [DbContext(typeof(EBankContext))]
-    partial class EBankContextModelSnapshot : ModelSnapshot
+    [Migration("20191212193949_removes-customer-related-tables")]
+    partial class removescustomerrelatedtables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

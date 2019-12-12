@@ -1,6 +1,6 @@
 <mat-toolbar color="primary" class="navigation-bar">
   <mat-toolbar-row>
-    <button mat-icon-button 
+    <button mat-icon-button
       *ngIf="isAuthenticated"
       (click)="toggleSidenav.emit()">
       <mat-icon>menu</mat-icon>
@@ -23,11 +23,6 @@
             {{ loggedInUsername }}
           </button>
           <mat-menu #auth="matMenu">
-            <button mat-menu-item
-              [routerLink]="['/customer/updatecustomer']">
-              <mat-icon>person_pin</mat-icon>
-              Update profile
-            </button>
             <button mat-menu-item
               (click)="logOut()">
               <mat-icon>lock</mat-icon>

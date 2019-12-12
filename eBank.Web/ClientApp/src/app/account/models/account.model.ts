@@ -6,7 +6,6 @@ export class Account implements IAccount {
     accountType: number;
     balance: number;
     accountStatus: boolean;
-    customerId: number;
-    id: number;
+    id: string;
     parentId?: number;
 }
