@@ -18,6 +18,11 @@ namespace eBank.DataAccess.Services.Account
             _eBankContext = context;
         }
 
+        public async Task<AccountModel> GetAccountByIdAsync(int accountId)
+        {
+            return await _eBankContext.Accounts.FirstOrDefaultAsync(a => a.AccountId == accountId);
+        }
+
         public async Task<IEnumerable<AccountModel>> GetAccountsAsync(string userId)
         {
             return await _eBankContext.Accounts

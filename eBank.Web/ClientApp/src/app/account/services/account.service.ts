@@ -23,7 +23,13 @@ export class AccountService extends ResourceService<IAccount> {
 
   getAccountsDropDown(userId: string): Observable<any> {
     return this.http.get(
-      environment.baseUrl + '/bankAccount/getaccountsdropdown/' + userId
+      environment.baseUrl + '/bankAccount/getAccountsDropdown/' + userId
+    );
+  }
+
+  getAccountById(accountId: number): Observable<any> {
+    return this.http.get(
+      environment.baseUrl + '/bankAccount/getAccountById/' + accountId
     );
   }
 }

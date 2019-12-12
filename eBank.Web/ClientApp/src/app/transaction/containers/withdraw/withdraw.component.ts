@@ -23,7 +23,7 @@ export class WithdrawComponent implements OnInit {
   withdrawForm = this.fb.group({
     transactionType: TransactionType.Withdraw,
     accountId: [null, [Validators.required]],
-    amount: [0, [Validators.required, Validators.max, Validators.min]],
+    amount: [0, [Validators.required, Validators.min]],
     transactionDate: [new Date(), [Validators.required]],
     note: [null]
   });

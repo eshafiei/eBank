@@ -46,7 +46,7 @@ export class CloseAccountComponent implements OnInit {
 
   closeAccount() {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      width: '350px',
+      width: '400px',
       data: 'Are you sure you want to close this account?'
     });
     dialogRef.afterClosed().subscribe(result => {

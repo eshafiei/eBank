@@ -25,14 +25,12 @@ export class AccountTransactionsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (
-      changes['accountTransactions'].currentValue !==
-      changes['accountTransactions'].previousValue
-    ) {
-      if (this.accountTransactions) {
-        this.dataSource = new MatTableDataSource(this.accountTransactions);
-        this.dataSource.paginator = this.paginator;
-      }
+    if (changes['accountTransactions'].currentValue !==
+        changes['accountTransactions'].previousValue) {
+          if (this.accountTransactions) {
+            this.dataSource = new MatTableDataSource(this.accountTransactions);
+            this.dataSource.paginator = this.paginator;
+          }
     }
   }
 }

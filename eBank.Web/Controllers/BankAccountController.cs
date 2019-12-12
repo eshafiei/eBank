@@ -22,6 +22,12 @@ namespace eBank.Web.Controllers
             _accountService = accountService;
         }
 
+        [HttpGet("[action]/{accountId}")]
+        public async Task<AccountModel> GetAccountById(int accountId)
+        {
+            return await _accountService.GetAccountByIdAsync(accountId);
+        }
+
         [HttpGet("{userId}")]
         public async Task<IEnumerable<AccountModel>> BankAccount(string userId)
         {

@@ -18,9 +18,6 @@
           <mat-label for="amount">Amount</mat-label>
           <input matInput currencyMask [min]="0.01" [max]="10000" formControlName="amount" placeholder="Amount">
           <mat-error *ngIf="f.amount?.hasError('required')">Amount is required</mat-error>
-          <mat-error *ngIf="f.amount?.hasError('max')">
-            Maximum allowed withdraw amount is {{ maximumWithdrawAllowed | currency }}
-          </mat-error>
         </mat-form-field>
       </div>
       <div class="row">

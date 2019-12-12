@@ -75,7 +75,6 @@ export class AuthEffects {
         tap((response: any) => {
             localStorage.setItem('token', response.tokenInfo.access_token);
             localStorage.setItem('username', response.username);
-            localStorage.setItem('userId', response.userId);
             this.router.navigate(['account']);
         })
     );
@@ -103,7 +102,11 @@ export class AuthEffects {
 
     @Effect({ dispatch: false })
     SignUpSuccess: Observable<any> = this.actions.pipe(
-        ofType(AuthActionTypes.SIGNUP_SUCCESS)
+        ofType(AuthActionTypes.SIGNUP_SUCCESS),
+        tap((response: any) => {
+            // console.log('SignUpSuccess: ', JSON.stringify(response));
+            localStorage.setItem('userId', response.tokenInfo.id);
+        })
     );
 
     @Effect({ dispatch: false })

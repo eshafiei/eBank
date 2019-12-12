@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 mt-2">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 mt-2" *ngIf="accountTransactions?.length > 0">
   <ng-container matColumnDef="transactionType">
     <th mat-header-cell *matHeaderCellDef> Category </th>
     <td mat-cell *matCellDef="let transaction">
@@ -26,4 +26,5 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+<div *ngIf="accountTransactions?.length === 0" class="mt-1">No records found.</div>
 <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>

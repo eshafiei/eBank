@@ -1,10 +1,23 @@
 <div class="card">
   <div class="card-header bg-info text-warning">Account Transactions</div>
   <div class="card-body">
-    <button mat-raised-button color="primary" routerLink="/account" class="mr-2">
-      <mat-icon>money</mat-icon>
-      Account Summary</button>
-    <mat-tab-group>
+    <button mat-button color="primary" routerLink="/account" class="mb-2 font-weight-bold">
+      Back to Account Summary
+    </button>
+    <mat-card>
+      <div class="row">
+        <div class="col-4">
+          <span>Account Type:</span><mat-label class="text-success ml-1">{{ accountType[accountInfo?.accountType]}}</mat-label>
+        </div>
+        <div class="col-4">
+          <span>Account Number:</span><mat-label class="text-success ml-1">{{ accountInfo?.accountNumber }}</mat-label>
+        </div>
+        <div class="col-4">
+          <span>Account Balance:</span><mat-label class="text-success ml-1">{{ accountInfo?.balance | currency }}</mat-label>
+        </div>
+      </div>
+    </mat-card>
+    <mat-tab-group class="mt-2" color="warn">
       <mat-tab>
         <ng-template mat-tab-label>
           <mat-icon class="tab-icon">list</mat-icon>
