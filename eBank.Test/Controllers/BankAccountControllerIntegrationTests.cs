@@ -28,7 +28,7 @@ namespace eBank.Test.Controllers
         public async Task CanGetUserBankAccounts()
         {
             // The endpoint or route of the controller action.
-            var httpResponse = await _client.GetAsync("/api/BankAccount/ec9426bc-fb05-4a38-b63b-f265cbdfb816");
+            var httpResponse = await _client.GetAsync("/api/BankAccount/6a25acf9-b7e0-4c61-b532-21fde9c7409f");
 
             // Must be successful.
             httpResponse.EnsureSuccessStatusCode();
@@ -42,10 +42,10 @@ namespace eBank.Test.Controllers
         }
 
         [Fact]
-        public async Task Get_Customer_Active_BankAccounts()
+        public async Task Get_User_Active_BankAccounts()
         {
             // The endpoint or route of the controller action.
-            var httpResponse = await _client.GetAsync("/api/BankAccount/ec9426bc-fb05-4a38-b63b-f265cbdfb816");
+            var httpResponse = await _client.GetAsync("/api/BankAccount/6a25acf9-b7e0-4c61-b532-21fde9c7409f");
 
             // Must be successful.
             httpResponse.EnsureSuccessStatusCode();
