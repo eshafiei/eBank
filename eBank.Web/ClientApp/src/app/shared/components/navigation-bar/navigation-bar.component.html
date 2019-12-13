@@ -10,17 +10,12 @@
       <ul fxLayout fxLayoutGap="20px" class="navigation-items">
         <li fxHide.xs>
           <button mat-icon-button>
-            <mat-icon>settings</mat-icon>
-          </button>
-        </li>
-        <li fxHide.xs>
-          <button mat-icon-button>
             <mat-icon>help_outline</mat-icon>
           </button>
         </li>
         <li>
-          <button mat-icon-button [matMenuTriggerFor]="auth" class="mr-2">
-            {{ loggedInUsername }}
+          <button mat-icon-button [matMenuTriggerFor]="auth" class="mr-5">
+            Hi, {{ loggedInUsername }}!
           </button>
           <mat-menu #auth="matMenu">
             <button mat-menu-item

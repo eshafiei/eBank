@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using eBank.DataAccess.Enums;
 using eBank.DataAccess.Models.Account;
@@ -25,10 +26,15 @@ namespace eBank.DataAccess.Services.Account
 
         public async Task<IEnumerable<AccountModel>> GetAccountsAsync(string userId)
         {
-            return await _eBankContext.Accounts
+            var accounts = await _eBankContext.Accounts
                                         .Where(a => a.Id == userId && a.AccountStatus == true)
                                         .OrderBy(a => a.AccountType)
                                         .ToListAsync();
+            accounts.ForEach(a => {
+                a.MaskedAccountNumber = Regex.Replace(a.AccountNumber.ToString(), "[0-9](?=[0-9]{4})", "*");
+            });
+
+            return accounts;
         }
 
         public async Task<IEnumerable<AccountModel>> GetAccountsDropDownAsync(string userId)

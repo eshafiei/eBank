@@ -5,4 +5,5 @@ export interface IAccount {
     balance: number;
     accountStatus: boolean;
     id: string;
+    maskedAccountNumber: string;
 }

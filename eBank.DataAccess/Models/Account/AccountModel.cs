@@ -22,5 +22,8 @@ namespace eBank.DataAccess.Models.Account
 
         [ForeignKey("Id")]
         public ApplicationUser User { get; set; }
+
+        [NotMapped]
+        public string MaskedAccountNumber { get; set; }
     }
 }

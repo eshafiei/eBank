@@ -14,6 +14,7 @@
             <mat-label>Username</mat-label>
             <input matInput
                   type="text"
+                  pattern="[a-zA-Z ]*"
                   formControlName="username"
                   placeholder="Username"
                   autocomplete="new-username"
@@ -51,6 +52,7 @@
             <mat-label>First name</mat-label>
             <input matInput
                   type="text"
+                  pattern="[a-zA-Z ]*"
                   formControlName="firstName"
                   placeholder="First name"
                   [ngClass]="{'is-invalid': f.firstName.touched && f.firstName.errors}">
@@ -62,6 +64,7 @@
             <mat-label>Last name</mat-label>
             <input matInput
                   type="text"
+                  pattern="[a-zA-Z ]*"
                   formControlName="lastName"
                   placeholder="Last name"
                   [ngClass]="{'is-invalid': f.lastName.touched && f.lastName.errors}">

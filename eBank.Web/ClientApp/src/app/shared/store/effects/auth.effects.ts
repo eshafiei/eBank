@@ -48,7 +48,7 @@ export class AuthEffects {
     LogInFailure: Observable<any> = this.actions.pipe(
         ofType(AuthActionTypes.LOGIN_FAILURE),
         tap((error: any) => {
-            console.log(error);
+            // console.log(error);
         })
     );
 

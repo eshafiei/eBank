@@ -8,4 +8,5 @@ export class Account implements IAccount {
     accountStatus: boolean;
     id: string;
     parentId?: number;
+    maskedAccountNumber: string;
 }
