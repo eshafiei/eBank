@@ -1,0 +1,12 @@
+C:\Users\ehsans\Documents\Ehsan\Projects\Angular8\eBank\eBank.Business\bin\Debug\netcoreapp2.2\eBank.Business.deps.json
+C:\Users\ehsans\Documents\Ehsan\Projects\Angular8\eBank\eBank.Business\bin\Debug\netcoreapp2.2\eBank.Business.dll
+C:\Users\ehsans\Documents\Ehsan\Projects\Angular8\eBank\eBank.Business\bin\Debug\netcoreapp2.2\eBank.Business.pdb
+C:\Users\ehsans\Documents\Ehsan\Projects\Angular8\eBank\eBank.Business\bin\Debug\netcoreapp2.2\eBank.DataAccess.dll
+C:\Users\ehsans\Documents\Ehsan\Projects\Angular8\eBank\eBank.Business\bin\Debug\netcoreapp2.2\eBank.DataAccess.pdb
+C:\Users\ehsans\Documents\Ehsan\Projects\Angular8\eBank\eBank.Business\obj\Debug\netcoreapp2.2\eBank.Business.csprojAssemblyReference.cache
+C:\Users\ehsans\Documents\Ehsan\Projects\Angular8\eBank\eBank.Business\obj\Debug\netcoreapp2.2\eBank.Business.csproj.CoreCompileInputs.cache
+C:\Users\ehsans\Documents\Ehsan\Projects\Angular8\eBank\eBank.Business\obj\Debug\netcoreapp2.2\eBank.Business.AssemblyInfoInputs.cache
+C:\Users\ehsans\Documents\Ehsan\Projects\Angular8\eBank\eBank.Business\obj\Debug\netcoreapp2.2\eBank.Business.AssemblyInfo.cs
+C:\Users\ehsans\Documents\Ehsan\Projects\Angular8\eBank\eBank.Business\obj\Debug\netcoreapp2.2\eBank.Business.csproj.CopyComplete
+C:\Users\ehsans\Documents\Ehsan\Projects\Angular8\eBank\eBank.Business\obj\Debug\netcoreapp2.2\eBank.Business.dll
+C:\Users\ehsans\Documents\Ehsan\Projects\Angular8\eBank\eBank.Business\obj\Debug\netcoreapp2.2\eBank.Business.pdb

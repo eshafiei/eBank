@@ -1,22 +1,25 @@
 ﻿using Newtonsoft.Json;
 using System.Threading.Tasks;
 using eBank.DataAccess.Models;
+using eBank.DataAccess.Repository;
 
-namespace eBank.DataAccess.Services.Log
+namespace eBank.Business.Services
 {
     public class LogService : ILogService
     {
-        readonly EBankContext _eBankContext;
+        private readonly ILogRepository _logRepository;
 
-        public LogService(EBankContext eBankContext) {
-            _eBankContext = eBankContext;
+        public LogService(ILogRepository logRepository)
+        {
+            _logRepository = logRepository;
         }
 
-        public async Task<int> AddLogAsync(LogModel logInfo)
+        public async Task AddLog(LogModel logInfo)
         {
             var messageInfo = JsonConvert.DeserializeObject<MessageModel>(logInfo.Message);
 
-            var logModel = new LogModel {
+            var logModel = new LogModel
+            {
                 Message = messageInfo.Message,
                 Error = messageInfo.Error,
                 FileName = logInfo.FileName,
@@ -27,8 +30,8 @@ namespace eBank.DataAccess.Services.Log
                 Status = messageInfo.Status,
                 StatusText = messageInfo.StatusText
             };
-            _eBankContext.Logs.Add(logModel);
-            return await _eBankContext.SaveChangesAsync();
+
+            await _logRepository.AddLogAsync(logModel);
         }
     }
 }

@@ -32,6 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\eBank.Business\eBank.Business.csproj" />
     <ProjectReference Include="..\eBank.DataAccess\eBank.DataAccess.csproj" />
   </ItemGroup>
 

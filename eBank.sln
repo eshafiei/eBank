@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eBank.Web", "eBank.Web\eBan
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eBank.DataAccess", "eBank.DataAccess\eBank.DataAccess.csproj", "{2C91CED0-0CEA-4986-9DCB-9B5DFE54AEFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eBank.Test", "eBank.Test\eBank.Test.csproj", "{31D92F27-704B-4F6F-90DC-E445F12E4F4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eBank.Test", "eBank.Test\eBank.Test.csproj", "{31D92F27-704B-4F6F-90DC-E445F12E4F4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eBank.Business", "eBank.Business\eBank.Business.csproj", "{E8CD0E9C-13E1-4379-A69B-1F24D457D930}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{31D92F27-704B-4F6F-90DC-E445F12E4F4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31D92F27-704B-4F6F-90DC-E445F12E4F4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31D92F27-704B-4F6F-90DC-E445F12E4F4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8CD0E9C-13E1-4379-A69B-1F24D457D930}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8CD0E9C-13E1-4379-A69B-1F24D457D930}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8CD0E9C-13E1-4379-A69B-1F24D457D930}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8CD0E9C-13E1-4379-A69B-1F24D457D930}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

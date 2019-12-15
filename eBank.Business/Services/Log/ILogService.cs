@@ -1,10 +1,10 @@
 ﻿using eBank.DataAccess.Models;
 using System.Threading.Tasks;
 
-namespace eBank.DataAccess.Services.Log
+namespace eBank.Business.Services
 {
     public interface ILogService
     {
-        Task<int> AddLogAsync(LogModel log);
+        Task AddLog(LogModel log);
     }
 }

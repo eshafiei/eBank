@@ -11,6 +11,7 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("eBank.Business, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "C:\\Users\\ehsans\\Documents\\Ehsan\\Projects\\Angular8\\eBank\\eBank.Business", "eBank.Business.csproj", "0")]
 [assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("eBank.DataAccess, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "C:\\Users\\ehsans\\Documents\\Ehsan\\Projects\\Angular8\\eBank\\eBank.DataAccess", "eBank.DataAccess.csproj", "0")]
 [assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("eBank.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "C:\\Users\\ehsans\\Documents\\Ehsan\\Projects\\Angular8\\eBank\\eBank.Web", "eBank.Web.csproj", "0")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("eBank.Test")]

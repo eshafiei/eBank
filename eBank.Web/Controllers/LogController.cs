@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using eBank.DataAccess.Models;
-using eBank.DataAccess.Services.Log;
+using eBank.Business.Services;
 
 namespace eBank.Web.Controllers
 {
@@ -17,7 +17,7 @@ namespace eBank.Web.Controllers
 
         [HttpPost("[action]")]
         public async Task AddLog([FromBody] LogModel logModel) {
-            await _logService.AddLogAsync(logModel);
+            await _logService.AddLog(logModel);
         }
     }
 }

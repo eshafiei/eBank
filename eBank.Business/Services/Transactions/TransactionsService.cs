@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using eBank.Business.Services;
 using eBank.DataAccess.Enums;
 using eBank.DataAccess.Models.Base;
 using eBank.DataAccess.Models.Transaction;
-using Microsoft.EntityFrameworkCore;
+using eBank.DataAccess.Repository;
 
 namespace eBank.DataAccess.Services.Transactions
 {
@@ -14,29 +13,31 @@ namespace eBank.DataAccess.Services.Transactions
     {
         private const int MinimumBalanceAllowed = 100;
         private const int MaximumDepositAllowed = 10000;
-        readonly EBankContext _eBankContext;
+        private readonly ITransactionsRepository _transactionsRepository;
+        private readonly IBankAccountRepository _bankAccountRepository;
 
-        public TransactionsService(EBankContext context)
+        public TransactionsService(ITransactionsRepository transactionsRepository,
+            IBankAccountRepository bankAccountRepository)
         {
-            _eBankContext = context;
+            _transactionsRepository = transactionsRepository;
+            _bankAccountRepository = bankAccountRepository;
         }
 
-        public async Task<IEnumerable<TransactionModel>> GetTransactionsAsync(int accountId)
+        public async Task<IEnumerable<TransactionModel>> GetTransactions(int accountId)
         {
-            var transactions = _eBankContext.Transactions.Where(t => t.AccountId == accountId)
-                                                         .OrderByDescending(t => t.TransactionDate);
+            var transactions = await _transactionsRepository.GetTransactionsAsync(accountId);
 
             if (transactions == null)
             {
                 return null;
             }
 
-            return await transactions.ToListAsync();
+            return transactions;
         }
 
-        public async Task<TransactionResult> CreateTransactionAsync(TransactionModel transaction)
+        public async Task<TransactionResult> CreateTransaction(TransactionModel transaction)
         {
-            var account = _eBankContext.Accounts.FirstOrDefault(a => a.AccountId == transaction.AccountId);
+            var account = await _bankAccountRepository.GetAccountByIdAsync(transaction.AccountId);
 
             if (account == null)
             {
@@ -84,8 +85,7 @@ namespace eBank.DataAccess.Services.Transactions
                 account.Balance -= transaction.Amount;
             }
 
-            _eBankContext.Transactions.Add(transaction);
-            var response = await _eBankContext.SaveChangesAsync();
+            var response = await _transactionsRepository.CreateTransactionAsync(transaction);
 
             if (response > 0)
             {

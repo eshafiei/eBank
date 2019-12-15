@@ -1,53 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using eBank.DataAccess.Enums;
 using eBank.DataAccess.Models.Account;
 using eBank.DataAccess.Models.Base;
-using Microsoft.EntityFrameworkCore;
+using eBank.DataAccess.Repository;
 
-namespace eBank.DataAccess.Services.Account
+namespace eBank.Business.Services
 {
     public class BankAccountService : IBankAccountService
     {
-        readonly EBankContext _eBankContext;
+        private readonly IBankAccountRepository _bankAccountRepository;
 
-        public BankAccountService(EBankContext context)
+        public BankAccountService(IBankAccountRepository bankAccountRepository)
         {
-            _eBankContext = context;
+            _bankAccountRepository = bankAccountRepository;
         }
 
-        public async Task<AccountModel> GetAccountByIdAsync(int accountId)
+        public async Task<AccountModel> GetAccountById(int accountId)
         {
-            return await _eBankContext.Accounts.FirstOrDefaultAsync(a => a.AccountId == accountId);
+            return await _bankAccountRepository.GetAccountByIdAsync(accountId);
         }
 
-        public async Task<IEnumerable<AccountModel>> GetAccountsAsync(string userId)
+        public async Task<IEnumerable<AccountModel>> GetAccounts(string userId)
         {
-            var accounts = await _eBankContext.Accounts
-                                        .Where(a => a.Id == userId && a.AccountStatus == true)
-                                        .OrderBy(a => a.AccountType)
-                                        .ToListAsync();
-            accounts.ForEach(a => {
+            var accounts = await _bankAccountRepository.GetAccountsAsync(userId);
+
+            accounts.ToList().ForEach(a => {
                 a.MaskedAccountNumber = Regex.Replace(a.AccountNumber.ToString(), "[0-9](?=[0-9]{4})", "*");
             });
 
             return accounts;
         }
 
-        public async Task<IEnumerable<AccountModel>> GetAccountsDropDownAsync(string userId)
+        public async Task<IEnumerable<AccountModel>> GetAccountsDropDown(string userId)
         {
-            return await _eBankContext.Accounts
-                                      .Where(a => a.Id == userId && a.AccountStatus == true)
-                                      .ToListAsync();
+            return await _bankAccountRepository.GetAccountsDropDownAsync(userId);
         }
 
-        public async Task<TransactionResult> CreateAccountAsync(AccountModel account)
+        public async Task<TransactionResult> CreateAccount(AccountModel account)
         {
-            _eBankContext.Accounts.Add(account);
-            var response = await _eBankContext.SaveChangesAsync();
+            var response = await _bankAccountRepository.CreateAccountAsync(account);
 
             if (response > 0)
             {
@@ -65,10 +59,9 @@ namespace eBank.DataAccess.Services.Account
             };
         }
 
-        public async Task<TransactionResult> DeleteAccountAsync(long accountId)
+        public async Task<TransactionResult> DeleteAccount(int accountId)
         {
-            var account = _eBankContext.Accounts
-                                       .FirstOrDefault(a => a.AccountId == accountId);
+            var account = await _bankAccountRepository.GetAccountByIdAsync(accountId);
             if (account == null)
             {
                 return new TransactionResult
@@ -87,8 +80,7 @@ namespace eBank.DataAccess.Services.Account
                 };
             }
 
-            account.AccountStatus = false;
-            var response = await _eBankContext.SaveChangesAsync();
+            var response = await _bankAccountRepository.DeleteAccountAsync(accountId);
 
             if (response > 0)
             {

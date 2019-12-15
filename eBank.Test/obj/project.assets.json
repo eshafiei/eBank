@@ -5392,6 +5392,19 @@
           "build/netcoreapp1.0/xunit.runner.visualstudio.props": {}
         }
       },
+      "eBank.Business/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.2",
+        "dependencies": {
+          "eBank.DataAccess": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/eBank.Business.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/eBank.Business.dll": {}
+        }
+      },
       "eBank.DataAccess/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.2",
@@ -5415,6 +5428,7 @@
         "dependencies": {
           "IdentityServer4.AspNetIdentity": "2.5.3",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.2.3",
+          "eBank.Business": "1.0.0",
           "eBank.DataAccess": "1.0.0"
         },
         "compile": {
@@ -14661,6 +14675,11 @@
         "xunit.runner.visualstudio.2.4.0.nupkg.sha512",
         "xunit.runner.visualstudio.nuspec"
       ]
+    },
+    "eBank.Business/1.0.0": {
+      "type": "project",
+      "path": "../eBank.Business/eBank.Business.csproj",
+      "msbuildProject": "../eBank.Business/eBank.Business.csproj"
     },
     "eBank.DataAccess/1.0.0": {
       "type": "project",

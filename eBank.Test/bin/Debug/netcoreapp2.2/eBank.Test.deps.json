@@ -1169,6 +1169,17 @@
           "Microsoft.NET.Test.Sdk": "15.9.0"
         }
       },
+      "eBank.Business/1.0.0": {
+        "dependencies": {
+          "eBank.DataAccess": "1.0.0"
+        },
+        "runtime": {
+          "eBank.Business.dll": {}
+        },
+        "compile": {
+          "eBank.Business.dll": {}
+        }
+      },
       "eBank.DataAccess/1.0.0": {
         "dependencies": {
           "IdentityServer4": "2.5.3",
@@ -1188,6 +1199,7 @@
         "dependencies": {
           "IdentityServer4.AspNetIdentity": "2.5.3",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.2.3",
+          "eBank.Business": "1.0.0",
           "eBank.DataAccess": "1.0.0"
         },
         "runtime": {
@@ -4717,6 +4729,11 @@
       "sha512": "sha512-3eq5cGXbEJkqW9nwLuXwtxy9B5gMA8i7HW4rN63AhAvy5UvEcQbZnve23wx/oPrkyg/4CbfNhxkBezS0b1oUdQ==",
       "path": "xunit.runner.visualstudio/2.4.0",
       "hashPath": "xunit.runner.visualstudio.2.4.0.nupkg.sha512"
+    },
+    "eBank.Business/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "eBank.DataAccess/1.0.0": {
       "type": "project",

@@ -1,26 +1,28 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using eBank.DataAccess.Enums;
 using eBank.DataAccess.Models.Base;
 using eBank.DataAccess.Models.Transfer;
+using eBank.DataAccess.Repository;
 
-namespace eBank.DataAccess.Services.TransferMoney
+namespace eBank.Business.Services
 {
-    public class TransferMoneyService : ITransferMoneyService
+    public class TransferService : ITransferService
     {
-        readonly EBankContext _eBankContext;
+        private readonly ITransferRepository _transferRepository;
+        private readonly IBankAccountRepository _bankAccountRepository;
 
-        public TransferMoneyService(EBankContext context)
+        public TransferService(ITransferRepository transferRepository,
+            IBankAccountRepository bankAccountRepository)
         {
-            _eBankContext = context;
+            _transferRepository = transferRepository;
+            _bankAccountRepository = bankAccountRepository;
         }
 
-        public async Task<TransactionResult> TransferMoneyAsync(TransferModel transfer)
+        public async Task<TransactionResult> TransferMoney(TransferModel transfer)
         {
-            var originAccount = _eBankContext.Accounts
-                                             .FirstOrDefault(a => a.AccountId == transfer.OriginAccount);
-            var destinationAccount = _eBankContext.Accounts
-                                                  .FirstOrDefault(a => a.AccountId == transfer.DestinationAccount);
+            var originAccount = await _bankAccountRepository.GetAccountByIdAsync(transfer.OriginAccount);
+            var destinationAccount = await _bankAccountRepository.GetAccountByIdAsync(transfer.DestinationAccount);
+
             if (originAccount == null || destinationAccount == null)
             {
                 return null;
@@ -37,9 +39,8 @@ namespace eBank.DataAccess.Services.TransferMoney
 
             originAccount.Balance -= transfer.Amount;
             destinationAccount.Balance += transfer.Amount;
-            _eBankContext.Transfers.Add(transfer);
 
-            var response = await _eBankContext.SaveChangesAsync();
+            var response = await _transferRepository.CreateTransferAsync(transfer);
 
             if (response > 0)
             {

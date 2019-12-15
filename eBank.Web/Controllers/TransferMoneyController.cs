@@ -1,9 +1,9 @@
 ﻿
 using System.Threading.Tasks;
+using eBank.Business.Services;
 using eBank.DataAccess.Enums;
 using eBank.DataAccess.Models.Base;
 using eBank.DataAccess.Models.Transfer;
-using eBank.DataAccess.Services.TransferMoney;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,9 +15,9 @@ namespace eBank.Web.Controllers
     [ApiController]
     public class TransferMoneyController : ControllerBase
     {
-        private ITransferMoneyService _transferMoneyService;
+        private ITransferService _transferMoneyService;
 
-        public TransferMoneyController(ITransferMoneyService transferMoneyService)
+        public TransferMoneyController(ITransferService transferMoneyService)
         {
             _transferMoneyService = transferMoneyService;
         }
@@ -30,7 +30,7 @@ namespace eBank.Web.Controllers
                 return BadRequest(new ApiBadRequestResponse(ModelState));
             }
 
-            var response = await _transferMoneyService.TransferMoneyAsync(transfer);
+            var response = await _transferMoneyService.TransferMoney(transfer);
 
             return HandleResponse(response);
         }

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using eBank.Business.Services;
 using eBank.DataAccess.Enums;
 using eBank.DataAccess.Models.Base;
 using eBank.DataAccess.Models.Transaction;
-using eBank.DataAccess.Services.Transactions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +25,7 @@ namespace eBank.Web.Controllers
         [HttpGet("{accountId}")]
         public async Task<IEnumerable<TransactionModel>> Transactions(int accountId)
         {
-            return await _transactionsService.GetTransactionsAsync(accountId);
+            return await _transactionsService.GetTransactions(accountId);
         }
 
         [HttpPost]
@@ -36,7 +36,7 @@ namespace eBank.Web.Controllers
                 return BadRequest(new ApiBadRequestResponse(ModelState));
             }
 
-            var response = await _transactionsService.CreateTransactionAsync(transaction);
+            var response = await _transactionsService.CreateTransaction(transaction);
 
             return HandleResponse(response);
         }

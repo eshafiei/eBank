@@ -1,7 +1,7 @@
-﻿using eBank.DataAccess.Enums;
+﻿using eBank.Business.Services;
+using eBank.DataAccess.Enums;
 using eBank.DataAccess.Models.Account;
 using eBank.DataAccess.Models.Base;
-using eBank.DataAccess.Services.Account;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,19 +25,19 @@ namespace eBank.Web.Controllers
         [HttpGet("[action]/{accountId}")]
         public async Task<AccountModel> GetAccountById(int accountId)
         {
-            return await _accountService.GetAccountByIdAsync(accountId);
+            return await _accountService.GetAccountById(accountId);
         }
 
         [HttpGet("{userId}")]
         public async Task<IEnumerable<AccountModel>> BankAccount(string userId)
         {
-            return await _accountService.GetAccountsAsync(userId);
+            return await _accountService.GetAccounts(userId);
         }
 
         [HttpGet("[action]/{userId}")]
         public async Task<IEnumerable<AccountModel>> GetAccountsDropDown(string userId)
         {
-            return await _accountService.GetAccountsDropDownAsync(userId);
+            return await _accountService.GetAccountsDropDown(userId);
         }
 
         [HttpPost]
@@ -48,15 +48,15 @@ namespace eBank.Web.Controllers
                 return BadRequest(new ApiBadRequestResponse(ModelState));
             }
 
-            var response = await _accountService.CreateAccountAsync(account);
+            var response = await _accountService.CreateAccount(account);
 
             return HandleResponse(response);
         }
 
         [HttpDelete("{accountId}")]
-        public async Task<IActionResult> BankAccount(long accountId)
+        public async Task<IActionResult> BankAccount(int accountId)
         {
-            var response = await _accountService.DeleteAccountAsync(accountId);
+            var response = await _accountService.DeleteAccount(accountId);
 
             return HandleResponse(response);
         }
