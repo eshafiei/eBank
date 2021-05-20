@@ -7,6 +7,10 @@
 /out-tsc
 eBank.DataAccess/obj
 eBank.DataAccess/bin
+eBank.Business/bin
+eBank.Business/obj
+eBank.Test/bin
+eBank.Test/obj
 
 # dependencies
 /node_modules
@@ -45,3 +49,5 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+/.vscode/launch.json
+/.vscode/tasks.json
