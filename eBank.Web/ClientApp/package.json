@@ -43,11 +43,11 @@
     "ngx-toastr": "^10.1.0",
     "popper.js": "^1.15.0",
     "rxjs": "^6.5.2",
-    "webpack": "^4.39.3",
+    "webpack": "^5.75.0",
     "zone.js": "^0.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.802.2",
+    "@angular-devkit/build-angular": "~15.0.4",
     "@angular/cli": "~8.2.2",
     "@angular/compiler-cli": "8.2.2",
     "@angular/language-service": "^8.2.2",
